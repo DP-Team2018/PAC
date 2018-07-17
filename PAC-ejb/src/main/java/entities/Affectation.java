@@ -48,5 +48,11 @@ public class Affectation implements Serializable {
 	public void setDate_fin(Date date_fin) {
 		this.date_fin = date_fin;
 	}
+	public List<Flux> getFlux() {
+		return flux;
+	}
+	public void setFlux(List<Flux> flux) {
+		this.flux = flux;
+	}
    
 }

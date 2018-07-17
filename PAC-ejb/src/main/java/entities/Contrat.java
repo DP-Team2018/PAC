@@ -45,5 +45,11 @@ public class Contrat implements Serializable {
 	public void setNbr_heure(double nbr_heure) {
 		this.nbr_heure = nbr_heure;
 	}
+	public Agent getAgent() {
+		return agent;
+	}
+	public void setAgent(Agent agent) {
+		this.agent = agent;
+	}
    
 }

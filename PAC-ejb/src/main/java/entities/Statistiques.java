@@ -60,5 +60,11 @@ public class Statistiques implements Serializable {
 	public void setConges(double conges) {
 		this.conges = conges;
 	}
+	public Agent getAgent() {
+		return agent;
+	}
+	public void setAgent(Agent agent) {
+		this.agent = agent;
+	}
    
 }

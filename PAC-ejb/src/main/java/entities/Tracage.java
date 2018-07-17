@@ -46,5 +46,11 @@ public class Tracage implements Serializable {
 	public void setDate_modif(Date date_modif) {
 		this.date_modif = date_modif;
 	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
    
 }

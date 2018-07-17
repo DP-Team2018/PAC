@@ -56,5 +56,17 @@ public class Incident implements Serializable {
 	public void setJointe(String jointe) {
 		this.jointe = jointe;
 	}
+	public Agent getAgent() {
+		return agent;
+	}
+	public void setAgent(Agent agent) {
+		this.agent = agent;
+	}
+	public Flux getFlux() {
+		return flux;
+	}
+	public void setFlux(Flux flux) {
+		this.flux = flux;
+	}
    
 }

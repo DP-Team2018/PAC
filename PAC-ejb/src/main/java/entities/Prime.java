@@ -20,6 +20,7 @@ public class Prime implements Serializable {
 	@ManyToOne
 	private Agent agent;
 	
+
 	private static final long serialVersionUID = 1L;
 
 	public Prime() {
@@ -45,6 +46,13 @@ public class Prime implements Serializable {
 
 	public void setValeur(double valeur) {
 		this.valeur = valeur;
+	}
+	
+	public Agent getAgent() {
+		return agent;
+	}
+	public void setAgent(Agent agent) {
+		this.agent = agent;
 	}
    
 }

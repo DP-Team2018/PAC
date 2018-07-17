@@ -45,5 +45,11 @@ public class Agent implements Serializable {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+	public Site getSite() {
+		return site;
+	}
+	public void setSite(Site site) {
+		this.site = site;
+	}
    
 }

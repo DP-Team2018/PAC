@@ -45,5 +45,11 @@ public class Conges implements Serializable {
 	public void setDate_fin(Date date_fin) {
 		this.date_fin = date_fin;
 	}
+	public Agent getAgent() {
+		return agent;
+	}
+	public void setAgent(Agent agent) {
+		this.agent = agent;
+	}
    
 }

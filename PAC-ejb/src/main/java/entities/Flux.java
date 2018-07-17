@@ -17,8 +17,6 @@ public class Flux implements Serializable {
 	@Id
 	private int id;
 	private double charge_horaire;
-	@OneToMany
-	private List<Agent> agents;
 	private static final long serialVersionUID = 1L;
 
 	public Flux() {

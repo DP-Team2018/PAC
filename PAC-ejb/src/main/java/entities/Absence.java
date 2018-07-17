@@ -37,5 +37,11 @@ public class Absence implements Serializable {
 	public void setDate_absence(Date date_absence) {
 		this.date_absence = date_absence;
 	}
+	public Agent getAgent() {
+		return agent;
+	}
+	public void setAgent(Agent agent) {
+		this.agent = agent;
+	}
    
 }

@@ -12,11 +12,31 @@ import javax.persistence.*;
 
 public class Responsable extends User implements Serializable {
 
+	@OneToOne
+	private Site site;
+	@OneToOne
+	private Responsable responsable;
 	
 	private static final long serialVersionUID = 1L;
 
 	public Responsable() {
 		super();
+	}
+
+	public Site getSite() {
+		return site;
+	}
+
+	public void setSite(Site site) {
+		this.site = site;
+	}
+
+	public Responsable getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(Responsable responsable) {
+		this.responsable = responsable;
 	}
    
 }

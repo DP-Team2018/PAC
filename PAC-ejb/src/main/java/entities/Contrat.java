@@ -17,6 +17,8 @@ public class Contrat implements Serializable {
 	private int id;
 	private String type;
 	private double nbr_heure;
+	@OneToOne
+	private Agent agent;
 	private static final long serialVersionUID = 1L;
 
 	public Contrat() {

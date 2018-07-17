@@ -19,6 +19,10 @@ public class Incident implements Serializable {
 	private Date date_incident;
 	private String commentaire;
 	private String jointe;
+	@OneToOne
+	private Agent agent;
+	@OneToOne
+	private Flux flux;
 	private static final long serialVersionUID = 1L;
 
 	public Incident() {

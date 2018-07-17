@@ -18,6 +18,8 @@ public class Tracage implements Serializable {
 	private int id;
 	private String type_modif;
 	private Date date_modif;
+	@OneToOne
+	private User user;
 	private static final long serialVersionUID = 1L;
 
 	public Tracage() {

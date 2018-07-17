@@ -17,6 +17,9 @@ public class Prime implements Serializable {
 	private int id;
 	private Date date_prime;
 	private double valeur;
+	@ManyToOne
+	private Agent agent;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Prime() {

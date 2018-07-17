@@ -2,6 +2,8 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -17,6 +19,9 @@ public class Affectation implements Serializable {
 	private int id;
 	private Date date_debut;
 	private Date date_fin;
+	@OneToMany
+	private List<Flux> flux;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Affectation() {

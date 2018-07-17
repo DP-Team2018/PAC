@@ -16,6 +16,9 @@ public class Agent implements Serializable {
 	private int id;
 	private String nom;
 	private String prenom;
+	@OneToOne
+	private Site site;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Agent() {

@@ -18,6 +18,8 @@ public class Statistiques implements Serializable {
 	private double heure_supp;
 	private double absence;
 	private double conges;
+	@OneToOne
+	private Agent agent;
 	private static final long serialVersionUID = 1L;
 
 	public Statistiques() {

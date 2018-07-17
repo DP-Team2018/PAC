@@ -16,6 +16,8 @@ public class Absence implements Serializable {
 	@Id
 	private int id;
 	private Date date_absence;
+	@ManyToOne
+	private Agent agent;
 	private static final long serialVersionUID = 1L;
 
 	public Absence() {

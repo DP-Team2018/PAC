@@ -17,6 +17,8 @@ public class Conges implements Serializable {
 	private int id;
 	private Date date_debut;
 	private Date date_fin;
+	@ManyToOne
+	private Agent agent;
 	private static final long serialVersionUID = 1L;
 
 	public Conges() {

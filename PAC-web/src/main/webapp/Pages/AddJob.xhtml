@@ -1,0 +1,272 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:head>
+		<f:facet name="first">
+			<head>
+<meta charset="utf-8" />
+<title>Formulaire d'offre d'emploi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+			</head>
+
+		</f:facet>
+		<f:facet name="middle">
+
+			<!-- css -->
+
+			<link href="../ressources/css/bootstrap.min.css" rel="stylesheet" />
+			<link href="../ressources/css/fancybox/jquery.fancybox.css"
+				rel="stylesheet" />
+			<link href="../ressources/css/jcarousel.css" rel="stylesheet" />
+			<link href="../ressources/css/flexslider.css" rel="stylesheet" />
+			<link href="../ressources/css/style.css" rel="stylesheet" />
+
+			<!-- Theme skin -->
+			<link href="../ressources/skins/default.css" rel="stylesheet" />
+
+		</f:facet>
+		<f:facet name="last">
+			<script src="../ressources/js/jquery.js"></script>
+			<script src="../ressources/js/jquery.easing.1.3.js"></script>
+			<script src="../ressources/js/bootstrap.min.js"></script>
+			<script src="../ressources/js/jquery.fancybox.pack.js"></script>
+			<script src="../ressources/js/jquery.fancybox-media.js"></script>
+			<script src="../ressources/js/google-code-prettify/prettify.js"></script>
+			<script src="../ressources/js/portfolio/jquery.quicksand.js"></script>
+			<script src="../ressources/js/portfolio/setting.js"></script>
+			<script src="../ressources/js/jquery.flexslider.js"></script>
+			<script src="../ressources/js/animate.js"></script>
+			<script src="../ressources/js/custom.js"></script>
+		</f:facet>
+	</h:head>
+	<ui:include src="/template/header.xhtml" />
+	<h:body>
+
+		<div id="wrapper">
+
+			<section id="inner-headline">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<ul class="breadcrumb">
+								<li><a href="#"><i class="fa fa-home"></i></a><i
+									class="icon-angle-right"></i></li>
+								<li class="active">Contact</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- contenu formulaire -->
+
+
+			<section id="content">
+
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<h3 class="right-sidebar">
+								<strong>Formulaire d'offre d'emploi pour les
+									entreprises</strong>
+							</h3>
+
+
+
+							<h:form>
+
+								<div class="row">
+									<div class="col-sm-4">
+									<h4>
+										<h:outputText value="Nom de l'entreprise" />
+										</h4>
+									</div>
+									<div class="col-sm-5">
+										<h:inputText class="form-control" id="nomentre" required="true"
+											requiredMessage="Le champ nom de l'entreprise est obligatoire."
+											value="#{addJobBean.joboffer.nomEntrep}" />
+										<h:message for="nomentre" styleClass="alert-danger" />
+									</div>
+									</div>
+
+
+
+
+<div class="row">
+									<div class="col-sm-4">
+									<h4>
+									<h:outputText value="Secteur d'activité" />
+									</h4>
+											</div>
+											<div class="col-sm-5">
+											<h:inputText class="form-control" id="secteur" required="true"
+												requiredMessage="Le champ secteur d'activité est obligatoire."
+												value="#{addJobBean.joboffer.sect_Activite}" />
+											<h:message for="secteur" styleClass="alert-danger" />
+										</div>
+									</div>
+
+<div class="row">
+
+									<div class="col-sm-4">
+									<h4>
+										<h:outputText value="Adresse de l'entreprise" />
+										</h4>
+										</div>
+										<div class="col-sm-5">
+											<h:inputTextarea class="form-control" id="adresse" required="true"
+												requiredMessage="Le champ adresse de l'entreprise est obligatoire."
+												value="#{addJobBean.joboffer.adresse}" />
+											<h:message for="adresse" styleClass="alert-danger" />
+										</div>
+									</div>
+
+
+<div class="row">
+									<div class="col-sm-4">
+									<h4>
+										<h:outputText value="Email" />
+										</h4>
+										</div>
+										<div class="col-sm-5">
+										<h:inputText class="form-control" id="mail" required="true"
+											requiredMessage="Le champ email est obligatoire."
+											value="#{addJobBean.joboffer.mail}">
+											<f:validateRegex pattern=".+\@.+\..+" />
+										</h:inputText>
+										<h:message for="mail" styleClass="alert-danger" />
+									</div>
+</div>
+
+<div class="row">
+
+									<div class="col-sm-4">
+									<h4>
+										<h:outputText value="Numero de telephone" />
+										</h4>
+										</div>
+										<div class="col-sm-5">
+										<h:inputText class="form-control" id="numero" required="true"
+											requiredMessage="Le champ numero de telephone est obligatoire."
+											value="#{addJobBean.joboffer.numtelf}" />
+										<h:message for="numero" styleClass="alert-danger" />
+									</div>
+</div>
+
+
+<div class="row">
+
+									<div class="col-sm-4">
+									<h4>
+										<h:outputText value="Intitulé du poste" />
+										</h4>
+										</div>
+										<div class="col-sm-5">
+										<h:inputText class="form-control" id="poste" required="true"
+											requiredMessage="Le champ intitulé du poste est obligatoire."
+											value="#{addJobBean.joboffer.intitule_Poste}" />
+										<h:message for="poste" styleClass="alert-danger" />
+								</div>
+
+</div>
+
+<div class="row">
+
+									<div class="col-sm-4">
+									<h4>
+										<h:outputText value="Mission" />
+										</h4>
+										</div>
+										<div class="col-sm-5">
+										<h:inputText class="form-control" id="mission" required="true"
+											requiredMessage="Le champ mission est obligatoire."
+											value="#{addJobBean.joboffer.mission}" />
+										<h:message for="mission" styleClass="alert-danger" />
+									</div>
+
+</div>
+									
+			<div class="row">						
+									
+									<div class="col-sm-4">
+									<h4>
+										<h:outputText value="Profil candidat" />
+										</h4>
+										</div>
+										<div class="col-sm-5">
+										<h:inputText  class="form-control" id="profil" required="true"
+											requiredMessage="Le champ Profil candidat est obligatoire."
+											value="#{addJobBean.joboffer.profil_candidat}" />
+										<h:message for="profil" styleClass="alert-danger" />
+									</div>
+                                     
+                                     </div>
+                                     
+                              
+                              
+                              
+                              <div class="row">       
+                                            
+									<div class="col-sm-4">
+									<h4>
+										<h:outputText value="Description du poste" />
+										</h4>
+										</div>
+										<div class="col-sm-5">
+										<h:inputTextarea class="form-control" id="desc" required="true"
+											requiredMessage="Le champ Description du poste est obligatoire."
+											value="#{addJobBean.joboffer.descripPoste}" />
+										<h:message for="desc" styleClass="alert-danger" />
+									</div>
+
+									</div>
+									
+									
+									<div class="row">
+									<div class="col-sm-4">
+									<h4>
+										<h:outputText value="Type Contrat" />
+										</h4>
+										</div>
+										<div class="col-sm-5">
+										<h:selectOneRadio class="form-control"  value="#{addJobBean.joboffer.type_contrat}">
+											<f:selectItem itemValue="CDD" itemLabel="CDD" />
+											<f:selectItem itemValue="CDI" itemLabel="CDI" />
+											<f:selectItem itemValue="Apprentissage"
+												itemLabel="Apprentissage" />
+										</h:selectOneRadio>
+									</div>
+								</div>
+								<br />
+
+
+
+
+<div class="text-center">
+
+								<h:commandButton class="btn btn-primary" value="Envoyer"
+									action="#{addJobBean.savenewjobo()}" />
+									
+</div>
+
+							</h:form>
+
+
+
+
+						</div>
+					</div>
+			
+			</div>
+			</section>
+			<ui:include src="/template/footer.xhtml" />
+		
+</div>
+	</h:body>
+
+</ui:composition>
+
+

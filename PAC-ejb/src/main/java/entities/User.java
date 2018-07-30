@@ -2,7 +2,10 @@ package entities;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.List;
+
 import javax.persistence.*;
+
 
 /**
  * Entity implementation class for Entity: User
@@ -12,50 +15,66 @@ import javax.persistence.*;
 
 public class User implements Serializable {
 
-	   
-	@Id
-	private int id;
-	private String FirstName;
-	private String LastName;
-	private String username;
-	private String password;
-	private static final long serialVersionUID = 1L;
+	
 
+	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	private int idUser;
+	private String nom;
+	private String prenom;
+	private String role;
+	private String password;
+	private String email;
+	
+	
+	
 	public User() {
 		super();
-	}   
-	public int getId() {
-		return this.id;
+		
 	}
-
-	public void setId(int id) {
-		this.id = id;
-	}   
-	public String getUsername() {
-		return this.username;
+	
+	public User(String password, String email) {
+		super();
+		this.password = password;
+		this.email = email;
 	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}   
+	public int getIdUser() {
+		return idUser;
+	}
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	public String getPrenom() {
+		return prenom;
+	}
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	public String getPassword() {
-		return this.password;
+		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public String getFirstName() {
-		return FirstName;
+	public String getEmail() {
+		return email;
 	}
-	public void setFirstName(String firstName) {
-		FirstName = firstName;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getLastName() {
-		return LastName;
-	}
-	public void setLastName(String lastName) {
-		LastName = lastName;
-	}
+
    
 }

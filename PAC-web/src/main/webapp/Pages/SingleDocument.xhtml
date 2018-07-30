@@ -1,0 +1,155 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.org/ui">
+
+
+	<h:head>
+		<f:facet name="first">
+			<head>
+<meta charset="utf-8" />
+<title>Moderna - Bootstrap 3 flat corporate template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+			</head>
+
+		</f:facet>
+		<f:facet name="middle">
+
+			<!-- css -->
+
+			<link href="../ressources/css/bootstrap.min.css" rel="stylesheet" />
+			<link href="../ressources/css/fancybox/jquery.fancybox.css"
+				rel="stylesheet" />
+			<link href="../ressources/css/jcarousel.css" rel="stylesheet" />
+			<link href="../ressources/css/flexslider.css" rel="stylesheet" />
+			<link href="../ressources/css/style.css" rel="stylesheet" />
+
+			<!-- Theme skin -->
+			<link href="../ressources/skins/default.css" rel="stylesheet" />
+			<h:outputStylesheet library="css" name="application.css" />
+		<link rel="shortcut icon" type="image/x-con" href="#{request.contextPath}/resources/img/favicon.ico" />
+	
+
+		</f:facet>
+		<f:facet name="last">
+			<script src="../ressources/js/jquery.js"></script>
+			<script src="../ressources/js/jquery.easing.1.3.js"></script>
+			<script src="../ressources/js/bootstrap.min.js"></script>
+			<script src="../ressources/js/jquery.fancybox.pack.js"></script>
+			<script src="../ressources/js/jquery.fancybox-media.js"></script>
+			<script src="../ressources/js/google-code-prettify/prettify.js"></script>
+			<script src="../ressources/js/portfolio/jquery.quicksand.js"></script>
+			<script src="../ressources/js/portfolio/setting.js"></script>
+			<script src="../ressources/js/jquery.flexslider.js"></script>
+			<script src="../ressources/js/animate.js"></script>
+			<script src="../ressources/js/custom.js"></script>
+			
+		</f:facet>
+	</h:head>
+	<ui:include src="/template/header.xhtml" />
+
+
+	<body>
+		<div id="wrapper">
+
+			<section id="inner-headline">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<ul class="breadcrumb">
+								<li><a href="#"><i class="fa fa-home"></i></a><i
+									class="icon-angle-right"></i></li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="content">
+
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+						
+
+					
+				<h:form style="margin-top: 100px;vertical-align: top;display: inline-block;text-align: center;">
+			<p:panel header="#{documentBean.titresinglefile}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+			<h:commandLink action="#{documentBean.prinPDF()}" value="">
+				<h:graphicImage
+					value="/images/#{documentBean.nomimage}"
+					style="width:300px;height:400px;margin-bottom: 50px;font-weight:bold;display:block;overflow:hidden;line-height:20px;" alt="test">
+				</h:graphicImage>
+				<span style="display: block;">#{documentBean.titresinglefile}</span>
+			</h:commandLink>
+			<h:commandButton action="#{documentBean.DownloadPDF()}" value="Télécharger" />
+			</h:panelGrid>
+			</p:panel>
+			<br />
+			<div style="float: right;">
+			
+		<h:inputText id="input" value="#{documentBean.numpage}"> 
+		</h:inputText>
+		<h:commandLink action="#{documentBean.openPagePDF()}" value="">
+				<h:graphicImage
+					url="/ressources/gotopage.jpg"
+					style="width:50px;height:50px;margin-bottom: 50px;font-weight:bold;display:block;overflow:hidden;line-height:20px;" alt="test">
+				</h:graphicImage>
+				</h:commandLink>
+ 
+		</div>	
+			</h:form>
+		    	
+			
+		
+			
+  
+							
+
+						</div>
+					</div>
+				</div>
+			</section>
+			<ui:include src="/template/footer.xhtml" />
+		</div>
+		<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+
+
+	</body>
+
+
+
+
+</ui:composition>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

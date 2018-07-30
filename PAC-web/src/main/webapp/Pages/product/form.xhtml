@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+                	
+					
+				<h:form id="details_form" rendered="">
+				<h:panelGrid columns="3">
+						
+						<h:panelGrid columns="2">
+						
+							
+							
+							<h:outputText value="name" />
+							<p:inputText value="#{eventBean.event.titreEvent}" styleClass="product-form-input"/>
+							
+							<h:outputText value="price" />
+							<p:inputText value="#{eventBean.event.categorieEvent}" styleClass="product-form-input"/>
+							
+							<h:outputText value="category" />
+							
+							
+							
+						</h:panelGrid>	
+						<ui:include src="/Pages/product/picture.xhtml" />		
+				</h:panelGrid>
+				</h:form>
+			
+			
+</ui:composition>

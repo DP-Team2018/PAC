@@ -1,0 +1,130 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+	<h:head>
+		<f:facet name="first">
+			<head>
+<meta charset="utf-8" />
+<title>Moderna - Bootstrap 3 flat corporate template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+			</head>
+
+		</f:facet>
+		<f:facet name="middle">
+
+			<!-- css -->
+
+			<link href="../ressources/css/bootstrap.min.css" rel="stylesheet" />
+			<link href="../ressources/css/fancybox/jquery.fancybox.css"
+				rel="stylesheet" />
+			<link href="../ressources/css/jcarousel.css" rel="stylesheet" />
+			<link href="../ressources/css/flexslider.css" rel="stylesheet" />
+			<link href="../ressources/css/style.css" rel="stylesheet" />
+
+			<!-- Theme skin -->
+			<link href="../ressources/skins/default.css" rel="stylesheet" />
+
+		</f:facet>
+		<f:facet name="last">
+			<script src="../ressources/js/jquery.js"></script>
+			<script src="../ressources/js/jquery.easing.1.3.js"></script>
+			<script src="../ressources/js/bootstrap.min.js"></script>
+			<script src="../ressources/js/jquery.fancybox.pack.js"></script>
+			<script src="../ressources/js/jquery.fancybox-media.js"></script>
+			<script src="../ressources/js/google-code-prettify/prettify.js"></script>
+			<script src="../ressources/js/portfolio/jquery.quicksand.js"></script>
+			<script src="../ressources/js/portfolio/setting.js"></script>
+			<script src="../ressources/js/jquery.flexslider.js"></script>
+			<script src="../ressources/js/animate.js"></script>
+			<script src="../ressources/js/custom.js"></script>
+		</f:facet>
+	</h:head>
+	<ui:include src="/template/header.xhtml" />
+
+
+	<body>
+		<div id="wrapper">
+
+			<section id="inner-headline">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<ul class="breadcrumb">
+								<li><a href="#"><i class="fa fa-home"></i></a><i
+									class="icon-angle-right"></i></li>
+								<li class="active">Contact</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="content">
+
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<h4>
+								<strong>Modifier l'évenement</strong>
+							</h4>
+
+							<div id="sendmessage">Your message has been sent. Thank
+								you!</div>
+							<div id="errormessage"></div>
+							<h:form>
+								<div class="form-group">
+									<h:inputText value="#{eventBean.eventSt.titreEvent}" type="text"
+										name="name" class="form-control" id="name"
+										placeholder="Your Name" data-rule="minlen:4"
+										data-msg="Please enter at least 4 chars" />
+								</div>
+								<div class="form-group">
+												<h:selectOneMenu value="#{eventBean.eventSt.category}"
+													converter="cc">
+													<f:selectItem itemLabel="choisir une..." itemValue="" />
+													<f:selectItems value="#{eventBean.categories}" var="cat"
+														itemValue="#{cat}" itemLabel="#{cat.name}" />
+												</h:selectOneMenu>
+											</div>
+
+								<div class="form-group">
+									<h:inputText value="#{eventBean.eventSt.descriptionEvent}"
+										type="text" class="form-control"  
+										placeholder="Subject" data-rule="minlen:4"
+										data-msg="Please enter at least 8 chars of subject" />
+
+								</div>
+								<div class="form-group">
+									<h:inputText value="#{eventBean.eventSt.lieuxEvent}" type="text"
+										class="form-control"  
+										placeholder="Subject" data-rule="minlen:4"
+										data-msg="Please enter at least 8 chars of subject" />
+
+								</div>
+
+								<div class="text-center">
+									<h:commandButton type="submit" class="btn btn-theme"
+										action="#{eventBean.modifier_event(eventBean.eventSt)}" value="Send Message">
+									</h:commandButton>
+								</div>
+							</h:form>
+
+
+						</div>
+					</div>
+				</div>
+			</section>
+			<ui:include src="/template/footer.xhtml" />
+		</div>
+		<a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
+
+
+	</body>
+
+
+
+
+</ui:composition>

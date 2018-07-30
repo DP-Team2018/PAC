@@ -23,6 +23,12 @@
 			<artifactId>primefaces</artifactId>
 		</dependency>
 		<dependency>
+    <groupId>com.github.adminfaces</groupId>
+    <artifactId>admin-theme</artifactId>
+    <version>1.0.0-RC15</version>
+<!--<classifier>dev</classifier> uncompressed theme.css-->
+</dependency>
+		<dependency>
 			<groupId>demat</groupId>
 			<artifactId>PAC-ejb</artifactId>
 			<type>ejb</type>
@@ -34,6 +40,7 @@
     <artifactId>primefaces</artifactId>
     <version>6.0</version>
 </dependency>
+
 		
 	</dependencies>
 

@@ -122,7 +122,7 @@ public class UserBean implements Serializable {
 	public Boolean getIsLogged() {
 		return isLogged;
 	}
-
+//
 	public void setIsLogged(Boolean isLogged) {
 		this.isLogged = isLogged;
 	}

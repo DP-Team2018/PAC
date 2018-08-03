@@ -14,13 +14,22 @@ public class Flux implements Serializable {
 
 	   
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private double charge_horaire;
+	private String intitule;
 	private static final long serialVersionUID = 1L;
 
 	public Flux() {
 		super();
 	}   
+	
+	public Flux(double charge_horaire,String intitule) {
+		super();
+		this.charge_horaire = charge_horaire;
+		this.setIntitule(intitule);
+	}
+
 	public int getId() {
 		return this.id;
 	}
@@ -34,6 +43,14 @@ public class Flux implements Serializable {
 
 	public void setCharge_horaire(double charge_horaire) {
 		this.charge_horaire = charge_horaire;
+	}
+
+	public String getIntitule() {
+		return intitule;
+	}
+
+	public void setIntitule(String intitule) {
+		this.intitule = intitule;
 	}
    
 }

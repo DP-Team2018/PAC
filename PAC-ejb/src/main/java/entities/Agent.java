@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class Agent implements Serializable {
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String nom;
 	private String prenom;

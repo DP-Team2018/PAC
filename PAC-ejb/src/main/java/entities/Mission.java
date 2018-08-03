@@ -15,6 +15,7 @@ public class Mission implements Serializable {
 
 	   
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String etat;
 	private Date date_mission;
@@ -28,6 +29,15 @@ public class Mission implements Serializable {
 	public Mission() {
 		super();
 	}   
+	
+	public Mission(String etat, Date date_mission, Flux flux, Agent agent) {
+		super();
+		this.etat = etat;
+		this.date_mission = date_mission;
+		this.flux = flux;
+		this.agent = agent;
+	}
+
 	public int getId() {
 		return this.id;
 	}

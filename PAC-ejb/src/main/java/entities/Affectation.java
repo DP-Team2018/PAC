@@ -16,6 +16,7 @@ public class Affectation implements Serializable {
 
 	   
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private Date date_debut;
 	private Date date_fin;
@@ -27,6 +28,12 @@ public class Affectation implements Serializable {
 	public Affectation() {
 		super();
 	}   
+	
+	public Affectation(List<Flux> flux) {
+		super();
+		this.flux = flux;
+	}
+
 	public int getId() {
 		return this.id;
 	}

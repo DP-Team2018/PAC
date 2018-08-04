@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      > 
+
+<h:head>
+<script type="text/javascript">
+    function handleDrop(event, ui) {
+        var droppedFlux = ui.draggable;
+ 
+        droppedFlux.fadeOut('fast');
+    }
+</script>
+</h:head> 
+<body> 
+<h:form id="FluxForm">
+    <p:fieldset id="availableFluxField" legend="Available Flux">
+        <p:dataTable id="availableFlux" var="f" value="#{affectationBean.flux}">
+            <p:column style="width:20px">
+                <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
+                <p:draggable for="dragIcon" revert="true" helper="clone"/>
+            </p:column>
+ 
+            <p:column headerText="Id">
+                <h:outputText value="#{f.id}" />
+            </p:column>
+ 
+            <p:column headerText="Intitule">
+                <h:outputText value="#{f.intitule}" />
+            </p:column>
+ 
+            <p:column headerText="Charge Horaire">
+                <h:outputText value="#{f.charge_horaire}" />
+            </p:column>
+
+        </p:dataTable>
+    </p:fieldset>
+ 
+    <p:fieldset id="selectedFlux" legend="Selected Flux" style="margin-top:20px">
+        <p:outputPanel id="dropArea">
+            <h:outputText value="!!!Drop here!!!" rendered="#{empty affectationBean.droppedFlux}" style="font-size:24px;" />
+            <p:dataTable id="selectedFluxTable" var="f" value="#{affectationBean.droppedFlux}" rendered="#{not empty affectationBean.droppedFlux}">
+                <p:column headerText="Id">
+                    <h:outputText value="#{f.id}" />
+                </p:column>
+ 
+                <p:column headerText="Year">
+                    <h:outputText value="#{f.intitule}" />
+                </p:column>
+ 
+                <p:column headerText="Charge Horaire">
+                    <h:outputText value="#{f.charge_horaire}" />
+                </p:column>
+
+            </p:dataTable>
+        </p:outputPanel>
+    </p:fieldset>
+ 
+    <p:droppable for="selectedFlux" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableFlux" onDrop="handleDrop">
+        <p:ajax listener="#{affectationBean.OnDropFlux}" update="dropArea availableFlux" />
+    </p:droppable>
+    
+    <p:commandButton value="Confirmer" action="#{affectationBean.comfirm()}"></p:commandButton>
+ 
+</h:form>
+</body> 
+</html>

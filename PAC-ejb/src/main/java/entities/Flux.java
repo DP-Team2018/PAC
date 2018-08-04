@@ -23,7 +23,12 @@ public class Flux implements Serializable {
 	public Flux() {
 		super();
 	}   
-	
+	public Flux(int id,double charge_horaire,String intitule) {
+		super();
+		this.id=id;
+		this.charge_horaire = charge_horaire;
+		this.setIntitule(intitule);
+	}
 	public Flux(double charge_horaire,String intitule) {
 		super();
 		this.charge_horaire = charge_horaire;

@@ -1,4 +1,4 @@
-package fluxBean;
+package fediBean;
 
 import java.util.List;
 
@@ -31,6 +31,7 @@ public class FluxBean {
 	public void addFluxBean()
 	{
 		flux=new Flux(charge_horaire,intitule);
+		System.out.println(flux.getIntitule());
 		fs.addFlux(flux);
 	}
 	

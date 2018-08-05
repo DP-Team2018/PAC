@@ -29,11 +29,12 @@ public class Agent implements Serializable {
 	public Agent() {
 		super();
 	}   
-	public Agent(String nom,String prenom,String matricule) {
+	public Agent(String nom,String prenom,String matricule,Site site) {
 		super();
 		this.nom=nom;
 		this.prenom=prenom;
 		this.matricule=matricule;
+		this.site=site;
 		
 	} 
 	public int getId() {

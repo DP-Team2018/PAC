@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      
+       >
+<h:head></h:head> 
+<h:body> 
+Ajouter Agent
+        <h:form>
+				nom: <h:inputText id="nomSite" value="#{siteBean.nom}"  />
+				pays: <h:inputText id="paysSite" value="#{siteBean.pays}"  />
+				ville: <h:inputText id="villeSite" value="#{siteBean.ville}"  />
+				<h:commandButton action="#{siteBean.addSite()}" value="valider" style="margin-top:5px"/>
+        </h:form>
+
+Afficher liste flux
+<h:form>
+		<p:dataTable id="siteID" var="site" value="#{siteBean.getAllSites()}"
+		editable="true" editMode="cell" widgetVar="site"
+		selection="#{siteBean.site}" selectionMode="single" rowKey="#{site.id}"
+		>
+		<p:ajax event="cellEdit" process="@this" />
+			<p:column headerText="Nom">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{site.nom}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{site.nom}" style="width:96%"/></f:facet>
+				</p:cellEditor>
+				
+			</p:column>
+			<p:column headerText="Pays">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{site.pays}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{site.pays}" style="width:96%"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Ville">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{site.ville}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{site.ville}" style="width:96%"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column style="width:32px">
+           			<p:rowEditor />
+       		</p:column>
+		</p:dataTable>
+		<p:contextMenu  widgetVar="cMenu">
+		</p:contextMenu>
+</h:form>
+</h:body> 
+</html>

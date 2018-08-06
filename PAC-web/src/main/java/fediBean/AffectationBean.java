@@ -59,7 +59,7 @@ public class AffectationBean {
 	}
 	
 	public void comfirm(){
-		affect=new Affectation(droppedFlux);
+		//affect=new Affectation(droppedFlux);
 		as.addAffectation(affect);
 	}
 		

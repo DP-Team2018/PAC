@@ -2,6 +2,7 @@ package fediBean;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -27,6 +28,11 @@ public class FluxBean {
 	
 	public FluxBean() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	@PostConstruct
+	public void init(){
+		listFlux=fs.findListFlux();
 	}
 	public void addFluxBean()
 	{

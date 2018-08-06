@@ -1,5 +1,7 @@
 package Service;
 
+import java.util.List;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -44,6 +46,11 @@ public class AffectationService implements AffectationServiceRemote, Affectation
 	public void test()
 	{
 		System.out.println("test worked");
+	}
+
+	@Override
+	public List<Affectation> findListAffectation() {
+		return em.createQuery("select f from Affectation f",Affectation.class).getResultList();
 	}
 
 }

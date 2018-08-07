@@ -2,7 +2,6 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.*;
 
@@ -39,6 +38,16 @@ public class Affectation implements Serializable {
 	
 	public Affectation(Date date_debut, Date date_fin, Flux flux) {
 		super();
+		this.date_debut = date_debut;
+		this.date_fin = date_fin;
+		this.flux = flux;
+	}
+	
+	
+
+	public Affectation(int id, Date date_debut, Date date_fin, Flux flux) {
+		super();
+		this.id = id;
 		this.date_debut = date_debut;
 		this.date_fin = date_fin;
 		this.flux = flux;

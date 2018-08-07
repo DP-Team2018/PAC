@@ -34,7 +34,7 @@ public class AffectationService implements AffectationServiceRemote, Affectation
 
 	@Override
 	public void deleteAffectation(Affectation affect) {
-		em.remove(affect);
+		em.remove(em.contains(affect) ? affect : em.merge(affect));
 		
 	}
 

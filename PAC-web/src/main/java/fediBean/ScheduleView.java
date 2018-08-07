@@ -3,7 +3,9 @@ package fediBean;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -33,15 +35,17 @@ public class ScheduleView implements Serializable {
 
 	private ScheduleModel eventModel;
 
-	private ScheduleModel lazyEventModel;
-
 	private ScheduleEvent event = new DefaultScheduleEvent();
+	
+	private ScheduleEvent eventformap;
 
 	private Flux flux;
 	
 	private int idFlux;
 	
 	private List<Flux> listFlux;
+	
+	private Map<String,Affectation> map;
 
 	@EJB
 	private AffectationServiceLocal as;
@@ -55,25 +59,17 @@ public class ScheduleView implements Serializable {
 	public void init() {
 		listFlux=fs.findListFlux();
 		eventModel = new DefaultScheduleModel();
+		map=new HashMap<String,Affectation>();
 		ListAffectation = as.findListAffectation();
 		for (Affectation affectation : ListAffectation) {
-			eventModel
-					.addEvent(new DefaultScheduleEvent(affectation.getFlux().getIntitule(), affectation.getDate_debut(), affectation.getDate_fin()));
+			eventformap=new DefaultScheduleEvent(affectation.getFlux().getIntitule(), affectation.getDate_debut(), affectation.getDate_fin());
+			eventModel.addEvent(eventformap);
+			map.put(eventformap.getId(), affectation);
+			//eventModel.addEvent(new DefaultScheduleEvent("test", affectation.getDate_debut(), affectation.getDate_fin()));
 		}
 		// eventModel.addEvent(new DefaultScheduleEvent("Champions League
 		// Match", previousDay8Pm(), previousDay11Pm()));
 
-		lazyEventModel = new LazyScheduleModel() {
-
-			@Override
-			public void loadEvents(Date start, Date end) {
-				Date random = getRandomDate(start);
-				addEvent(new DefaultScheduleEvent("Lazy Event 1", random, random));
-
-				random = getRandomDate(start);
-				addEvent(new DefaultScheduleEvent("Lazy Event 2", random, random));
-			}
-		};
 	}
 
 	public Date getRandomDate(Date base) {
@@ -97,9 +93,6 @@ public class ScheduleView implements Serializable {
 		return eventModel;
 	}
 
-	public ScheduleModel getLazyEventModel() {
-		return lazyEventModel;
-	}
 
 	private Calendar today() {
 		Calendar calendar = Calendar.getInstance();
@@ -189,22 +182,40 @@ public class ScheduleView implements Serializable {
 	public void addEvent(ActionEvent actionEvent) {
 		flux=findFluxById(idFlux);
 		Affectation affect;
-		affect = new Affectation(event.getStartDate(), event.getEndDate(),flux);
+		ScheduleEvent event2;
+		event2=new DefaultScheduleEvent(flux.getIntitule(),event.getStartDate(),event.getEndDate());
+		event2.setId(event.getId());
 		if (event.getId() == null) {
-			eventModel.addEvent(event);
+			eventModel.addEvent(event2);
+			affect = new Affectation(event.getStartDate(), event.getEndDate(),flux);
 			as.addAffectation(affect);
+			map.put(event.getId(), affect);
 		}
 
 		else {
-			eventModel.updateEvent(event);
+			int id=map.get(event.getId()).getId();
+			System.out.println("id :    " + id);
+			affect=new Affectation(id, event2.getStartDate(), event2.getEndDate(), flux);
+			eventModel.updateEvent(event2);
 			as.updateAffectation(affect);
+			map.put(event.getId(), affect);
 		}
 
 		event = new DefaultScheduleEvent();
 	}
+	
+	public void deleteEvent(ActionEvent actionEvent){
+		eventModel.deleteEvent(event);
+		Affectation affect=new Affectation();
+		affect=map.get(event.getId());
+		as.deleteAffectation(affect);
+		map.remove(event.getId());
+		
+	}
 
 	public void onEventSelect(SelectEvent selectEvent) {
 		event = (ScheduleEvent) selectEvent.getObject();
+		System.out.println(map.containsKey(event.getId()));
 	}
 
 	public void onDateSelect(SelectEvent selectEvent) {

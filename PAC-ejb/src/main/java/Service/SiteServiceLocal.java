@@ -13,6 +13,8 @@ public interface SiteServiceLocal {
 	public Site getSiteByID(int id);
 	public List<Site> getSitesByPays(String pays);
 	public List<Site> getSitesByVille(String ville);
+	public List<String> getAllPays() ;
+	public List<String> getVillesByPays(String pays) ;
 	public void removeSite(Site s);
 	public void update(Site s);
 	

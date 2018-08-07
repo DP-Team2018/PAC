@@ -63,4 +63,14 @@ public class SiteService implements SiteServiceRemote, SiteServiceLocal {
 		
 	}
 
+	@Override
+	public List<String> getAllPays() {
+		return em.createQuery("SELECT pays form Site s GROUP BY pays",String.class).getResultList();
+	}
+
+	@Override
+	public List<String> getVillesByPays(String pays) {
+		return em.createQuery("SELECT ville form Site s where s.pays=:pays",String.class).setParameter("pays", pays).getResultList();
+	}
+
 }

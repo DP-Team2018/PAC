@@ -108,5 +108,5 @@ public class AgentBean {
 	public void setSiteId(int siteId) {
 		this.siteId = siteId;
 	}
-
+	
 }

@@ -7,7 +7,9 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import entities.Pays;
 import entities.Site;
+import entities.Ville;
 
 /**
  * Session Bean implementation class SiteService
@@ -63,14 +65,77 @@ public class SiteService implements SiteServiceRemote, SiteServiceLocal {
 		
 	}
 
+
 	@Override
-	public List<String> getAllPays() {
-		return em.createQuery("SELECT pays form Site s GROUP BY pays",String.class).getResultList();
+	public List<Site> getSitesByPays(Pays pays) {
+		return null;
 	}
 
 	@Override
-	public List<String> getVillesByPays(String pays) {
-		return em.createQuery("SELECT ville form Site s where s.pays=:pays",String.class).setParameter("pays", pays).getResultList();
+	public List<Site> getSitesByVille(Ville ville) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addPays(Pays p) {
+		em.persist(p);
+		
+	}
+
+	@Override
+	public void updatePays(Pays p) {
+		em.merge(p);
+		
+	}
+
+	@Override
+	public void removePays(Pays p) {
+		em.remove(p);
+		
+	}
+
+	@Override
+	public void addVille(Ville v) {
+		em.persist(v);
+		
+	}
+
+	@Override
+	public void updateVille(Ville v) {
+		em.merge(v);
+		
+	}
+
+	@Override
+	public void removeVille(Ville v) {
+		em.remove(v);
+		
+	}
+
+	@Override
+	public List<Ville> getAllVilles() {
+		return em.createQuery("SELECT v FROM ville v ",Ville.class).getResultList();
+	}
+
+	@Override
+	public List<Ville> getVillesByPays(Pays pays) {
+		return em.createNamedQuery("SELECT v FROM ville v WHERE pays=:pays",Ville.class).setParameter("pays", pays).getResultList();
+	}
+
+	@Override
+	public List<Pays> getAllPays() {
+		return em.createQuery("SELECT p FROM pays p",Pays.class).getResultList();
+	}
+
+	@Override
+	public Pays getPaysByID(int id) {
+		return em.find(Pays.class, id);
+	}
+
+	@Override
+	public Ville getVilleById(int id) {
+		return em.find(Ville.class, id);
 	}
 
 }

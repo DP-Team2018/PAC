@@ -2,7 +2,6 @@ package entities;
 
 import java.io.Serializable;
 import java.lang.String;
-import java.util.Date;
 import javax.persistence.*;
 
 /**
@@ -17,15 +16,15 @@ public class Site implements Serializable {
 	@Id
 	private int id;
 	private String nom;
-	private String pays;
-	private String ville;
+	private Pays pays;
+	private Ville ville;
 	
 	private static final long serialVersionUID = 1L;
 
 	public Site() {
 		super();
 	}  
-	public Site(String nom,String pays,String ville) {
+	public Site(String nom,Pays pays,Ville ville) {
 		super();
 		this.nom=nom;
 		this.pays=pays;
@@ -45,25 +44,25 @@ public class Site implements Serializable {
 
 
 
-	public String getPays() {
+	public Pays getPays() {
 		return pays;
 	}
 
 
 
-	public void setPays(String pays) {
+	public void setPays(Pays pays) {
 		this.pays = pays;
 	}
 
 
 
-	public String getVille() {
+	public Ville getVille() {
 		return ville;
 	}
 
 
 
-	public void setVille(String ville) {
+	public void setVille(Ville ville) {
 		this.ville = ville;
 	}
 	public int getId() {

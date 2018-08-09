@@ -14,7 +14,9 @@ import javax.faces.validator.ValidatorException;
 
 import Service.SiteService;
 import Service.SiteServiceLocal;
+import entities.Pays;
 import entities.Site;
+import entities.Ville;
 
 
 
@@ -28,8 +30,8 @@ public class SiteBean {
 	private Site site;
 	private List<Site> sites;
 	private String nom;
-	private String pays;
-	private String ville;
+	private Pays pays;
+	private Ville ville;
 	public Site getSite() {
 		return site;
 	}
@@ -42,47 +44,34 @@ public class SiteBean {
 	public void setSites(List<Site> sites) {
 		this.sites = sites;
 	}
-	/**
-	 * @return the nom
-	 */
+
 	public String getNom() {
 		return nom;
 	}
-	/**
-	 * @param nom the nom to set
-	 */
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	/**
-	 * @return the pays
-	 */
-	public String getPays() {
+
+	public Pays getPays() {
 		return pays;
 	}
-	/**
-	 * @param pays the pays to set
-	 */
-	public void setPays(String pays) {
+
+	public void setPays(Pays pays) {
 		this.pays = pays;
 	}
-	/**
-	 * @return the ville
-	 */
-	public String getVille() {
+
+	public Ville getVille() {
 		return ville;
 	}
-	/**
-	 * @param ville the ville to set
-	 */
-	public void setVille(String ville) {
+
+	public void setVille(Ville ville) {
 		this.ville = ville;
 	}
 	public String addSite() {
 		site = new Site(nom,pays,ville);
 		ssl.addSite(site);
-		System.out.println(site.getNom().concat(" ").concat(site.getPays()).concat(" ").concat(site.getVille()));
-		return site.getNom().concat(" ").concat(site.getPays()).concat(" ").concat(site.getVille()).concat(" est ajouter");
+		System.out.println(site.getNom().concat(" ").concat(pays.getNom()).concat(" ").concat(ville.getNom()));
+		return site.getNom().concat(" ").concat(pays.getNom()).concat(" ").concat(ville.getNom()).concat(" est ajouter");
 	}
 	public List<Site> getAllSites(){
 		return ssl.getAllSites();

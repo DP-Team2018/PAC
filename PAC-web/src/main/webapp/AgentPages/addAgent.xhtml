@@ -13,12 +13,25 @@ Ajouter Agent
 				nom: <h:inputText id="nomAgent" value="#{agentBean.nom}"  />
 				prenom: <h:inputText id="prenomAgent" value="#{agentBean.prenom}"  />
 				matricule: <h:inputText id="matriculeAgent" value="#{agentBean.matricule}"  />
+				<h:selectOneMenu value="#{agentBean.pays}" >
+						<f:selectItems value="#{agentBean.getAllPays()}"
+										var="pays"
+										itemLabel="#{pays}"
+										itemValue="#{pays}" />
+				</h:selectOneMenu>
+				<h:selectOneMenu value="#{agentBean.ville}" >
+						<f:selectItems value="#{agentBean.getAllVillesByPays()}"
+										var="ville"
+										itemLabel="#{ville}"
+										itemValue="#{ville}" />
+				</h:selectOneMenu>
 				<h:selectOneMenu value="#{agentBean.siteId}" >
 						<f:selectItems value="#{agentBean.getAllSites()}"
 										var="site"
 										itemLabel="#{site.nom}"
 										itemValue="#{site.id}" />
 				</h:selectOneMenu>
+				
 				
 				<h:commandButton action="#{agentBean.addAgent()}" value="valider" style="margin-top:5px"/>
         </h:form>

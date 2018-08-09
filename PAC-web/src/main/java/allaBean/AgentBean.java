@@ -20,7 +20,9 @@ import Service.AgentServiceLocal;
 import Service.SiteService;
 import Service.SiteServiceLocal;
 import entities.Agent;
+import entities.Pays;
 import entities.Site;
+import entities.Ville;
 
 @ManagedBean
 @RequestScoped
@@ -41,6 +43,10 @@ public class AgentBean {
 	private int siteId;
 	private Site site;
 	private List<Site> sites;
+	private List<Pays> lesPays;
+	private List<Ville> villes;
+	private Pays pays;
+	private Ville ville;
 	public String getNom() {
 		return nom;
 	}
@@ -108,5 +114,38 @@ public class AgentBean {
 	public void setSiteId(int siteId) {
 		this.siteId = siteId;
 	}
-	
+
+	public Ville getVille() {
+		return ville;
+	}
+	public void setVille(Ville ville) {
+		this.ville = ville;
+	}
+	public List<Pays> getAllPays() {
+		return ssl.getAllPays();
+	}
+	public List<Pays> getLesPays() {
+		return lesPays;
+	}
+	public void setLesPays(List<Pays> lesPays) {
+		this.lesPays = lesPays;
+	}
+	public List<Ville> getVilles() {
+		return villes;
+	}
+	public void setVilles(List<Ville> villes) {
+		this.villes = villes;
+	}
+	public Pays getPays() {
+		return pays;
+	}
+	public void setPays(Pays pays) {
+		this.pays = pays;
+	}
+	public List<Ville> getAllVillesByPays(){
+		return ssl.getVillesByPays(pays);
+	}
+	public List<Site> getAllSiteByVille(){
+		return ssl.getSitesByVille(ville);
+	}
 }

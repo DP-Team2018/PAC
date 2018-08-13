@@ -20,17 +20,27 @@ public class Affectation implements Serializable {
 	private int id;
 	private Date date_debut;
 	private Date date_fin;
-	@OneToMany
-	private List<Flux> flux;
+	@OneToOne
+	private Flux flux;
 	
 	private static final long serialVersionUID = 1L;
 
 	public Affectation() {
 		super();
 	}   
-	
-	public Affectation(List<Flux> flux) {
+
+	public Affectation(Date date_debut, Date date_fin) {
 		super();
+		this.date_debut = date_debut;
+		this.date_fin = date_fin;
+	}
+
+	
+	
+	public Affectation(Date date_debut, Date date_fin, Flux flux) {
+		super();
+		this.date_debut = date_debut;
+		this.date_fin = date_fin;
 		this.flux = flux;
 	}
 
@@ -55,11 +65,14 @@ public class Affectation implements Serializable {
 	public void setDate_fin(Date date_fin) {
 		this.date_fin = date_fin;
 	}
-	public List<Flux> getFlux() {
+
+	public Flux getFlux() {
 		return flux;
 	}
-	public void setFlux(List<Flux> flux) {
+
+	public void setFlux(Flux flux) {
 		this.flux = flux;
 	}
+
    
 }

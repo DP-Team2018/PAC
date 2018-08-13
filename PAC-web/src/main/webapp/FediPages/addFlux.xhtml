@@ -17,7 +17,7 @@ Ajouter Flux aa
 
 Afficher liste flux
 <h:form>
-		<p:dataTable id="fluxID" var="j" value="#{fluxBean.getListFlux()}"
+		<p:dataTable id="fluxID" var="j" value="#{fluxBean.listFlux}"
 		editable="true" editMode="cell" widgetVar="flux"
 		selection="#{fluxBean.flux}" selectionMode="single" rowKey="#{j.id}"
 		>

@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      
+       >
+<h:head></h:head> 
+<h:body> 
+Ajouter Agent
+        <h:form>
+				nom: <h:inputText id="nomAgent" value="#{agentBean.nom}"  />
+				prenom: <h:inputText id="prenomAgent" value="#{agentBean.prenom}"  />
+				matricule: <h:inputText id="matriculeAgent" value="#{agentBean.matricule}"  />
+				
+				<h:selectOneMenu value="#{agentBean.siteId}" >
+						<f:selectItems value="#{siteBean.getAllSites()}"
+										var="site"
+										itemLabel="Pays:#{site.ville.pays.nom} Ville:#{site.ville.nom} Site:#{site.nom}"
+										itemValue="#{site.id}" />
+				</h:selectOneMenu>
+				
+				
+				<h:commandButton action="#{agentBean.addAgent()}" value="valider" style="margin-top:5px"/>
+        </h:form>
+
+Afficher liste flux
+<h:form>
+		<p:dataTable id="agentID" var="agent" value="#{agentBean.getAllAgents()}"
+		editable="true" editMode="cell" widgetVar="agent"
+		selection="#{agentBean.agent}" selectionMode="single" rowKey="#{agent.id}"
+		>
+		<p:ajax event="cellEdit" process="@this" />
+			<p:column headerText="Nom">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{agent.nom}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{agent.nom}" style="width:96%"/></f:facet>
+				</p:cellEditor>
+				
+			</p:column>
+			<p:column headerText="Prenom">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{agent.prenom}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{agent.prenom}" style="width:96%"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Matricule">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{agent.matricule}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{agent.matricule}" style="width:96%"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Site">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="Pays:#{agent.site.ville.pays.nom} Ville:#{agent.site.ville.nom} Site:#{agent.site.nom}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{agent.site.nom}" style="width:96%"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column style="width:32px">
+           			<p:rowEditor />
+       		</p:column>
+		</p:dataTable>
+		<p:contextMenu  widgetVar="cMenu">
+		</p:contextMenu>
+</h:form>
+</h:body> 
+</html>

@@ -2,7 +2,6 @@ package entities;
 
 import java.io.Serializable;
 import java.lang.String;
-import java.util.Date;
 import javax.persistence.*;
 
 /**
@@ -13,22 +12,27 @@ import javax.persistence.*;
 
 public class Site implements Serializable {
 
-	   
+	@GeneratedValue(strategy = GenerationType.IDENTITY)   
 	@Id
-	private Date id;
+	private int id;
 	private String nom;
+	@ManyToOne
+	private Ville ville;
+	
 	private static final long serialVersionUID = 1L;
 
 	public Site() {
 		super();
-	}   
-	public Date getId() {
-		return this.id;
-	}
+	}  
+	public Site(String nom,Ville ville) {
+		super();
+		this.nom=nom;
+		this.ville=ville;
+		
+	} 
+	
 
-	public void setId(Date id) {
-		this.id = id;
-	}   
+
 	public String getNom() {
 		return this.nom;
 	}
@@ -36,5 +40,27 @@ public class Site implements Serializable {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+
+
+
+
+
+
+	public Ville getVille() {
+		return ville;
+	}
+
+
+
+	public void setVille(Ville ville) {
+		this.ville = ville;
+	}
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	} 
    
 }

@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.lang.String;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * Entity implementation class for Entity: Agent
@@ -11,20 +12,31 @@ import javax.persistence.*;
 @Entity
 
 public class Agent implements Serializable {
-
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String nom;
 	private String prenom;
-	@OneToOne
+	@NotNull
+	@Column(unique=true)
+	private String matricule;
+	@ManyToOne
 	private Site site;
+	
 	
 	private static final long serialVersionUID = 1L;
 
 	public Agent() {
 		super();
 	}   
+	public Agent(String nom,String prenom,String matricule,Site site) {
+		super();
+		this.nom=nom;
+		this.prenom=prenom;
+		this.matricule=matricule;
+		this.site=site;
+		
+	} 
 	public int getId() {
 		return this.id;
 	}
@@ -52,5 +64,13 @@ public class Agent implements Serializable {
 	public void setSite(Site site) {
 		this.site = site;
 	}
-   
+	public String getMatricule() {
+		return matricule;
+	}
+
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
+	}
+	
+	
 }

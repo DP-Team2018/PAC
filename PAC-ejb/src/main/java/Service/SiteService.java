@@ -60,7 +60,7 @@ public class SiteService implements SiteServiceRemote, SiteServiceLocal {
 	}
 
 	@Override
-	public void update(Site s) {
+	public void updateSite(Site s) {
 		em.merge(s);
 		
 	}
@@ -68,13 +68,12 @@ public class SiteService implements SiteServiceRemote, SiteServiceLocal {
 
 	@Override
 	public List<Site> getSitesByPays(Pays pays) {
-		return null;
+		return em.createQuery("SELECT s FROM Site s WHERE s.ville in (SELECT v FROM Ville v WHERE pays=:pays)",Site.class).setParameter("pays", pays).getResultList();
 	}
 
 	@Override
 	public List<Site> getSitesByVille(Ville ville) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.createQuery("SELECT s FROM Site s WHERE s.ville=:ville",Site.class).setParameter("ville", ville).getResultList();
 	}
 
 	@Override
@@ -115,17 +114,17 @@ public class SiteService implements SiteServiceRemote, SiteServiceLocal {
 
 	@Override
 	public List<Ville> getAllVilles() {
-		return em.createQuery("SELECT v FROM ville v ",Ville.class).getResultList();
+		return em.createQuery("SELECT v FROM Ville v ",Ville.class).getResultList();
 	}
 
 	@Override
 	public List<Ville> getVillesByPays(Pays pays) {
-		return em.createNamedQuery("SELECT v FROM ville v WHERE pays=:pays",Ville.class).setParameter("pays", pays).getResultList();
+		return em.createQuery("SELECT v FROM Ville v WHERE pays=:pays",Ville.class).setParameter("pays", pays).getResultList();
 	}
 
 	@Override
 	public List<Pays> getAllPays() {
-		return em.createQuery("SELECT p FROM pays p",Pays.class).getResultList();
+		return em.createQuery("SELECT p FROM Pays p",Pays.class).getResultList();
 	}
 
 	@Override
@@ -137,5 +136,7 @@ public class SiteService implements SiteServiceRemote, SiteServiceLocal {
 	public Ville getVilleById(int id) {
 		return em.find(Ville.class, id);
 	}
+
+	
 
 }

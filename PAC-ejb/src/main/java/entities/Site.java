@@ -16,7 +16,7 @@ public class Site implements Serializable {
 	@Id
 	private int id;
 	private String nom;
-	private Pays pays;
+	@ManyToOne
 	private Ville ville;
 	
 	private static final long serialVersionUID = 1L;
@@ -24,10 +24,9 @@ public class Site implements Serializable {
 	public Site() {
 		super();
 	}  
-	public Site(String nom,Pays pays,Ville ville) {
+	public Site(String nom,Ville ville) {
 		super();
 		this.nom=nom;
-		this.pays=pays;
 		this.ville=ville;
 		
 	} 
@@ -44,15 +43,6 @@ public class Site implements Serializable {
 
 
 
-	public Pays getPays() {
-		return pays;
-	}
-
-
-
-	public void setPays(Pays pays) {
-		this.pays = pays;
-	}
 
 
 

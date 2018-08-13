@@ -42,11 +42,8 @@ public class AgentBean {
 	private List<Agent> agents;
 	private int siteId;
 	private Site site;
-	private List<Site> sites;
-	private List<Pays> lesPays;
-	private List<Ville> villes;
-	private Pays pays;
-	private Ville ville;
+
+	
 	public String getNom() {
 		return nom;
 	}
@@ -97,17 +94,6 @@ public class AgentBean {
 		this.site = site;
 	}
 	
-	public List<Site> getSites() {
-		return sites;
-	}
-	
-	public void setSites(List<Site> sites) {
-		this.sites = sites;
-	}
-	
-	public List<Site> getAllSites(){
-		return ssl.getAllSites();
-	}
 	public int getSiteId() {
 		return siteId;
 	}
@@ -115,37 +101,5 @@ public class AgentBean {
 		this.siteId = siteId;
 	}
 
-	public Ville getVille() {
-		return ville;
-	}
-	public void setVille(Ville ville) {
-		this.ville = ville;
-	}
-	public List<Pays> getAllPays() {
-		return ssl.getAllPays();
-	}
-	public List<Pays> getLesPays() {
-		return lesPays;
-	}
-	public void setLesPays(List<Pays> lesPays) {
-		this.lesPays = lesPays;
-	}
-	public List<Ville> getVilles() {
-		return villes;
-	}
-	public void setVilles(List<Ville> villes) {
-		this.villes = villes;
-	}
-	public Pays getPays() {
-		return pays;
-	}
-	public void setPays(Pays pays) {
-		this.pays = pays;
-	}
-	public List<Ville> getAllVillesByPays(){
-		return ssl.getVillesByPays(pays);
-	}
-	public List<Site> getAllSiteByVille(){
-		return ssl.getSitesByVille(ville);
-	}
+	
 }

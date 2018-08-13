@@ -16,7 +16,7 @@ public interface SiteServiceLocal {
 	public List<Site> getSitesByPays(Pays pays);
 	public List<Site> getSitesByVille(Ville ville);
 	public void removeSite(Site s);
-	public void update(Site s);
+	public void updateSite(Site s);
 	public void addPays(Pays p);
 	public Pays getPaysByID(int id);
 	public void updatePays(Pays p);

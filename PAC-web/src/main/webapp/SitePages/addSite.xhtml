@@ -9,11 +9,33 @@
 <h:head></h:head> 
 <h:body> 
 Ajouter Agent
-        <h:form>
-				nom: <h:inputText id="nomSite" value="#{siteBean.nom}"  />
-				pays: <h:inputText id="paysSite" value="#{siteBean.pays}"  />
-				ville: <h:inputText id="villeSite" value="#{siteBean.ville}"  />
-				<h:commandButton action="#{siteBean.addSite()}" value="valider" style="margin-top:5px"/>
+
+        <h:form id="form">
+				
+				<!-- <h:selectOneMenu value="#{villeBean.paysId}" >
+						<f:selectItems id="heh" value="#{paysBean.getAllPays()}"
+										var="pays"
+										itemLabel="#{pays.nom}"
+										itemValue="#{pays.id}" />
+						<p:ajax update="state" />
+				</h:selectOneMenu>
+				<h:selectOneMenu id="state"  value="#{siteBean.villeId}" >
+						<f:selectItems  value="#{villeBean.getAllVillesByPaysId(villeBean.paysId)}"
+										var="ville"
+										itemLabel="#{ville.nom}"
+										itemValue="#{ville.id}" />
+										
+				</h:selectOneMenu> -->
+				<h:selectOneMenu id="state"  value="#{siteBean.villeId}" >
+						<f:selectItems  value="#{villeBean.getAllVilles()}"
+										var="ville"
+										itemLabel="Pays: #{ville.pays.nom} ville: #{ville.nom}"
+										itemValue="#{ville.id}" />
+										
+				</h:selectOneMenu> 
+
+				nom: <h:inputText id="nomSite" value="#{siteBean.nom}" />
+				<h:commandButton action="#{siteBean.addSite()}" value="valider" style="margin-top:5px" id="submit"/>
         </h:form>
 
 Afficher liste flux
@@ -32,14 +54,14 @@ Afficher liste flux
 			</p:column>
 			<p:column headerText="Pays">
 				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{site.pays}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{site.pays}" style="width:96%"/></f:facet>
+					<f:facet name="output"><h:outputText value="#{site.ville.pays.nom}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{site.ville.pays.nom}" style="width:96%"/></f:facet>
 				</p:cellEditor>
 			</p:column>
 			<p:column headerText="Ville">
 				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{site.ville}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{site.ville}" style="width:96%"/></f:facet>
+					<f:facet name="output"><h:outputText value="#{site.ville.nom}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{site.ville.nom}" style="width:96%"/></f:facet>
 				</p:cellEditor>
 			</p:column>
 			<p:column style="width:32px">

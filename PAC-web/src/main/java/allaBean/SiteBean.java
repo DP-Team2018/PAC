@@ -28,54 +28,34 @@ public class SiteBean {
 	@EJB
 	SiteService ss;
 	private Site site;
-	private List<Site> sites;
-	private String nom;
-	private Pays pays;
 	private Ville ville;
+	private int VilleId;
+	private String nom;
 	public Site getSite() {
 		return site;
 	}
 	public void setSite(Site site) {
 		this.site = site;
 	}
-	public List<Site> getSites() {
-		return sites;
+	public int getVilleId() {
+		return VilleId;
 	}
-	public void setSites(List<Site> sites) {
-		this.sites = sites;
+	public void setVilleId(int villeId) {
+		VilleId = villeId;
 	}
-
+	public List<Site> getAllSites(){
+		return ssl.getAllSites();
+	}
+	public String addSite() {
+		ville = ssl.getVilleById(VilleId);
+		site= new Site(nom,ville);
+		ssl.addSite(site);
+		return "done";
+	}
 	public String getNom() {
 		return nom;
 	}
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
-	public Pays getPays() {
-		return pays;
-	}
-
-	public void setPays(Pays pays) {
-		this.pays = pays;
-	}
-
-	public Ville getVille() {
-		return ville;
-	}
-
-	public void setVille(Ville ville) {
-		this.ville = ville;
-	}
-	public String addSite() {
-		site = new Site(nom,pays,ville);
-		ssl.addSite(site);
-		System.out.println(site.getNom().concat(" ").concat(pays.getNom()).concat(" ").concat(ville.getNom()));
-		return site.getNom().concat(" ").concat(pays.getNom()).concat(" ").concat(ville.getNom()).concat(" est ajouter");
-	}
-	public List<Site> getAllSites(){
-		return ssl.getAllSites();
-	}
-	
-
 }

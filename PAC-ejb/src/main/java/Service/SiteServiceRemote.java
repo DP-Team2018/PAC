@@ -14,5 +14,5 @@ public interface SiteServiceRemote {
 	public List<Site> getSitesByPays(String pays);
 	public List<Site> getSitesByVille(String ville);
 	public void removeSite(Site s);
-	public void update(Site s);
+	public void updateSite(Site s);
 }

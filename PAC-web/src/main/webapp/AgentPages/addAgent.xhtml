@@ -10,16 +10,34 @@
 <h:body> 
 Ajouter Agent
         <h:form>
+        		pays: <h:selectOneMenu value="#{villeBean.paysId}" >
+						<f:selectItems id="heh" value="#{paysBean.getAllPays()}"
+										var="pays"
+										itemLabel="#{pays.nom}"
+										itemValue="#{pays.id}" />
+						<p:ajax update="villeId" />
+				</h:selectOneMenu>
+				ville: <h:selectOneMenu id="villeId"  value="#{siteBean.villeId}" >
+						<f:selectItems  value="#{villeBean.getAllVillesByPaysId(villeBean.paysId)}"
+										var="ville"
+										itemLabel="#{ville.nom}"
+										itemValue="#{ville.id}" />
+						<p:ajax update="siteId" />
+										
+				</h:selectOneMenu> 
+				site: <h:selectOneMenu id="siteId" value="#{agentBean.siteId}" >
+						<f:selectItems value="#{siteBean.getSitesByVilleId(siteBean.villeId)}"
+										var="site"
+										itemLabel="#{site.nom}"
+										itemValue="#{site.id}" />
+				</h:selectOneMenu> 
 				nom: <h:inputText id="nomAgent" value="#{agentBean.nom}"  />
 				prenom: <h:inputText id="prenomAgent" value="#{agentBean.prenom}"  />
 				matricule: <h:inputText id="matriculeAgent" value="#{agentBean.matricule}"  />
 				
-				<h:selectOneMenu value="#{agentBean.siteId}" >
-						<f:selectItems value="#{siteBean.getAllSites()}"
-										var="site"
-										itemLabel="Pays:#{site.ville.pays.nom} Ville:#{site.ville.nom} Site:#{site.nom}"
-										itemValue="#{site.id}" />
-				</h:selectOneMenu>
+				 
+				
+				
 				
 				
 				<h:commandButton action="#{agentBean.addAgent()}" value="valider" style="margin-top:5px"/>
@@ -31,35 +49,31 @@ Afficher liste flux
 		editable="true" editMode="cell" widgetVar="agent"
 		selection="#{agentBean.agent}" selectionMode="single" rowKey="#{agent.id}"
 		>
-		<p:ajax event="cellEdit" process="@this" />
+		
+		
+		
 			<p:column headerText="Nom">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{agent.nom}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{agent.nom}" style="width:96%"/></f:facet>
-				</p:cellEditor>
+				<h:inputText label="#{agent.nom}" value="#{agent.nom}"></h:inputText>
 				
 			</p:column>
 			<p:column headerText="Prenom">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{agent.prenom}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{agent.prenom}" style="width:96%"/></f:facet>
-				</p:cellEditor>
+				<h:inputText label="#{agent.prenom}" value="#{agent.prenom}"></h:inputText>
 			</p:column>
 			<p:column headerText="Matricule">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{agent.matricule}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{agent.matricule}" style="width:96%"/></f:facet>
-				</p:cellEditor>
+				<h:inputText label="#{agent.matricule}" value="#{agent.matricule}"></h:inputText>
 			</p:column>
 			<p:column headerText="Site">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="Pays:#{agent.site.ville.pays.nom} Ville:#{agent.site.ville.nom} Site:#{agent.site.nom}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{agent.site.nom}" style="width:96%"/></f:facet>
-				</p:cellEditor>
+				
+					<h:outputText value="Pays:#{agent.site.ville.pays.nom} Ville:#{agent.site.ville.nom} Site:#{agent.site.nom}" />
+					
+				
 			</p:column>
-			<p:column style="width:32px">
-           			<p:rowEditor />
+			
+			<p:column >
+           			<p:column><h:commandButton value="modifier" action="#{agentBean.updateAgent(agent)}"></h:commandButton></p:column>
        		</p:column>
+ 
+       		<p:column><h:commandButton value="delete" action="#{agentBean.removeAgent(agent)}"></h:commandButton></p:column>
 		</p:dataTable>
 		<p:contextMenu  widgetVar="cMenu">
 		</p:contextMenu>

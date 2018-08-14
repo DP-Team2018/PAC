@@ -8,15 +8,16 @@
        >
 <h:head></h:head> 
 <h:body> 
-Ajouter Agent
+Ajouter Une Ville
         <h:form>
+        		Choisir le pays: 
         		<h:selectOneMenu value="#{villeBean.paysId}" >
 						<f:selectItems value="#{paysBean.getAllPays()}"
 										var="pays"
 										itemLabel="#{pays.nom}"
 										itemValue="#{pays.id}" />
 				</h:selectOneMenu>
-				nom: <h:inputText id="nomVille" value="#{villeBean.nom}"  />
+				nom de ville: <h:inputText id="nomVille" value="#{villeBean.nom}"  />
 	
 				
 				
@@ -24,7 +25,7 @@ Ajouter Agent
 				<h:commandButton action="#{villeBean.addVille()}" value="valider" style="margin-top:5px"/>
         </h:form>
 
-Afficher liste ville
+Afficher les villes
 <h:form>
 		<p:dataTable id="villeID" var="ville" value="#{villeBean.getAllVilles()}"
 		editable="true" editMode="cell" widgetVar="ville"
@@ -39,7 +40,7 @@ Afficher liste ville
 			</p:column>
 			<p:column headerText="Pays">
 				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{ville.pays} name: #{ville.pays.nom}" /></f:facet>
+					<f:facet name="output"><h:outputText value="#{ville.pays.nom}" /></f:facet>
 					<f:facet name="input"><p:inputText value="#{ville.pays}" style="width:96%"/></f:facet>
 				</p:cellEditor>
 			</p:column>

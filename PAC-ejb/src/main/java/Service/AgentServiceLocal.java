@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import entities.Agent;
+import entities.Site;
 
 @Local
 public interface AgentServiceLocal {
@@ -15,4 +16,5 @@ public interface AgentServiceLocal {
 	public Agent getAgentByMat(String matricule);
 	public Agent getAgentById(int id);
 	public void addAgent(Agent a);
+	public void removeAgent(Agent a);
 }

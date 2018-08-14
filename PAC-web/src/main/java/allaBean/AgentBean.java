@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
@@ -25,7 +26,7 @@ import entities.Site;
 import entities.Ville;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class AgentBean {
 	@EJB
 	private AgentServiceLocal asl;
@@ -100,6 +101,13 @@ public class AgentBean {
 	public void setSiteId(int siteId) {
 		this.siteId = siteId;
 	}
-
-	
+	public String removeAgent(Agent a) {
+		asl.removeAgent(a);
+		return a.getNom().concat(" is removed");
+	}
+	public String updateAgent (Agent a) {
+		this.agent=a;
+		asl.updateAgent(agent);
+		return a.getNom().concat(" is modified");
+	}
 }

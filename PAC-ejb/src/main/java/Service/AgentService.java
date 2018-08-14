@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import entities.Agent;
+import entities.Site;
 
 /**
  * Session Bean implementation class AgentService
@@ -44,10 +45,13 @@ public class AgentService implements AgentServiceRemote, AgentServiceLocal {
     	em.remove(a);
 		
 	}
+	
 
 	@Override
 	public void updateAgent(Agent agent) {
+		
 		em.merge(agent);
+
 		
 	}
 
@@ -68,6 +72,11 @@ public class AgentService implements AgentServiceRemote, AgentServiceLocal {
 	public void addAgent(Agent a) {
 		em.persist(a);
 		
+	}
+
+	@Override
+	public void removeAgent(Agent a) {
+		em.remove(em.contains(a) ? a : em.merge(a));
 	}
 
 }

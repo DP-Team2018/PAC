@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import Service.SiteService;
 import Service.SiteServiceLocal;
@@ -12,7 +13,7 @@ import entities.Pays;
 import entities.Ville;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class VilleBean {
 	@EJB
 	SiteServiceLocal ssl;
@@ -64,10 +65,8 @@ public class VilleBean {
 		this.paysId = paysId;
 	}
 	
-	public List<Ville> getAllVillesByPays(){
-		pays = new Pays();
-		pays = ssl.getPaysByID(paysId);
-		return ssl.getVillesByPays(pays);
+	public List<Ville> getAllVillesByPays(Pays p){
+		return ssl.getVillesByPays(p);
 	}
 	public List<Ville> getAllVillesByPaysId(int id){
 		pays = new Pays();

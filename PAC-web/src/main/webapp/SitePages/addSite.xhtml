@@ -12,33 +12,28 @@ Ajouter Agent
 
         <h:form id="form">
 				
-				<!-- <h:selectOneMenu value="#{villeBean.paysId}" >
+				choisir un pays:<h:selectOneMenu value="#{villeBean.paysId}" >
 						<f:selectItems id="heh" value="#{paysBean.getAllPays()}"
 										var="pays"
 										itemLabel="#{pays.nom}"
 										itemValue="#{pays.id}" />
 						<p:ajax update="state" />
 				</h:selectOneMenu>
-				<h:selectOneMenu id="state"  value="#{siteBean.villeId}" >
+				
+				choisir une ville :<h:selectOneMenu id="state"  value="#{siteBean.villeId}"  >
 						<f:selectItems  value="#{villeBean.getAllVillesByPaysId(villeBean.paysId)}"
 										var="ville"
-										itemLabel="#{ville.nom}"
-										itemValue="#{ville.id}" />
-										
-				</h:selectOneMenu> -->
-				<h:selectOneMenu id="state"  value="#{siteBean.villeId}" >
-						<f:selectItems  value="#{villeBean.getAllVilles()}"
-										var="ville"
-										itemLabel="Pays: #{ville.pays.nom} ville: #{ville.nom}"
+										itemLabel="#{ville.nom} "
 										itemValue="#{ville.id}" />
 										
 				</h:selectOneMenu> 
 
-				nom: <h:inputText id="nomSite" value="#{siteBean.nom}" />
+
+				Le nom de votre site: <h:inputText id="nomSite" value="#{siteBean.nom}" />
 				<h:commandButton action="#{siteBean.addSite()}" value="valider" style="margin-top:5px" id="submit"/>
         </h:form>
 
-Afficher liste flux
+Liste des Sites
 <h:form>
 		<p:dataTable id="siteID" var="site" value="#{siteBean.getAllSites()}"
 		editable="true" editMode="cell" widgetVar="site"
@@ -67,7 +62,7 @@ Afficher liste flux
 			<p:column style="width:32px">
            			<p:rowEditor />
        		</p:column>
-       		<p:column><h:commandButton value="delete" action="#{villeBean.removeVille(ville)}"></h:commandButton></p:column>
+       		<p:column><h:commandButton value="delete" action="#{siteBean.removeSite(site)}"></h:commandButton></p:column>
 		</p:dataTable>
 		<p:contextMenu  widgetVar="cMenu">
 		</p:contextMenu>

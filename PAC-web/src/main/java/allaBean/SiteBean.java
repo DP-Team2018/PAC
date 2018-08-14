@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
@@ -21,7 +22,7 @@ import entities.Ville;
 
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class SiteBean {
 	@EJB
 	SiteServiceLocal ssl;
@@ -61,5 +62,9 @@ public class SiteBean {
 	public String removeSite(Site s) {
 		ssl.removeSite(s);
 		return s.getNom().concat(" is removed");
+	}
+	public List<Site> getSitesByVilleId(int id){
+		ville= ssl.getVilleById(id);
+		return ssl.getSitesByVille(ville);
 	}
 }

@@ -5,13 +5,14 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 
 import Service.SiteService;
 import Service.SiteServiceLocal;
 import entities.Pays;
 
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class PaysBean {
 	@EJB
 	SiteServiceLocal ssl;

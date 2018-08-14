@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      
+       >
+<h:head></h:head> 
+<h:body> 
+Ajouter Agent
+        <h:form>
+				nom: <h:inputText id="nomPays" value="#{paysBean.nom}"  />
+				<h:commandButton action="#{paysBean.addPays()}" value="valider" style="margin-top:5px"/>
+        </h:form>
+
+Afficher liste flux
+<h:form>
+		<p:dataTable id="paysID" var="pays" value="#{paysBean.getAllPays()}"
+		editable="true" editMode="cell" widgetVar="pays"
+		selection="#{paysBean.pays}" selectionMode="single" rowKey="#{pays.id}"
+		>
+		<p:ajax event="cellEdit" process="@this" />
+		<p:column headerText="Id">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{pays.id}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{pays.id}" style="width:96%"/></f:facet>
+				</p:cellEditor>
+				
+			</p:column>
+			<p:column headerText="Nom">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{pays.nom}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{pays.nom}" style="width:96%"/></f:facet>
+				</p:cellEditor>
+				
+			</p:column>
+			<p:column style="width:32px">
+           			<p:rowEditor />
+       		</p:column>
+			<p:column style="width:32px">
+           			<h:commandButton value="delete" action="#{paysBean.removePays(pays)}"></h:commandButton>
+       		</p:column>
+       		
+		</p:dataTable>
+		<p:contextMenu  widgetVar="cMenu">
+		</p:contextMenu>
+</h:form>
+</h:body> 
+</html>

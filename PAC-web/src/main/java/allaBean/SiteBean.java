@@ -58,4 +58,8 @@ public class SiteBean {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
+	public String removeSite(Site s) {
+		ssl.removeSite(s);
+		return s.getNom().concat(" is removed");
+	}
 }

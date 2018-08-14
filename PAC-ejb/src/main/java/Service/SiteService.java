@@ -55,7 +55,7 @@ public class SiteService implements SiteServiceRemote, SiteServiceLocal {
 
 	@Override
 	public void removeSite(Site s) {
-		em.remove(s);
+		em.remove(em.contains(s) ? s: em.merge(s));
 		
 	}
 
@@ -90,7 +90,7 @@ public class SiteService implements SiteServiceRemote, SiteServiceLocal {
 
 	@Override
 	public void removePays(Pays p) {
-		em.remove(p);
+		em.remove(em.contains(p) ? p : em.merge(p));
 		
 	}
 
@@ -108,7 +108,7 @@ public class SiteService implements SiteServiceRemote, SiteServiceLocal {
 
 	@Override
 	public void removeVille(Ville v) {
-		em.remove(v);
+		em.remove(em.contains(v) ? v : em.merge(v));
 		
 	}
 

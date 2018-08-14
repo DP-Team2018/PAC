@@ -67,6 +67,7 @@ Afficher liste flux
 			<p:column style="width:32px">
            			<p:rowEditor />
        		</p:column>
+       		<p:column><h:commandButton value="delete" action="#{villeBean.removeVille(ville)}"></h:commandButton></p:column>
 		</p:dataTable>
 		<p:contextMenu  widgetVar="cMenu">
 		</p:contextMenu>

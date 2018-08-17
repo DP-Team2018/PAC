@@ -11,7 +11,9 @@
 Ajouter Agent
 
         <h:form id="form">
-				
+				<h:outputText value="Ajouter un site" rendered="#{!siteBean.selection}"></h:outputText>
+				<h:outputText value="Modifier le site de nom: #{siteBean.nom}" rendered="#{siteBean.selection}"></h:outputText>
+				<br />
 				choisir un pays:<h:selectOneMenu value="#{villeBean.paysId}" >
 						<f:selectItems id="heh" value="#{paysBean.getAllPays()}"
 										var="pays"
@@ -27,10 +29,15 @@ Ajouter Agent
 										itemValue="#{ville.id}" />
 										
 				</h:selectOneMenu> 
-
+				<p:commandButton update="form" value="refresh"></p:commandButton>
 
 				Le nom de votre site: <h:inputText id="nomSite" value="#{siteBean.nom}" />
-				<h:commandButton action="#{siteBean.addSite()}" value="valider" style="margin-top:5px" id="submit"/>
+				<h:commandButton action="#{siteBean.addSite()}" value="valider" style="margin-top:5px"  rendered="#{!siteBean.selection}" id="submit"/>
+				
+				<h:commandButton action="#{siteBean.updateSite()}" value="modifier" style="margin-top:5px" rendered="#{siteBean.selection}"/>
+        		<h:commandButton value="Ajouter un site" rendered="#{siteBean.selection}" style="margin-top:5px"><f:ajax render="form"
+				listener="#{siteBean.unSelectSite()}"/></h:commandButton>
+				
         </h:form>
 
 Liste des Sites
@@ -41,26 +48,18 @@ Liste des Sites
 		>
 		<p:ajax event="cellEdit" process="@this" />
 			<p:column headerText="Nom">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{site.nom}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{site.nom}" style="width:96%"/></f:facet>
-				</p:cellEditor>
+				<h:outputText value="#{site.nom}" />
 				
 			</p:column>
 			<p:column headerText="Pays">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{site.ville.pays.nom}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{site.ville.pays.nom}" style="width:96%"/></f:facet>
-				</p:cellEditor>
+				<h:outputText value="#{site.ville.pays.nom}" />
 			</p:column>
 			<p:column headerText="Ville">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{site.ville.nom}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{site.ville.nom}" style="width:96%"/></f:facet>
-				</p:cellEditor>
+				<h:outputText value="#{site.ville.nom}" />
 			</p:column>
-			<p:column style="width:32px">
-           			<p:rowEditor />
+			<p:column >
+           			<h:commandButton value="select to update"><f:ajax render="form"
+						listener="#{siteBean.selectSite(site)}"/> </h:commandButton>
        		</p:column>
        		<p:column><h:commandButton value="delete" action="#{siteBean.removeSite(site)}"></h:commandButton></p:column>
 		</p:dataTable>

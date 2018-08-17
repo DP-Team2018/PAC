@@ -9,7 +9,10 @@
 <h:head></h:head> 
 <h:body> 
 Ajouter Agent
-        <h:form>
+        <h:form id="form">
+        		<h:outputText value="Ajouter un agent" rendered="#{!agentBean.selection}"></h:outputText>
+				<h:outputText value="Modifier l'agent de matircule: #{agentBean.matricule}" rendered="#{agentBean.selection}"></h:outputText>
+				<br />
         		pays: <h:selectOneMenu value="#{villeBean.paysId}" >
 						<f:selectItems id="heh" value="#{paysBean.getAllPays()}"
 										var="pays"
@@ -31,16 +34,19 @@ Ajouter Agent
 										itemLabel="#{site.nom}"
 										itemValue="#{site.id}" />
 				</h:selectOneMenu> 
+				<p:commandButton update="form" value="refresh"></p:commandButton>
 				nom: <h:inputText id="nomAgent" value="#{agentBean.nom}"  />
 				prenom: <h:inputText id="prenomAgent" value="#{agentBean.prenom}"  />
 				matricule: <h:inputText id="matriculeAgent" value="#{agentBean.matricule}"  />
 				
-				 
 				
+				<h:commandButton action="#{agentBean.addAgent()}" value="valider" style="margin-top:5px" rendered="#{!agentBean.selection}"/>
+       			
 				
-				
-				
-				<h:commandButton action="#{agentBean.addAgent()}" value="valider" style="margin-top:5px"/>
+				<h:commandButton action="#{agentBean.updateAgent()}" value="modifier" style="margin-top:5px" rendered="#{agentBean.selection}"/>
+        		<h:commandButton value="Ajouter un agent" rendered="#{agentBean.selection}" style="margin-top:5px"><f:ajax render="form"
+				listener="#{agentBean.unSelectAgent()}"/></h:commandButton>
+       
         </h:form>
 
 Afficher liste flux
@@ -53,24 +59,22 @@ Afficher liste flux
 		
 		
 			<p:column headerText="Nom">
-				<h:inputText label="#{agent.nom}" value="#{agent.nom}"></h:inputText>
+				<h:outputText value="#{agent.nom}"/>
 				
 			</p:column>
 			<p:column headerText="Prenom">
-				<h:inputText label="#{agent.prenom}" value="#{agent.prenom}"></h:inputText>
+				<h:outputText value="#{agent.prenom}"/>
 			</p:column>
 			<p:column headerText="Matricule">
-				<h:inputText label="#{agent.matricule}" value="#{agent.matricule}"></h:inputText>
+				<h:outputText value="#{agent.matricule}"/>
 			</p:column>
 			<p:column headerText="Site">
-				
 					<h:outputText value="Pays:#{agent.site.ville.pays.nom} Ville:#{agent.site.ville.nom} Site:#{agent.site.nom}" />
-					
-				
 			</p:column>
 			
 			<p:column >
-           			<p:column><h:commandButton value="modifier" action="#{agentBean.updateAgent(agent)}"></h:commandButton></p:column>
+           			<h:commandButton value="select to update"><f:ajax render="form"
+						listener="#{agentBean.selectAgent(agent)}"/> </h:commandButton>
        		</p:column>
  
        		<p:column><h:commandButton value="delete" action="#{agentBean.removeAgent(agent)}"></h:commandButton></p:column>

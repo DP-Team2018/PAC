@@ -8,10 +8,15 @@
        >
 <h:head></h:head> 
 <h:body> 
-Ajouter Agent
-        <h:form>
-				nom: <h:inputText id="nomPays" value="#{paysBean.nom}"  />
-				<h:commandButton action="#{paysBean.addPays()}" value="valider" style="margin-top:5px"/>
+<h:form id="form">
+<h:outputText value="Ajouter un pays" rendered="#{!paysBean.selection}"></h:outputText>
+<h:outputText value="Modifier le pays de nom: #{paysBean.nom}" rendered="#{paysBean.selection}"></h:outputText>
+        <br />
+				nom: <h:inputText id="nomPays" label="#{paysBean.nom}" value="#{paysBean.nom}"  />
+				<h:commandButton action="#{paysBean.addPays()}" value="add" rendered="#{!paysBean.selection}" style="margin-top:5px"/>
+				<h:commandButton action="#{paysBean.updatePays()}" value="update" rendered="#{paysBean.selection}" style="margin-top:5px"/>
+				<h:commandButton value="Ajouter un payer" rendered="#{paysBean.selection}" style="margin-top:5px"><f:ajax render="form"
+listener="#{paysBean.unSelectPays()}"/></h:commandButton>
         </h:form>
 
 Afficher liste flux
@@ -22,24 +27,20 @@ Afficher liste flux
 		>
 		<p:ajax event="cellEdit" process="@this" />
 		<p:column headerText="Id">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{pays.id}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{pays.id}" style="width:96%"/></f:facet>
-				</p:cellEditor>
+				<h:outputText value="#{pays.id}"></h:outputText>
 				
 			</p:column>
 			<p:column headerText="Nom">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{pays.nom}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{pays.nom}" style="width:96%"/></f:facet>
-				</p:cellEditor>
+				<h:outputText value="#{pays.nom}"></h:outputText>
 				
 			</p:column>
-			<p:column style="width:32px">
-           			<p:rowEditor />
-       		</p:column>
-			<p:column style="width:32px">
-           			<h:commandButton value="delete" action="#{paysBean.removePays(pays)}"></h:commandButton>
+			
+			<p:column >
+           			<h:commandButton value="select to update"><f:ajax render="form"
+					listener="#{paysBean.selectPays(pays)}"/> </h:commandButton>
+       		</p:column> 
+			<p:column >
+           			<h:commandButton value="delete" action="#{paysBean.removePays(pays)}"/>
        		</p:column>
        		
 		</p:dataTable>

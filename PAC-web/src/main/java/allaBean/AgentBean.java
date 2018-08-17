@@ -43,6 +43,8 @@ public class AgentBean {
 	private List<Agent> agents;
 	private int siteId;
 	private Site site;
+	private Agent selected;
+	private boolean selection;
 
 	
 	public String getNom() {
@@ -110,4 +112,49 @@ public class AgentBean {
 		asl.updateAgent(agent);
 		return a.getNom().concat(" is modified");
 	}
+	public String refrech() {
+		return "refrech";
+	}
+	public Agent getSelected() {
+		return selected;
+	}
+	public void setSelected(Agent selected) {
+		this.selected = selected;
+	}
+	public boolean isSelection() {
+		return selection;
+	}
+	public void setSelection(boolean selection) {
+		this.selection = selection;
+	}
+	public String selectAgent (Agent a) {
+		this.selected=a;
+	    this.nom=a.getNom();
+	    this.site=a.getSite();
+	    this.prenom=a.getPrenom();
+	    this.matricule=a.getMatricule();
+		System.out.println(a.getNom());
+		this.selection=true;
+		return a.getNom().concat(" si selected.");
+	}
+	public String unSelectAgent() {
+		this.selected=new Agent();
+	    this.nom="";
+	    this.site=new Site();
+	    this.prenom="";
+	    this.matricule="";
+	    this.siteId=0;
+		this.selection=false;
+		return "unselection";
+	}
+	public String updateAgent () {
+		site=ssl.getSiteByID(siteId);
+		this.selected.setNom(this.nom);
+		this.selected.setPrenom(prenom);
+		this.selected.setMatricule(matricule);
+		this.selected.setSite(site);
+		asl.updateAgent(this.selected);
+		return "updated";
+	}
+	
 }

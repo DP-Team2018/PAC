@@ -23,6 +23,8 @@ public class VilleBean {
 	private Pays pays;
 	private int paysId;
 	private Ville ville;
+	private Ville selected;
+	private boolean selection;
 
 	public Pays getPays() {
 		return pays;
@@ -76,5 +78,43 @@ public class VilleBean {
 	public String removeVille(Ville v) {
 		ssl.removeVille(v);
 		return v.getNom().concat(" is removed");
+	}
+	public Ville getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Ville selected) {
+		this.selected = selected;
+	}
+
+	public boolean isSelection() {
+		return selection;
+	}
+
+	public void setSelection(boolean selection) {
+		this.selection = selection;
+	}
+	public String selectVille (Ville v) {
+		this.selected=v;
+	    this.nom=v.getNom();
+	    this.pays=v.getPays();
+		System.out.println(v.getNom());
+		this.selection=true;
+		return v.getNom().concat(" si selected.");
+	}
+	public String unSelectVille() {
+		this.selected=new Ville();
+	    this.nom="";
+	    this.pays=new Pays();
+	    this.paysId=0;
+		this.selection=false;
+		return "unselection";
+	}
+	public String updateVille () {
+		pays=ssl.getPaysByID(paysId);
+		this.selected.setNom(this.nom);
+		this.selected.setPays(this.pays);
+		ssl.updateVille(this.selected);
+		return "updated";
 	}
 }

@@ -8,8 +8,11 @@
        >
 <h:head></h:head> 
 <h:body> 
-Ajouter Une Ville
-        <h:form>
+
+        <h:form id="form">
+        		<h:outputText value="Ajouter une ville" rendered="#{!villeBean.selection}"></h:outputText>
+				<h:outputText value="Modifier la ville de nom: #{villeBean.nom}" rendered="#{villeBean.selection}"></h:outputText>
+				<br />
         		Choisir le pays: 
         		<h:selectOneMenu value="#{villeBean.paysId}" >
 						<f:selectItems value="#{paysBean.getAllPays()}"
@@ -19,10 +22,11 @@ Ajouter Une Ville
 				</h:selectOneMenu>
 				nom de ville: <h:inputText id="nomVille" value="#{villeBean.nom}"  />
 	
+				<h:commandButton action="#{villeBean.addVille()}" value="ajouter" style="margin-top:5px" rendered="#{!villeBean.selection}"/>
 				
-				
-				
-				<h:commandButton action="#{villeBean.addVille()}" value="valider" style="margin-top:5px"/>
+				<h:commandButton action="#{villeBean.updateVille()}" value="modifier" style="margin-top:5px" rendered="#{villeBean.selection}"/>
+        		<h:commandButton value="Ajouter un payer" rendered="#{villeBean.selection}" style="margin-top:5px"><f:ajax render="form"
+listener="#{villeBean.unSelectVille()}"/></h:commandButton>
         </h:form>
 
 Afficher les villes
@@ -33,30 +37,21 @@ Afficher les villes
 		>
 		<p:ajax event="cellEdit" process="@this" />
 			<p:column headerText="Id">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{ville.id}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{ville.id}" style="width:96%"/></f:facet>
-				</p:cellEditor>
+				<h:outputText value="#{ville.id}" />
 			</p:column>
 			<p:column headerText="Pays">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{ville.pays.nom}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{ville.pays}" style="width:96%"/></f:facet>
-				</p:cellEditor>
+				<h:outputText value="#{ville.pays.nom}" />
 			</p:column>
 			<p:column headerText="Nom">
-				<p:cellEditor>
-					<f:facet name="output"><h:outputText value="#{ville.nom}" /></f:facet>
-					<f:facet name="input"><p:inputText value="#{ville.nom}" style="width:96%"/></f:facet>
-				</p:cellEditor>
-				
+				<h:outputText value="#{ville.nom}" />
 			</p:column>
 			
 			
 			
-			<p:column style="width:32px">
-           			<p:rowEditor />
-       		</p:column>
+			<p:column >
+           			<h:commandButton value="select to update"><f:ajax render="form"
+						listener="#{villeBean.selectVille(ville)}"/> </h:commandButton>
+       		</p:column> 
        		<p:column><h:commandButton value="delete" action="#{villeBean.removeVille(ville)}"></h:commandButton></p:column>
 		</p:dataTable>
 		<p:contextMenu  widgetVar="cMenu">

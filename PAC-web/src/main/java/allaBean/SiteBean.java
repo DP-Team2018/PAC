@@ -30,8 +30,12 @@ public class SiteBean {
 	SiteService ss;
 	private Site site;
 	private Ville ville;
-	private int VilleId;
+	private int villeId;
 	private String nom;
+	private Site selected;
+	private boolean selection;
+	
+	
 	public Site getSite() {
 		return site;
 	}
@@ -39,16 +43,16 @@ public class SiteBean {
 		this.site = site;
 	}
 	public int getVilleId() {
-		return VilleId;
+		return villeId;
 	}
 	public void setVilleId(int villeId) {
-		VilleId = villeId;
+		this.villeId = villeId;
 	}
 	public List<Site> getAllSites(){
 		return ssl.getAllSites();
 	}
 	public String addSite() {
-		ville = ssl.getVilleById(VilleId);
+		ville = ssl.getVilleById(villeId);
 		site= new Site(nom,ville);
 		ssl.addSite(site);
 		return "done";
@@ -67,4 +71,36 @@ public class SiteBean {
 		ville= ssl.getVilleById(id);
 		return ssl.getSitesByVille(ville);
 	}
+	public boolean isSelection() {
+		return selection;
+	}
+	public void setSelection(boolean selection) {
+		this.selection = selection;
+	}
+	
+	public String selectSite (Site s) {
+		this.selected=s;
+	    this.nom=s.getNom();
+	    this.ville=s.getVille();
+		System.out.println(s.getNom());
+		this.selection=true;
+		return s.getNom().concat(" si selected.");
+	}
+	public String unSelectSite() {
+		this.selected=new Site();
+	    this.nom="";
+	    this.ville=new Ville();
+	    this.villeId=0;
+		this.selection=false;
+		return "unselection";
+	}
+	public String updateSite () {
+		ville=ssl.getVilleById(villeId);
+		this.selected.setNom(this.nom);
+		this.selected.setVille(this.ville);;
+		ssl.updateSite(this.selected);
+		return "updated";
+	}
+	
+	
 }

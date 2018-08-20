@@ -51,4 +51,9 @@ public class MissionService implements MissionServiceRemote, MissionServiceLocal
 		return em.createQuery("select f from Mission f",Mission.class).getResultList();
 	}
 
+	@Override
+	public List<Mission> findListMissionByFlux(Flux flux) {
+		return em.createQuery("select m from Mission m where flux=:flux",Mission.class).setParameter("flux", flux).getResultList();
+	}
+
 }

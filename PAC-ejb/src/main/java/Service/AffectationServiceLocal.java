@@ -13,4 +13,5 @@ public interface AffectationServiceLocal {
 	public void deleteAffectation(Affectation affect);
 	public void updateAffectation(Affectation affect);
 	public List<Affectation> findListAffectation();
+	public Affectation findAffectationById(int ID);
 }

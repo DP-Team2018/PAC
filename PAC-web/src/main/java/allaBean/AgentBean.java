@@ -1,5 +1,7 @@
 package allaBean;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -14,6 +16,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.net.ssl.SSLParameters;
+
+import org.primefaces.event.DragDropEvent;
 
 import java.util.List;
 import Service.AgentService;
@@ -45,7 +49,13 @@ public class AgentBean {
 	private Site site;
 	private Agent selected;
 	private boolean selection;
-
+	
+	
+	private static final long serialVersionUID = 1L;
+	@PostConstruct
+    public void init() {
+        agents = asl.getAllAgent();
+    }
 	
 	public String getNom() {
 		return nom;
@@ -156,5 +166,7 @@ public class AgentBean {
 		asl.updateAgent(this.selected);
 		return "updated";
 	}
+
+	
 	
 }

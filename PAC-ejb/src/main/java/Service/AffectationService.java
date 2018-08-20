@@ -53,4 +53,10 @@ public class AffectationService implements AffectationServiceRemote, Affectation
 		return em.createQuery("select f from Affectation f",Affectation.class).getResultList();
 	}
 
+	@Override
+	public Affectation findAffectationById(int ID) {
+		
+		return em.find(Affectation.class, ID);
+	}
+
 }

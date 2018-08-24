@@ -88,6 +88,7 @@
 				<p:commandButton id="deleteButton" value="Delete"
 					actionListener="#{scheduleView.deleteEvent}"
 					oncomplete="PF('myschedule').update();PF('eventDialog').hide()" />
+				<p:commandButton value="Agents" action="#{scheduleView.selectFlux}"/>
 			</h:panelGrid>
 		</p:dialog>
 	</h:form>

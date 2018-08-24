@@ -48,4 +48,10 @@ public class FluxService implements FluxServiceRemote, FluxServiceLocal {
 		return em.createQuery("select f from Flux f",Flux.class).getResultList();
 	}
 
+	@Override
+	public List<Flux> findListNotAffected() {
+		String req="select f from Flux f where f not in (select DISTINCT a.flux from Affectation a where a.flux=f.id)";
+		return em.createQuery(req,Flux.class).getResultList();
+	}
+
 }

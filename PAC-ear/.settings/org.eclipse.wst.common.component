@@ -2,5 +2,11 @@
     <wb-module deploy-name="PAC-ear">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
+        <dependent-module archiveName="PAC-web.war" deploy-path="/" handle="module:/resource/PAC-web/PAC-web">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="PAC-ejb.jar" deploy-path="/" handle="module:/resource/PAC-ejb/PAC-ejb">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

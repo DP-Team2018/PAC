@@ -1,6 +1,7 @@
 package fediBean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -202,6 +203,11 @@ public class ScheduleView implements Serializable {
 		}
 
 		event = new DefaultScheduleEvent();
+	}
+	
+	public String selectFlux(){
+		flux=findFluxById(idFlux);
+		return "mission.xhtml?faces-redirect=true";
 	}
 	
 	public void deleteEvent(ActionEvent actionEvent){

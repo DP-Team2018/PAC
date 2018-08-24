@@ -2,17 +2,20 @@ package fediBean;
 
 import java.util.Date;
 
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 
+import Service.FluxServiceLocal;
 import Service.MissionServiceLocal;
 import entities.Agent;
 import entities.Flux;
 import entities.Mission;
 
 @SessionScoped
-@ManagedBean
+@ManagedBean(name="MissionBean")
 public class MissionBean {
 
 	private int id;
@@ -22,8 +25,24 @@ public class MissionBean {
 	private Agent agent;
 	private Mission mission;
 	
+	private Date debut;
+	private Date fin;
+
+	@ManagedProperty(value="#{ScheduleView}")
+	private ScheduleView sv;
+	
+
 	@EJB
 	MissionServiceLocal ms;
+	
+	@EJB
+	FluxServiceLocal fs;
+	
+	@PostConstruct
+	public void init() {
+		flux=sv.getFlux();
+		System.out.println(flux.getIntitule());
+	}
 	
 	public MissionBean() {
 		// TODO Auto-generated constructor stub
@@ -72,6 +91,28 @@ public class MissionBean {
 	public void setMission(Mission mission) {
 		this.mission = mission;
 	}
-	
+	public ScheduleView getSv() {
+		return sv;
+	}
+
+	public void setSv(ScheduleView sv) {
+		this.sv = sv;
+	}
+
+	public Date getDebut() {
+		return debut;
+	}
+
+	public void setDebut(Date debut) {
+		this.debut = debut;
+	}
+
+	public Date getFin() {
+		return fin;
+	}
+
+	public void setFin(Date fin) {
+		this.fin = fin;
+	}
 	
 }

@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -26,8 +27,9 @@ public class User implements Serializable {
 	private String role;
 	private String password;
 	private String email;
-	
-	
+	private Date dob;
+	private String sexe;
+	private String remark;
 	
 	public User() {
 		super();
@@ -74,6 +76,30 @@ public class User implements Serializable {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
+	}
+
+	public String getSexe() {
+		return sexe;
+	}
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
    

@@ -8,12 +8,12 @@ import entities.User;
 
 @Remote
 public interface UserServiceRemote {
-	public void addUser(User user);
+	public boolean AddUser(User user);
 	public User authenticate(String email, String password) ;
-	List<User> listUsers();
+	public List<User> findAll();
 	boolean loginExists(String email);
 	public void saveOrUpdate(User user);
 	public User getConnected();
 	public void setConnected(User connected);
-
+	void DeleteUser(User user);
 }

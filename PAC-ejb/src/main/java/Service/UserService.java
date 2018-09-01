@@ -1,5 +1,6 @@
 package Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,15 +23,20 @@ import entities.User;
 @LocalBean
 public class UserService implements UserServiceRemote, UserServiceLocal {
 
+	private List <User> lst=new ArrayList<User>();
+
 	@PersistenceContext
 	private EntityManager em;
+	
+		public UserService(){
+				
+			}
+	
 	List<User> usersRole;
 	private User connected=new User();
-	@Override
-	public void addUser(User user) {
-		
-			em.persist(user);	
-	}
+	
+	
+
 	
 	public User authenticate(String email, String password) {
 		User found = null;
@@ -51,16 +57,8 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 		return found;
 	}
 	
-	@Override
-	public List<User> listUsers() {
-		
-		String jpql = "select u from User u where u.role=:role";
-		TypedQuery<User> query = em.createQuery(jpql, User.class);
-		query.setParameter("role", "Admin");
-		
-		usersRole = query.getResultList();
-		 return	usersRole; 
-	}
+	
+	
 	@Override
 	public boolean loginExists(String email) {
 		boolean exists = false;
@@ -88,6 +86,33 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 	public void setConnected(User connected) {
 		this.connected = connected;
 	}
+
+	@Override
+	public void DeleteUser(User user) {
+		em.remove(em.merge(user));
+
+		
+	}
+
+	
+	
+	@Override
+	public List<User> findAll() {
+		return em.createQuery("select t from User t",User.class ).getResultList();
+	}
+
+	@Override
+	public boolean AddUser(User user) {
+		em.persist(user);
+		return true;
+	}
+
+	
+	
+	
+
+
+
 	
 
 	

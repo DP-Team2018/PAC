@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>G Centers and lib</title>
+            </f:facet>
+            		    <h:outputStylesheet name="/css/default.css" />
+            		    <script src="http://maps.google.com/maps/api/js?key=AIzaSyCrAw3YFSmrl5DzdFyJrAZU3Jnh-632G_w" type="text/javascript"></script>
+         
+        </h:head>
+
+    <h:body>
+    <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    <p:panelGrid columns="2">
+                         Gestion Avancé <br></br>et Localisation  des Centres
+                        <p:clock autoSync="true"/>
+                    </p:panelGrid>
+                </p:layoutUnit>
+
+			<p:layoutUnit position="south"  size="45" style="text-align: center" closable="true" collapsible="true">
+                    <p:outputLabel value="IRMC 2018" /> 
+                    <p:outputLabel value=" : http://www.irmcmaghreb.org"/>
+                      <f:facet name="footer">
+                      </f:facet>
+                </p:layoutUnit>
+
+                <!-- <p:layoutUnit position="west" size="240" header="Menu" collapsible="true">
+                    <p:menu>
+                        <p:submenu label="Menu">
+                            <p:menuitem value="Gestion R.Centers"  outcome="createCenter" icon="fa-home"/>
+                            <p:menuitem value="Map R.Centers" icon="fa-map-marker" outcome="addMap" />
+                            <p:menuitem value="Liste AV desCenters"  outcome="ListeCenter" icon="fa-list-ul"/>
+                            <p:menuitem value="Liste simple R.Centers adm"  outcome="findcenter.jsf" icon="fa-list-ul"/>
+                            <p:menuitem value="Liste simple R.Centers "  outcome="EditCenter.jsf" icon="fa-pencil-square-o"/>
+                            
+                            
+
+                        </p:submenu>
+
+                    </p:menu>
+                </p:layoutUnit>
+ -->
+
+		<p:layoutUnit position="center">
+		<h:form id="form1" styleclass="root">
+		<p:fieldset legend="Add New R.Center ">
+            <p:growl id="messages" showDetail="true"/>
+                <p:panelGrid columns="2">
+ 
+			   
+                         
+                    <h:outputLabel for="nom" value="Name: " icon="fa-group"/>
+                    <p:inputText  value="#{userBean.user.nom}" required="true" requiredMessage="Please type the name"/>   
+                    <h:outputLabel for="prenom" value="Prenom " icon=""/>
+                    <p:inputText  value="#{userBean.user.prenom}"/>
+                    
+                    <h:outputLabel for="email" value="Email: " icon="" />
+                    <p:inputText  value="#{userBean.user.email}" maxlength="4"/>
+                    
+                    
+               
+
+					<h:outputLabel for="dob" value="Date de naissance " icon="fa-calendar"/>
+                    <p:calendar  value="#{userBean.user.dob}"></p:calendar>
+                    
+                    
+		             <p:outputLabel for="role" value="Role " icon="fa-map-marker" />
+        			<p:selectOneMenu id="role" value="#{userBean.user.role}" effect="fold" editable="true" lazy="true">
+				            <f:selectItem itemLabel="Admin" itemValue="Admin" />
+				            <f:selectItem itemLabel="user" itemValue="user" />
+				           
+		            
+                    </p:selectOneMenu>
+                    
+                    
+                       
+                    
+                     <h:outputLabel for="password" value="Password " icon="fa-link" />
+                    <p:inputText  value="#{userBean.user.password}"/>
+                    <h:outputLabel for="Remark" value="Remark " icon="fa-facebook-square" />
+                    <p:inputText  value="#{userBean.user.remark}"/>
+                   
+                   
+                    
+                    <p:outputLabel for="sexe" value="Genre:" icon="fa-lock"/>
+			        <p:selectOneRadio id="sexe" value="#{userBean.user.sexe}">
+			            <f:selectItem itemLabel="Gratuit" itemValue="Homme" />
+			            <f:selectItem itemLabel="Payant" itemValue="femme" />
+			           
+			        </p:selectOneRadio>
+                    
+                    
+          
+      			         
+      			         
+      			  
+                  
+                        <p:commandButton value="Submit" action="#{userBean.Save()}" icon="fa-save" style="display:block;margin-bottom: 20px" update=":f11:displayCenter"/>
+                     
+              	  </p:panelGrid> 
+               </p:fieldset>
+        	</h:form>   
+                       <p:column headerText="operations">
+							
+						</p:column> 
+				<f:view>
+                        <h:form id ="f11">
+                            <p:fieldset legend="Liste des Centres">
+                            
+    <p:dataTable id="displayCenter" var="displayCenter" value="#{userBean.displayUser()}" rowKey="#{displayCenter.idUser}"
+                  selectionMode="single" showEffect="blind" hideEffect="explode" editable="true" editMode="cell" widgetVar="cellCars">
+        <f:facet name="header">
+           cliquez pour voir les informations détaillées
+        </f:facet>
+        <p:column style="width:16px">
+            <p:rowToggler />
+        </p:column>
+        <p:column headerText="Id">
+            <h:outputText value="#{displayCenter.idUser}" />
+        </p:column>
+        <p:column headerText="Nom">
+            <h:outputText value="#{displayCenter.nom}" />
+            </p:column>
+        
+
+
+        <p:column headerText="Email">
+            <h:outputText value="#{displayCenter.email}" />
+        </p:column>
+        
+        
+ 
+        <p:rowExpansion>
+            <p:panelGrid  columns="2" columnClasses="label,value" style="width:300px">
+                <f:facet name="header">
+                    <p:graphicImage value="#{displayCenter.dob}"/> 
+                </f:facet>
+ 
+                
+ 
+                <h:outputText value="Nom" />
+                <h:outputText value="#{displayCenter.nom}" />
+ 
+                <h:outputText value="Email" />
+                <h:outputText value="#{displayCenter.email}"/>
+ 
+                <h:outputText value="Phone" />
+                <h:outputText value="#{displayCenter.remark}" />
+                
+                <h:outputText value="Ville" />
+                <h:outputText value="#{displayCenter.role}" />
+            </p:panelGrid>
+        </p:rowExpansion>
+        
+        
+    </p:dataTable>
+    <p:contextMenu for="displayCenter">
+        <p:menuitem value="Delete" update="displayCenter" icon="ui-icon-close" actionListener="#{userBean.delete()}"/>
+    </p:contextMenu>
+ 
+   
+
+							</p:fieldset>
+						</h:form>
+				</f:view>
+                        
+      
+                                  
+        	
+        	
+        </p:layoutUnit>
+            <p:layoutUnit position="east" size="500" header="Right Panel">  
+        <h:outputText value="Add Map" />
+        
+		      <p:growl id="messages" showDetail="true" />
+ 
+ 
+
+        
+        </p:layoutUnit>
+        
+        </p:layout>
+        
+        
+    </h:body>
+    
+    </f:view>
+    
+</html>

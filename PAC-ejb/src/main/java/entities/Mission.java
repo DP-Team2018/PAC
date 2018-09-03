@@ -20,7 +20,7 @@ public class Mission implements Serializable {
 	private String etat;
 	private Date date_mission;
 	@OneToOne
-	private Flux flux;
+	private Affectation affectation;
 	@OneToOne
 	private Agent agent;
 	
@@ -30,11 +30,11 @@ public class Mission implements Serializable {
 		super();
 	}   
 	
-	public Mission(String etat, Date date_mission, Flux flux, Agent agent) {
+	public Mission(String etat, Date date_mission, Affectation affectation, Agent agent) {
 		super();
 		this.etat = etat;
 		this.date_mission = date_mission;
-		this.flux = flux;
+		this.affectation=affectation;
 		this.agent = agent;
 	}
 
@@ -59,17 +59,19 @@ public class Mission implements Serializable {
 	public void setDate_mission(Date date_mission) {
 		this.date_mission = date_mission;
 	}
-	public Flux getFlux() {
-		return flux;
-	}
-	public void setFlux(Flux flux) {
-		this.flux = flux;
-	}
 	public Agent getAgent() {
 		return agent;
 	}
 	public void setAgent(Agent agent) {
 		this.agent = agent;
+	}
+
+	public Affectation getAffectation() {
+		return affectation;
+	}
+
+	public void setAffectation(Affectation affectation) {
+		this.affectation = affectation;
 	}
    
 }

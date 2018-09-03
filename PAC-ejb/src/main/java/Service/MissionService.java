@@ -1,5 +1,6 @@
 package Service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -7,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import entities.Affectation;
 import entities.Flux;
 import entities.Mission;
 
@@ -55,5 +57,11 @@ public class MissionService implements MissionServiceRemote, MissionServiceLocal
 	public List<Mission> findListMissionByFlux(Flux flux) {
 		return em.createQuery("select m from Mission m where flux=:flux",Mission.class).setParameter("flux", flux).getResultList();
 	}
+
+	@Override
+	public List<Mission> findMissionbyDateAffect(Date date, Affectation affectation) {
+		return em.createQuery("select m from Mission m where m.affectation=:affectation AND m.date_mission=:date",Mission.class).setParameter("affectation", affectation).setParameter("date", date).getResultList();
+	}
+	
 
 }

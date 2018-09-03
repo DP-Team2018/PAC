@@ -1,18 +1,22 @@
 package fediBean;
 
-import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
@@ -21,56 +25,71 @@ import org.primefaces.event.ScheduleEntryResizeEvent;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
-import org.primefaces.model.LazyScheduleModel;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
 import Service.AffectationServiceLocal;
 import Service.FluxServiceLocal;
+import Service.MissionServiceLocal;
 import entities.Affectation;
 import entities.Flux;
+import entities.Mission;
 
-@ManagedBean
-@ViewScoped
-public class ScheduleView implements Serializable {
+@ManagedBean(name = "scheduleView")
+@SessionScoped
+public class ScheduleView {
 
 	private ScheduleModel eventModel;
 
 	private ScheduleEvent event = new DefaultScheduleEvent();
-	
+
 	private ScheduleEvent eventformap;
 
 	private Flux flux;
-	
+
 	private int idFlux;
-	
+
+	private Affectation affectToPass;
+
 	private List<Flux> listFlux;
-	
-	private Map<String,Affectation> map;
+
+	private List<Date> rangeDates;
+
+	private Date selectedDate;
+
+	private String dateString;
+
+	private Mission selectedMission;
+
+	private List<Mission> listMission;
+
+	private Map<String, Affectation> map;
 
 	@EJB
 	private AffectationServiceLocal as;
-	
+
+	@EJB
+	private MissionServiceLocal ms;
+
 	@EJB
 	private FluxServiceLocal fs;
 
 	private List<Affectation> ListAffectation;
 
+	private final String test = "test";
+
 	@PostConstruct
 	public void init() {
-		listFlux=fs.findListFlux();
+		listFlux = fs.findListFlux();
 		eventModel = new DefaultScheduleModel();
-		map=new HashMap<String,Affectation>();
+		map = new HashMap<String, Affectation>();
 		ListAffectation = as.findListAffectation();
+		
 		for (Affectation affectation : ListAffectation) {
-			eventformap=new DefaultScheduleEvent(affectation.getFlux().getIntitule(), affectation.getDate_debut(), affectation.getDate_fin());
+			eventformap = new DefaultScheduleEvent(affectation.getFlux().getIntitule(), affectation.getDate_debut(), affectation.getDate_fin(), "background: red;");
 			eventModel.addEvent(eventformap);
 			map.put(eventformap.getId(), affectation);
-			//eventModel.addEvent(new DefaultScheduleEvent("test", affectation.getDate_debut(), affectation.getDate_fin()));
 		}
-		// eventModel.addEvent(new DefaultScheduleEvent("Champions League
-		// Match", previousDay8Pm(), previousDay11Pm()));
-
 	}
 
 	public Date getRandomDate(Date base) {
@@ -94,83 +113,13 @@ public class ScheduleView implements Serializable {
 		return eventModel;
 	}
 
-
-	private Calendar today() {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), 0, 0, 0);
-
-		return calendar;
-	}
-
-	private Date previousDay8Pm() {
-		Calendar t = (Calendar) today().clone();
-		t.set(Calendar.AM_PM, Calendar.PM);
-		t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
-		t.set(Calendar.HOUR, 8);
-
-		return t.getTime();
-	}
-
-	private Date previousDay11Pm() {
-		Calendar t = (Calendar) today().clone();
-		t.set(Calendar.AM_PM, Calendar.PM);
-		t.set(Calendar.DATE, t.get(Calendar.DATE) - 1);
-		t.set(Calendar.HOUR, 11);
-
-		return t.getTime();
-	}
-
-	private Date today1Pm() {
-		Calendar t = (Calendar) today().clone();
-		t.set(Calendar.AM_PM, Calendar.PM);
-		t.set(Calendar.HOUR, 1);
-
-		return t.getTime();
-	}
-
-	private Date theDayAfter3Pm() {
-		Calendar t = (Calendar) today().clone();
-		t.set(Calendar.DATE, t.get(Calendar.DATE) + 2);
-		t.set(Calendar.AM_PM, Calendar.PM);
-		t.set(Calendar.HOUR, 3);
-
-		return t.getTime();
-	}
-
-	private Date today6Pm() {
-		Calendar t = (Calendar) today().clone();
-		t.set(Calendar.AM_PM, Calendar.PM);
-		t.set(Calendar.HOUR, 6);
-
-		return t.getTime();
-	}
-
-	private Date nextDay9Am() {
-		Calendar t = (Calendar) today().clone();
-		t.set(Calendar.AM_PM, Calendar.AM);
-		t.set(Calendar.DATE, t.get(Calendar.DATE) + 1);
-		t.set(Calendar.HOUR, 9);
-
-		return t.getTime();
-	}
-
-	private Date nextDay11Am() {
-		Calendar t = (Calendar) today().clone();
-		t.set(Calendar.AM_PM, Calendar.AM);
-		t.set(Calendar.DATE, t.get(Calendar.DATE) + 1);
-		t.set(Calendar.HOUR, 11);
-
-		return t.getTime();
-	}
-
-	private Date fourDaysLater3pm() {
-		Calendar t = (Calendar) today().clone();
-		t.set(Calendar.AM_PM, Calendar.PM);
-		t.set(Calendar.DATE, t.get(Calendar.DATE) + 4);
-		t.set(Calendar.HOUR, 3);
-
-		return t.getTime();
-	}
+	/*
+	 * private Calendar today() { Calendar calendar = Calendar.getInstance();
+	 * calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+	 * calendar.get(Calendar.DATE), 0, 0, 0);
+	 * 
+	 * return calendar; }
+	 */
 
 	public ScheduleEvent getEvent() {
 		return event;
@@ -181,47 +130,97 @@ public class ScheduleView implements Serializable {
 	}
 
 	public void addEvent(ActionEvent actionEvent) {
-		flux=findFluxById(idFlux);
+		flux = findFluxById(idFlux);
 		Affectation affect;
+		Mission mission;
 		ScheduleEvent event2;
-		event2=new DefaultScheduleEvent(flux.getIntitule(),event.getStartDate(),event.getEndDate());
+		event2 = new DefaultScheduleEvent(flux.getIntitule(), event.getStartDate(), event.getEndDate(),"background: red;");
 		event2.setId(event.getId());
 		if (event.getId() == null) {
 			eventModel.addEvent(event2);
-			affect = new Affectation(event.getStartDate(), event.getEndDate(),flux);
+			affect = new Affectation(event.getStartDate(), event.getEndDate(), flux);
 			as.addAffectation(affect);
 			map.put(event.getId(), affect);
 		}
 
 		else {
-			int id=map.get(event.getId()).getId();
+			int id = map.get(event.getId()).getId();
 			System.out.println("id :    " + id);
-			affect=new Affectation(id, event2.getStartDate(), event2.getEndDate(), flux);
+			affect = new Affectation(id, event2.getStartDate(), event2.getEndDate(), flux);
 			eventModel.updateEvent(event2);
 			as.updateAffectation(affect);
 			map.put(event.getId(), affect);
 		}
 
+		rangeDates = getDatesBetween(affect.getDate_debut(), affect.getDate_fin());
+		for (Date date : rangeDates) {
+			mission = new Mission("null", date, affect, null);
+			ms.addMission(mission);
+		}
+
 		event = new DefaultScheduleEvent();
 	}
-	
-	public String selectFlux(){
-		flux=findFluxById(idFlux);
-		return "mission.xhtml?faces-redirect=true";
-	}
-	
-	public void deleteEvent(ActionEvent actionEvent){
+
+	public void deleteEvent(ActionEvent actionEvent) {
 		eventModel.deleteEvent(event);
-		Affectation affect=new Affectation();
-		affect=map.get(event.getId());
+		Affectation affect = new Affectation();
+		affect = map.get(event.getId());
 		as.deleteAffectation(affect);
 		map.remove(event.getId());
-		
+
+	}
+
+	public void selectFlux() {
+		affectToPass = map.get(event.getId());
+		rangeDates = getDatesBetween(affectToPass.getDate_debut(), affectToPass.getDate_fin());
+	}
+
+	public static List<Date> getDatesBetween(Date startDate, Date endDate) {
+		List<Date> datesInRange = new ArrayList<>();
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(startDate);
+
+		Calendar endCalendar = new GregorianCalendar();
+		endCalendar.setTime(endDate);
+
+		while (calendar.before(endCalendar)) {
+			Date result = calendar.getTime();
+			datesInRange.add(result);
+			calendar.add(Calendar.DATE, 1);
+		}
+		return datesInRange;
+	}
+
+	public void selectSpecificMission() throws ParseException {
+		System.out.println("date chosen !!!!!");
+		 System.out.println(" affect "+affectToPass.getId());
+		// System.out.println("date string "+dateString);
+		selectedDate = StringDateConverter(dateString);
+		 System.out.println("date selected "+selectedDate.toString());
+		listMission = new ArrayList<Mission>();
+		listMission = ms.findMissionbyDateAffect(selectedDate, affectToPass);
+		for (Mission m : listMission) {
+			System.out.println("mission :  " + m.getAffectation().getId());
+		}
+	}
+
+	public void deleteSelectedMission() {
+		System.out.println("removed mission : " + selectedMission.getId());
+		ms.removeMission(selectedMission);
+		listMission.remove(selectedMission);
+	}
+
+	/*
+	 * Getters and Setters below , plus schedule functions !! !!
+	 */
+	public Date StringDateConverter(String d) throws ParseException {
+		DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
+		Date date = (Date) formatter.parse(d);
+		return date;
 	}
 
 	public void onEventSelect(SelectEvent selectEvent) {
 		event = (ScheduleEvent) selectEvent.getObject();
-		System.out.println(map.containsKey(event.getId()));
 	}
 
 	public void onDateSelect(SelectEvent selectEvent) {
@@ -277,12 +276,65 @@ public class ScheduleView implements Serializable {
 	public void setListFlux(List<Flux> listFlux) {
 		this.listFlux = listFlux;
 	}
-	
-	public Flux findFluxById(int id){
-		for (Flux f :listFlux){
+
+	public Flux findFluxById(int id) {
+		for (Flux f : listFlux) {
 			if (f.getId() == id)
 				return f;
 		}
 		return null;
 	}
+
+	public Affectation getAffectToPass() {
+		return affectToPass;
+	}
+
+	public void setAffectToPass(Affectation affectToPass) {
+		this.affectToPass = affectToPass;
+	}
+
+	public String getTest() {
+		return test;
+	}
+
+	public List<Date> getRangeDates() {
+		return rangeDates;
+	}
+
+	public void setRangeDates(List<Date> rangeDates) {
+		this.rangeDates = rangeDates;
+	}
+
+	public Date getSelectedDate() {
+		return selectedDate;
+	}
+
+	public void setSelectedDate(Date selectedDate) {
+		this.selectedDate = selectedDate;
+	}
+
+	public List<Mission> getListMission() {
+		return listMission;
+	}
+
+	public void setListMission(List<Mission> listMission) {
+		this.listMission = listMission;
+	}
+
+	public String getDateString() {
+		return dateString;
+	}
+
+	public void setDateString(String dateString) {
+		this.dateString = dateString;
+	}
+
+	public Mission getSelectedMission() {
+		return selectedMission;
+	}
+
+	public void setSelectedMission(Mission selectedMission) {
+		this.selectedMission = selectedMission;
+	}
+
 }

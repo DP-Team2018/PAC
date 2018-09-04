@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 public class Prime implements Serializable {
 
-	   
+	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Id
 	private int id;
 	private Date date_prime;

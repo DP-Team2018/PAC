@@ -15,6 +15,9 @@
 .value {
 	width: 1000px;
 }
+.conges .fc-content {
+    background: red;
+}
 </style>
 </h:head>
 <body>
@@ -125,7 +128,7 @@
 			<p:dataTable id="adt" var="a" value="#{scheduleView.listAgent}"
 				selection="#{scheduleView.selectedAgent}" selectionMode="single"
 				editable="true" editMode="row" rowKey="#{a.id}">
-				<f:facet name="header">Agents Disponibles</f:facet>
+				<f:facet name="header"><h:outputText value="#{scheduleView.listAgent.size()}" /> Agents Disponibles</f:facet>
 				<p:column headerText="Nom">
 					<h:outputText value="#{a.nom}" />
 				</p:column>

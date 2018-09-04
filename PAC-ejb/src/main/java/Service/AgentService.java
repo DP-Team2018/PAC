@@ -81,7 +81,9 @@ public class AgentService implements AgentServiceRemote, AgentServiceLocal {
 
 	@Override
 	public List<Agent> findAgentNotAffected(Date date) {
-		return em.createQuery("SELECT a from Agent a where a not in(select distinct m.agent from Mission m where a.id=m.agent and m.date_mission=:date)",Agent.class).setParameter("date", date).getResultList();
+		return em.createQuery("SELECT a from Agent a where a not in(select distinct m.agent from Mission m where a.id=m.agent and m.date_mission=:date)"
+				+ "and a not in (select c from Conges c where :date between c.date_debut and c.date_fin)",Agent.class)
+				.setParameter("date", date).getResultList();
 	}
 
 }

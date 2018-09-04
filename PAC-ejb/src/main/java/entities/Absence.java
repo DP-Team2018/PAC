@@ -12,7 +12,7 @@ import javax.persistence.*;
 
 public class Absence implements Serializable {
 
-	   
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int id;
 	private Date date_absence;

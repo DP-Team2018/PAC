@@ -22,6 +22,8 @@ public class Agent implements Serializable {
 	private String matricule;
 	@ManyToOne
 	private Site site;
+	@ManyToOne
+	private Contrat contrat;
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -37,6 +39,15 @@ public class Agent implements Serializable {
 		this.site=site;
 		
 	} 
+	
+	public Agent(String nom, String prenom, String matricule, Site site, Contrat contrat) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.matricule = matricule;
+		this.site = site;
+		this.contrat = contrat;
+	}
 	public int getId() {
 		return this.id;
 	}
@@ -70,6 +81,12 @@ public class Agent implements Serializable {
 
 	public void setMatricule(String matricule) {
 		this.matricule = matricule;
+	}
+	public Contrat getContrat() {
+		return contrat;
+	}
+	public void setContrat(Contrat contrat) {
+		this.contrat = contrat;
 	}
 	
 	

@@ -13,7 +13,7 @@ import javax.persistence.*;
 
 public class Incident implements Serializable {
 
-	   
+	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	@Id
 	private int id;
 	private Date date_incident;

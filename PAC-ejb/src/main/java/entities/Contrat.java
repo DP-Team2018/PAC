@@ -14,11 +14,10 @@ public class Contrat implements Serializable {
 
 	   
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String type;
 	private double nbr_heure;
-	@OneToOne
-	private Agent agent;
 	private static final long serialVersionUID = 1L;
 
 	public Contrat() {
@@ -44,12 +43,6 @@ public class Contrat implements Serializable {
 
 	public void setNbr_heure(double nbr_heure) {
 		this.nbr_heure = nbr_heure;
-	}
-	public Agent getAgent() {
-		return agent;
-	}
-	public void setAgent(Agent agent) {
-		this.agent = agent;
 	}
    
 }

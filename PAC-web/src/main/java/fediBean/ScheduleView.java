@@ -31,11 +31,13 @@ import org.primefaces.model.ScheduleModel;
 import Service.AffectationServiceLocal;
 import Service.AgentService;
 import Service.AgentServiceLocal;
+import Service.CongesServiceLocal;
 import Service.FluxServiceLocal;
 import Service.MissionServiceLocal;
 import Service.StatistiquesServiceLocal;
 import entities.Affectation;
 import entities.Agent;
+import entities.Conges;
 import entities.Flux;
 import entities.Mission;
 import entities.Statistiques;
@@ -71,6 +73,8 @@ public class ScheduleView {
 	private Agent selectedAgent;
 
 	private List<Mission> listMission;
+	
+	private List<Conges> listConges;
 
 	private Map<String, Affectation> map;
 
@@ -89,6 +93,9 @@ public class ScheduleView {
 	@EJB
 	private StatistiquesServiceLocal ss;
 	
+	@EJB
+	private CongesServiceLocal cgs;
+	
 	private List<Agent> listAgent;
 	
 	private List<Affectation> ListAffectation;
@@ -98,6 +105,7 @@ public class ScheduleView {
 	@PostConstruct
 	public void init() {
 		listFlux = fs.findListFlux();
+		listConges=cgs.findAllConges();
 		listAgent = new ArrayList<Agent>();
 		eventModel = new DefaultScheduleModel();
 		map = new HashMap<String, Affectation>();
@@ -107,6 +115,9 @@ public class ScheduleView {
 			eventformap = new DefaultScheduleEvent(affectation.getFlux().getIntitule(), affectation.getDate_debut(), affectation.getDate_fin(), "background: red;");
 			eventModel.addEvent(eventformap);
 			map.put(eventformap.getId(), affectation);
+		}
+		for (Conges c : listConges) {
+			eventModel.addEvent(new DefaultScheduleEvent(c.getAgent().getNom()+" "+c.getAgent().getPrenom(),c.getDate_debut(),c.getDate_fin(), "conges"));
 		}
 	}
 
@@ -168,12 +179,6 @@ public class ScheduleView {
 			eventModel.updateEvent(event2);
 			as.updateAffectation(affect);
 			map.put(event.getId(), affect);
-		}
-
-		rangeDates = getDatesBetween(affect.getDate_debut(), affect.getDate_fin());
-		for (Date date : rangeDates) {
-			mission = new Mission("null", date, affect, null);
-			ms.addMission(mission);
 		}
 
 		event = new DefaultScheduleEvent();
@@ -258,6 +263,7 @@ public class ScheduleView {
 	/*
 	 * Getters and Setters below , plus schedule functions !! !!
 	 */
+
 	public Date StringDateConverter(String d) throws ParseException {
 		DateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy", Locale.US);
 		Date date = (Date) formatter.parse(d);
@@ -404,6 +410,14 @@ public class ScheduleView {
 
 	public void setStat(Statistiques stat) {
 		this.stat = stat;
+	}
+
+	public List<Conges> getListConges() {
+		return listConges;
+	}
+
+	public void setListConges(List<Conges> listConges) {
+		this.listConges = listConges;
 	}
 
 }

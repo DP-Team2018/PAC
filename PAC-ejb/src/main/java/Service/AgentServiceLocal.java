@@ -1,5 +1,6 @@
 package Service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -17,4 +18,5 @@ public interface AgentServiceLocal {
 	public Agent getAgentById(int id);
 	public void addAgent(Agent a);
 	public void removeAgent(Agent a);
+	public List<Agent> findAgentNotAffected(Date date);
 }

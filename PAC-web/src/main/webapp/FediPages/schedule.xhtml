@@ -95,11 +95,11 @@
 		<p:separator />
 		<br />
 		<h:panelGroup id="missionDT">
-			<p:dataTable id="dt" var="m" value="#{scheduleView.listMission}" selection="#{scheduleView.selectedMission}"
-			selectionMode="single"
-			editable="true" editMode="row" rowKey="#{m.id}">
+			<p:dataTable id="dt" var="m" value="#{scheduleView.listMission}"
+				selection="#{scheduleView.selectedMission}" selectionMode="single"
+				editable="true" editMode="row" rowKey="#{m.id}">
 				<f:facet name="header">
-            <h:outputText value="#{scheduleView.listMission.size()}" /> Agents
+					<h:outputText value="#{scheduleView.listMission.size()}" /> Agents
         </f:facet>
 				<p:column headerText="Id">
 					<h:outputText value="#{m.id}" />
@@ -115,8 +115,33 @@
 				</p:column>
 			</p:dataTable>
 			<p:contextMenu for="dt" widgetVar="cMenu">
-				<p:menuitem value="Delete" update="dt" icon="ui-icon-close"
+				<p:menuitem value="Delete" update="missionDT" icon="ui-icon-close"
 					action="#{scheduleView.deleteSelectedMission()}" />
+			</p:contextMenu>
+		
+		<br /><br />
+		<p:separator></p:separator>
+		<br /><br />
+			<p:dataTable id="adt" var="a" value="#{scheduleView.listAgent}"
+				selection="#{scheduleView.selectedAgent}" selectionMode="single"
+				editable="true" editMode="row" rowKey="#{a.id}">
+				<f:facet name="header">Agents Disponibles</f:facet>
+				<p:column headerText="Nom">
+					<h:outputText value="#{a.nom}" />
+				</p:column>
+				<p:column headerText="Prenom">
+					<h:outputText value="#{a.prenom}" />
+				</p:column>
+				<p:column headerText="Matricule">
+					<h:outputText value="#{a.matricule}" />
+				</p:column>
+				<p:column headerText="Site">
+					<h:outputText value="#{a.site.nom}" />
+				</p:column>
+			</p:dataTable>
+			<p:contextMenu for="adt" widgetVar="acMenu">
+				<p:menuitem value="Affect" update="missionDT" icon="ui-icon-close"
+					action="#{scheduleView.affectAgent()}" />
 			</p:contextMenu>
 		</h:panelGroup>
 	</h:form>

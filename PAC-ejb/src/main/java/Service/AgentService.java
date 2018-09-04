@@ -1,5 +1,6 @@
 package Service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -8,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import entities.Agent;
-import entities.Site;
 
 /**
  * Session Bean implementation class AgentService
@@ -77,6 +77,11 @@ public class AgentService implements AgentServiceRemote, AgentServiceLocal {
 	@Override
 	public void removeAgent(Agent a) {
 		em.remove(em.contains(a) ? a : em.merge(a));
+	}
+
+	@Override
+	public List<Agent> findAgentNotAffected(Date date) {
+		return em.createQuery("SELECT a from Agent a where a not in(select distinct m.agent from Mission m where a.id=m.agent and m.date_mission=:date)",Agent.class).setParameter("date", date).getResultList();
 	}
 
 }

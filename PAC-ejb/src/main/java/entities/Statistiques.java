@@ -13,6 +13,7 @@ public class Statistiques implements Serializable {
 
 	   
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private double heure_travail;
 	private double heure_supp;
@@ -25,6 +26,20 @@ public class Statistiques implements Serializable {
 	public Statistiques() {
 		super();
 	}   
+	
+	
+	
+	public Statistiques(double heure_travail, double heure_supp, double absence, double conges, Agent agent) {
+		super();
+		this.heure_travail = heure_travail;
+		this.heure_supp = heure_supp;
+		this.absence = absence;
+		this.conges = conges;
+		this.agent = agent;
+	}
+
+
+
 	public int getId() {
 		return this.id;
 	}

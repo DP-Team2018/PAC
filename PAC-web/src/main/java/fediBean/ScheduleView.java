@@ -29,11 +29,16 @@ import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
 import Service.AffectationServiceLocal;
+import Service.AgentService;
+import Service.AgentServiceLocal;
 import Service.FluxServiceLocal;
 import Service.MissionServiceLocal;
+import Service.StatistiquesServiceLocal;
 import entities.Affectation;
+import entities.Agent;
 import entities.Flux;
 import entities.Mission;
+import entities.Statistiques;
 
 @ManagedBean(name = "scheduleView")
 @SessionScoped
@@ -60,6 +65,10 @@ public class ScheduleView {
 	private String dateString;
 
 	private Mission selectedMission;
+	
+	private Statistiques stat;
+	
+	private Agent selectedAgent;
 
 	private List<Mission> listMission;
 
@@ -73,7 +82,15 @@ public class ScheduleView {
 
 	@EJB
 	private FluxServiceLocal fs;
+	
+	@EJB
+	private AgentServiceLocal ag;
 
+	@EJB
+	private StatistiquesServiceLocal ss;
+	
+	private List<Agent> listAgent;
+	
 	private List<Affectation> ListAffectation;
 
 	private final String test = "test";
@@ -81,6 +98,7 @@ public class ScheduleView {
 	@PostConstruct
 	public void init() {
 		listFlux = fs.findListFlux();
+		listAgent = new ArrayList<Agent>();
 		eventModel = new DefaultScheduleModel();
 		map = new HashMap<String, Affectation>();
 		ListAffectation = as.findListAffectation();
@@ -192,22 +210,49 @@ public class ScheduleView {
 	}
 
 	public void selectSpecificMission() throws ParseException {
-		System.out.println("date chosen !!!!!");
-		 System.out.println(" affect "+affectToPass.getId());
-		// System.out.println("date string "+dateString);
 		selectedDate = StringDateConverter(dateString);
-		 System.out.println("date selected "+selectedDate.toString());
 		listMission = new ArrayList<Mission>();
 		listMission = ms.findMissionbyDateAffect(selectedDate, affectToPass);
 		for (Mission m : listMission) {
 			System.out.println("mission :  " + m.getAffectation().getId());
 		}
+		listAgent=ag.findAgentNotAffected(selectedDate);
 	}
 
 	public void deleteSelectedMission() {
 		System.out.println("removed mission : " + selectedMission.getId());
 		ms.removeMission(selectedMission);
 		listMission.remove(selectedMission);
+		//createOrupdateStat(selectedAgent, test);
+		listAgent=ag.findAgentNotAffected(selectedDate);
+	}
+	
+	public void affectAgent(){
+		Mission miss=new Mission("actif",selectedDate,affectToPass,selectedAgent);
+		ms.addMission(miss);
+		listAgent.remove(selectedAgent);
+		//createOrupdateStat(selectedAgent,true);
+		listMission=ms.findMissionbyDateAffect(selectedDate, affectToPass);
+	}
+	
+	public void createOrupdateStat(Agent agent,Boolean test){
+		stat=ss.findStat(agent);
+		if (test){
+		if(stat!=null){
+			stat.setHeure_travail(stat.getHeure_travail()+8);
+			ss.updateStat(stat);
+		}
+		else {
+			stat=new Statistiques(8,0,0,0,agent);
+			ss.addStat(stat);
+		}
+		}
+		if (!test){
+			if(stat!=null){
+				stat.setHeure_travail(stat.getHeure_travail()-8);
+				ss.updateStat(stat);
+			}
+		}
 	}
 
 	/*
@@ -335,6 +380,30 @@ public class ScheduleView {
 
 	public void setSelectedMission(Mission selectedMission) {
 		this.selectedMission = selectedMission;
+	}
+
+	public List<Agent> getListAgent() {
+		return listAgent;
+	}
+
+	public void setListAgent(List<Agent> listAgent) {
+		this.listAgent = listAgent;
+	}
+
+	public Agent getSelectedAgent() {
+		return selectedAgent;
+	}
+
+	public void setSelectedAgent(Agent selectedAgent) {
+		this.selectedAgent = selectedAgent;
+	}
+
+	public Statistiques getStat() {
+		return stat;
+	}
+
+	public void setStat(Statistiques stat) {
+		this.stat = stat;
 	}
 
 }

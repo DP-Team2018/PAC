@@ -1,5 +1,6 @@
 package Service;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -15,4 +16,5 @@ public interface AgentServiceRemote {
 	public Agent getAgentByMat(String matricule);
 	public Agent getAgentById(int id);
 	public void addAgent(Agent a);
+	public List<Agent> findAgentNotAffected(Date date);
 }

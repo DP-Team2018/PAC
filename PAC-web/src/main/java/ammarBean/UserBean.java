@@ -2,10 +2,8 @@ package ammarBean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
@@ -14,6 +12,7 @@ import javax.faces.context.FacesContext;
 
 import Service.UserServiceLocal;
 import entities.User;
+import org.primefaces.PrimeFaces;
 
 @ManagedBean
 @ApplicationScoped
@@ -25,9 +24,8 @@ public class UserBean implements Serializable {
 	private String role;
 	private String password;
 	private String email;
-	private Date dob;
-	private String sexe;
-	private String remark;
+	private String login;
+	
 	/**
 	 * 
 	 */
@@ -35,7 +33,11 @@ public class UserBean implements Serializable {
 	
 	
 	
-   
+	private List<User> users;
+    
+    private List<User> filteredUser;
+     
+    private User selectedUser;
     
     
 	@EJB
@@ -53,7 +55,7 @@ public class UserBean implements Serializable {
 	
 	
 	
-	public List<User> displayUser(){
+	public List<User> displayCenter(){
 		return list = userService.findAll();
 	}
 
@@ -106,7 +108,8 @@ public class UserBean implements Serializable {
 
 	public String Save(){
 		userService.AddUser(user);
-		return "users?faces-redirect=true";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Data Saved"));
+		return "/users?faces-redirect=true";
 	}
 	
 	public String delete(User user){
@@ -122,7 +125,7 @@ public class UserBean implements Serializable {
 	public String doLogin() {
 		 
 		String navTo = "";
-		User found = userService.authenticate(user.getEmail(), user.getPassword());
+		User found = userService.authenticate(user.getNom(), user.getPassword());
 		if (i < 3) {
 
 			if (found != null) {
@@ -131,30 +134,26 @@ public class UserBean implements Serializable {
 				
 				setIsLogged(true);
 				
-				// redirect to admin
-				if (user.getRole().equals("Admin")) {
-					navTo = "/PagesAdmin/index?faces-redirect=true";
-					// redirect to profile user
-				}
-				if (!user.getRole().equals("Admin")) {
-					navTo = "/Pages/index?faces-redirect=true";
+				
+				if (!user.getRole().equals("User")) {
+					navTo = "/users?faces-redirect=true";
 				}
 
 			} else {
-				i++;
-				FacesContext.getCurrentInstance().addMessage("login_form:login_submit",
-						new FacesMessage("Wrong Username or Password"));
+				
 			}
 		} else {
 			FacesContext.getCurrentInstance().addMessage("login_form:login_submit",
 					new FacesMessage("3 times wrong informations, access blocked for security reasons"));
 		}
 
-		return navTo;
+		return null;
 	}
 	
 	
-	
+	public void reset() {
+        PrimeFaces.current().resetInputs("form1:panel");
+    }
 	
 	
 	
@@ -172,7 +171,7 @@ public class UserBean implements Serializable {
 	public Boolean getIsLogged() {
 		return isLogged;
 	}
-//
+
 	public void setIsLogged(Boolean isLogged) {
 		this.isLogged = isLogged;
 	}
@@ -238,44 +237,52 @@ public class UserBean implements Serializable {
 	}
 
 
-	public Date getDob() {
-		return dob;
-	}
 
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
-
-	public String getSexe() {
-		return sexe;
-	}
-
-
-	public void setSexe(String sexe) {
-		this.sexe = sexe;
-	}
-
-
-	public String getRemark() {
-		return remark;
-	}
-
-
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public List<User> getUsers() {
+		return users;
 	}
 
 
 
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 
 
 
+	public List<User> getFilteredUser() {
+		return filteredUser;
+	}
 
-	
-	
-	
+
+
+	public void setFilteredUser(List<User> filteredUser) {
+		this.filteredUser = filteredUser;
+	}
+
+
+
+	public User getSelectedUser() {
+		return selectedUser;
+	}
+
+
+
+	public void setSelectedUser(User selectedUser) {
+		this.selectedUser = selectedUser;
+	}
+
+
+
+	public String getLogin() {
+		return login;
+	}
+
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
 	
 }

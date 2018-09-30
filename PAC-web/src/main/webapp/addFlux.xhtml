@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      
+       >
+<h:head></h:head> 
+<h:body> 
+ <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    <p:panelGrid columns="2">
+                         CAPTB<br></br>
+                        <p:clock autoSync="true"/>
+                    </p:panelGrid>
+                </p:layoutUnit>
+
+			<p:layoutUnit position="south"  size="45" style="text-align: center" closable="true" collapsible="true">
+                    <p:outputLabel value="CAPTB 2018" /> 
+  
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="240" header="Menu" collapsible="true">
+                 <h:form>
+                 
+                    
+                    <p:menu>
+                    <p:submenu icon="fa fa-home">
+                    	<p:menuitem value="Accueil" outcome="Home" icon="fa-home"></p:menuitem>
+                    
+                    </p:submenu>
+                    <p:submenu label="Users">
+                    	<p:menuitem value="Ajout users" outcome="users" icon="fa-home"></p:menuitem>
+                      	<p:menuitem value="Consulter users" outcome="afficheUsers" icon="fa-home"></p:menuitem>
+                    
+                    </p:submenu>
+                    
+                    <p:submenu label="Agents">
+                    	<p:menuitem value="Ajout Agents" outcome="staff" icon="fa-home"></p:menuitem>
+                      	<p:menuitem value="Consulter Agents" outcome="afficheAgent" icon="fa-home"></p:menuitem>
+                    
+                    </p:submenu>
+                    <p:submenu label="Gestion des Flux">
+                    	<p:menuitem value="Affectation" outcome="addaffectation" icon="fa-home"></p:menuitem>
+                      	<p:menuitem value="Flux" outcome="addFlux" icon="fa-home"></p:menuitem>
+                    	<p:menuitem value="Prévu" outcome="schedule" icon="fa-home"></p:menuitem>
+                    </p:submenu>
+                    </p:menu>
+                    </h:form>
+                </p:layoutUnit>
+
+
+		<p:layoutUnit position="center">
+		
+ <f:view>
+Ajouter Flux aa
+        <h:form>
+				<h:inputText id="intitflux" value="#{fluxBean.intitule}"  />
+				<h:inputText id="chflux" value="#{fluxBean.charge_horaire}"  />
+				<h:commandButton action="#{fluxBean.addFluxBean()}" value="valider" style="margin-top:5px"/>
+        </h:form>
+
+Afficher liste flux
+<h:form>
+		<p:dataTable id="fluxID" var="j" value="#{fluxBean.listFlux}"
+		editable="true" editMode="cell" widgetVar="flux"
+		selection="#{fluxBean.flux}" selectionMode="single" rowKey="#{j.id}"
+		>
+		<p:ajax event="cellEdit" process="@this" listener="#{fluxBean.onEditLabel}" update="fluxID" />
+			<p:column headerText="Intitule">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{j.intitule}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{j.intitule}" style="width:96%"/></f:facet>
+				</p:cellEditor>
+				
+			</p:column>
+			<p:column headerText="Charge">
+				<p:cellEditor>
+					<f:facet name="output"><h:outputText value="#{j.charge_horaire}" /></f:facet>
+					<f:facet name="input"><p:inputText value="#{j.charge_horaire}" style="width:96%"/></f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column style="width:32px">
+           			<p:rowEditor />
+       		</p:column>
+		</p:dataTable>
+		<p:contextMenu for="fluxID" widgetVar="cMenu">
+		<p:menuitem value="Delete" update="fluxID" icon="ui-icon-close" action="#{fluxBean.deleteFluxBean()}"/>
+		</p:contextMenu>
+</h:form>
+</f:view>
+</p:layoutUnit>
+</p:layout>
+
+</h:body> 
+</html>

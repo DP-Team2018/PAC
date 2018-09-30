@@ -38,11 +38,11 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 	
 
 	
-	public User authenticate(String email, String password) {
+	public User authenticate(String nom, String password) {
 		User found = null;
-		String jpql = "select u from User u where u.email=:email and u.password=:password";
+		String jpql = "select u from user u where u.nom=:nom and u.password=:password";
 		TypedQuery<User> query = em.createQuery(jpql, User.class);
-		query.setParameter("email", email);
+		query.setParameter("nom", nom);
 		query.setParameter("password", password);
 		try {
 			found = query.getSingleResult();
@@ -51,7 +51,7 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 		} catch (Exception ex) {
 			Logger.getLogger(UserService.class.getName()).log(
 					Level.WARNING,
-					"authentication attempt failure with login=" + email
+					"authentication attempt failure with nom=" + nom
 							+ " and password=" + password);
 		}
 		return found;
@@ -60,16 +60,16 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 	
 	
 	@Override
-	public boolean loginExists(String email) {
+	public boolean loginExists(String nom) {
 		boolean exists = false;
-		String jpql = "select case when (count(u) > 0)  then true else false end from User u where u.email=:email";
+		String jpql = "select case when (count(u) > 0)  then true else false end from User u where u.nom=:nom";
 		TypedQuery<Boolean> query = em.createQuery(jpql, Boolean.class);
-		query.setParameter("email", email);
+		query.setParameter("nom", nom);
 		try {
 			exists = query.getSingleResult();
 		} catch (NoResultException e) {
 			Logger.getLogger(UserService.class.getName()).log(
-					Level.WARNING, "no user registred with login=" + email);
+					Level.WARNING, "no user registred with nom=" + nom);
 		}
 		return exists;
 	}

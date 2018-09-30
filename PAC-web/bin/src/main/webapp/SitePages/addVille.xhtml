@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      
+       >
+<h:head></h:head> 
+<h:body> 
+
+        <h:form id="form">
+        		<h:outputText value="Ajouter une ville" rendered="#{!villeBean.selection}"></h:outputText>
+				<h:outputText value="Modifier la ville de nom: #{villeBean.nom}" rendered="#{villeBean.selection}"></h:outputText>
+				<br />
+        		Choisir le pays: 
+        		<h:selectOneMenu value="#{villeBean.paysId}" >
+						<f:selectItems value="#{paysBean.getAllPays()}"
+										var="pays"
+										itemLabel="#{pays.nom}"
+										itemValue="#{pays.id}" />
+				</h:selectOneMenu>
+				nom de ville: <h:inputText id="nomVille" value="#{villeBean.nom}"  />
+	
+				<h:commandButton action="#{villeBean.addVille()}" value="ajouter" style="margin-top:5px" rendered="#{!villeBean.selection}"/>
+				
+				<h:commandButton action="#{villeBean.updateVille()}" value="modifier" style="margin-top:5px" rendered="#{villeBean.selection}"/>
+        		<h:commandButton value="Ajouter un payer" rendered="#{villeBean.selection}" style="margin-top:5px"><f:ajax render="form"
+listener="#{villeBean.unSelectVille()}"/></h:commandButton>
+        </h:form>
+
+Afficher les villes
+<h:form>
+		<p:dataTable id="villeID" var="ville" value="#{villeBean.getAllVilles()}"
+		editable="true" editMode="cell" widgetVar="ville"
+		selection="#{villeBean.ville}" selectionMode="single" rowKey="#{ville.id}"
+		>
+		<p:ajax event="cellEdit" process="@this" />
+			<p:column headerText="Id">
+				<h:outputText value="#{ville.id}" />
+			</p:column>
+			<p:column headerText="Pays">
+				<h:outputText value="#{ville.pays.nom}" />
+			</p:column>
+			<p:column headerText="Nom">
+				<h:outputText value="#{ville.nom}" />
+			</p:column>
+			
+			
+			
+			<p:column >
+           			<h:commandButton value="select to update"><f:ajax render="form"
+						listener="#{villeBean.selectVille(ville)}"/> </h:commandButton>
+       		</p:column> 
+       		<p:column><h:commandButton value="delete" action="#{villeBean.removeVille(ville)}"></h:commandButton></p:column>
+		</p:dataTable>
+		<p:contextMenu  widgetVar="cMenu">
+		</p:contextMenu>
+</h:form>
+</h:body> 
+</html>

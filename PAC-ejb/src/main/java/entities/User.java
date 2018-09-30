@@ -19,6 +19,10 @@ public class User implements Serializable {
 	
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int idUser;
@@ -30,16 +34,17 @@ public class User implements Serializable {
 	private Date dob;
 	private String sexe;
 	private String remark;
+	private String login;
 	
 	public User() {
 		super();
 		
 	}
 	
-	public User(String password, String email) {
+	public User(String nom, String password) {
 		super();
+		this.nom = nom;
 		this.password = password;
-		this.email = email;
 	}
 	public int getIdUser() {
 		return idUser;
@@ -101,6 +106,16 @@ public class User implements Serializable {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	
 
    
 }

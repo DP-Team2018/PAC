@@ -8,6 +8,19 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.jsf</url-pattern>
+    <url-pattern>/faces/*</url-pattern>
   </servlet-mapping>
+  <context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>redmond </param-value>
+	</context-param>
+	<filter>  
+<filter-name>sec</filter-name>  
+<filter-class>ammarBean.Myfilter</filter-class>  
+</filter>  
+   
+<filter-mapping>  
+<filter-name>sec</filter-name>  
+<url-pattern>/*</url-pattern>  
+</filter-mapping> 
 </web-app>

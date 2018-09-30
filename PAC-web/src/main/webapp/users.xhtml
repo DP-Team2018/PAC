@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Users</title>
+            </f:facet>
+            		    <h:outputStylesheet name="/css/default.css" />
+            		    <script src="http://maps.google.com/maps/api/js?key=AIzaSyCrAw3YFSmrl5DzdFyJrAZU3Jnh-632G_w" type="text/javascript"></script>
+         
+        </h:head>
+    <h:outputStylesheet library="css" name="responsiveMenu.css" />
+	
+    <h:body>
+    <p:layout fullPage="true">
+
+       <p:layoutUnit position="north" size="100" resizable="true" closable="false" collapsible="false">
+			<p:panelGrid columns="3" layout="grid" >
+   				 <f:facet name="header">
+        
+			        <p:row>
+			            <p:column colspan="2">
+			                   <img src="../ressources/img/logo.png" width="100" height="60" alt="header"/>
+			            </p:column>	    
+			        </p:row>
+					</f:facet>
+			</p:panelGrid>
+      </p:layoutUnit>
+      <p:layoutUnit position="east" size="200" resizeWhileDragging="true">
+           <f:facet name="header" >
+              <h:panelGroup rendered="#{not empty user}">
+				    <Strong>Bienvenue, #{user}</Strong>
+				    <h:form>
+				        <p:commandButton value="logout" action="#{login.logout}" icon="ui-icon-extlink" />
+				    </h:form>
+				</h:panelGroup>
+              </f:facet>
+       </p:layoutUnit>
+
+			<p:layoutUnit position="south"  size="45" style="text-align: center" closable="true" collapsible="true">
+                      <f:facet name="footer">
+                      </f:facet>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="240" header="Menu" collapsible="false">
+                 <h:form>
+                 
+                    
+                    <p:menu>
+                    <p:submenu icon="fa fa-home">
+                    	<p:menuitem value="Accueil" outcome="Home" icon="fa-home"></p:menuitem>
+                    
+                    </p:submenu>
+                    <p:submenu label="Users">
+                    	<p:menuitem value="Ajout users" outcome="users" icon="fa-home"></p:menuitem>
+                      	<p:menuitem value="Consulter users" outcome="afficheUsers" icon="fa-home"></p:menuitem>
+                    
+                    </p:submenu>
+                    
+                    <p:submenu label="Agents">
+                    	<p:menuitem value="Ajout Agents" outcome="staff" icon="fa-home"></p:menuitem>
+                      	<p:menuitem value="Consulter Agents" outcome="afficheAgent" icon="fa-home"></p:menuitem>
+                    
+                    </p:submenu>
+                    <p:submenu label="Gestion des Flux">
+                    	<p:menuitem value="Affectation" outcome="addaffectation" icon="fa-home"></p:menuitem>
+                      	<p:menuitem value="Flux" outcome="addFlux" icon="fa-home"></p:menuitem>
+                    	<p:menuitem value="Prévu" outcome="schedule" icon="fa-home"></p:menuitem>
+                    </p:submenu>
+                    </p:menu>
+                    </h:form>
+                </p:layoutUnit>
+
+
+		<p:layoutUnit position="center">
+		<h:form id="form1" styleclass="root">
+		<p:fieldset legend="Ajouter Utilisateur">
+            <p:growl id="messages" showDetail="true"/>
+                <p:panelGrid columns="2" id="panel">
+ 
+			   
+                         
+                    <h:outputLabel for="nom" value="Nom: " icon="fa-group"/>
+                    <p:inputText  value="#{userBean.user.nom}" required="true" requiredMessage="Please type the name"/>   
+                    <h:outputLabel for="prenom" value="Prenom " icon=""/>
+                    <p:inputText  value="#{userBean.user.prenom}"/>
+                    
+                  
+
+					
+		             <p:outputLabel for="role" value="Role " icon="fa-map-marker" />
+        			<p:selectOneMenu id="role" value="#{userBean.user.role}" effect="fold" editable="true" lazy="true">
+				            <f:selectItem itemLabel="Admin" itemValue="Admin" />
+				            <f:selectItem itemLabel="user" itemValue="user" />
+				           
+		            
+                    </p:selectOneMenu>
+                    
+     
+                   
+                    <h:outputLabel for="Login" value="Login " icon="fa-facebook-square" />
+                    <p:inputText  value="#{userBean.user.login}"/>
+                   
+                   
+                    <h:outputLabel for="password" value="Password " icon="fa-link" />
+                    <p:inputText  value="#{userBean.user.password}"/>
+                    
+                    
+                    
+          
+      			         
+      			         
+      			  
+                  
+                        <p:commandButton value="Submit" action="#{userBean.Save()}" icon="fa-save" style="display:block;margin-bottom: 20px"/>
+                       <p:spacer></p:spacer>
+                        <p:commandButton value="Reset Code" update="panel" process="@this" actionListener="#{userBean.reset}"  style="margin-right:20px;" />
+                     
+              	  </p:panelGrid> 
+               </p:fieldset>
+        	</h:form>   
+                       <p:column headerText="operations">
+							
+						</p:column> 
+				
+                        
+      
+                                  
+        	
+        	
+        </p:layoutUnit>
+            
+        
+        </p:layout>
+        
+        
+    </h:body>
+    
+    </f:view>
+    
+</html>

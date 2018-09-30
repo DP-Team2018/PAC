@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Users</title>
+            </f:facet>
+</h:head>
+ <h:body>
+ 
+ <p:layout fullPage="true">
+
+           <p:layoutUnit position="north" size="100" resizable="true" closable="false" collapsible="false">
+			<p:panelGrid columns="3" layout="grid" >
+   				 <f:facet name="header">
+        
+			        <p:row>
+			            <p:column colspan="2">
+			                   <img src="../ressources/img/logo.png" width="100" height="60" alt="header"/>
+			            </p:column>	    
+			        </p:row>
+					</f:facet>
+			</p:panelGrid>
+      </p:layoutUnit>
+      <p:layoutUnit position="east" size="200" resizeWhileDragging="true">
+           <f:facet name="header" >
+              <h:panelGroup rendered="#{not empty user}">
+				    <Strong>Bienvenue, #{user}</Strong>
+				    <h:form>
+				        <p:commandButton value="logout" action="#{login.logout}" icon="ui-icon-extlink" />
+				    </h:form>
+				</h:panelGroup>
+              </f:facet>
+       </p:layoutUnit>
+
+			<p:layoutUnit position="south"  size="45" style="text-align: center" closable="true" collapsible="true">
+                    <p:outputLabel value="CAPTB 2018" /> 
+  
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="240" header="Menu" collapsible="true">
+                 <h:form>
+                 
+                    
+                    <p:menu>
+                    <p:submenu icon="fa fa-home">
+                    	<p:menuitem value="Accueil" outcome="Home" icon="fa-home"></p:menuitem>
+                    
+                    </p:submenu>
+                    <p:submenu label="Users">
+                    	<p:menuitem value="Ajout users" outcome="users" icon="fa-home"></p:menuitem>
+                      	<p:menuitem value="Consulter users" outcome="afficheUsers" icon="fa-home"></p:menuitem>
+                    
+                    </p:submenu>
+                    
+                    <p:submenu label="Agents">
+                    	<p:menuitem value="Ajout Agents" outcome="staff" icon="fa-home"></p:menuitem>
+                      	<p:menuitem value="Consulter Agents" outcome="afficheAgent" icon="fa-home"></p:menuitem>
+                    
+                    </p:submenu>
+                    <p:submenu label="Gestion des Flux">
+                    	<p:menuitem value="Affectation" outcome="addaffectation" icon="fa-home"></p:menuitem>
+                      	<p:menuitem value="Flux" outcome="addFlux" icon="fa-home"></p:menuitem>
+                    	<p:menuitem value="Prévu" outcome="schedule" icon="fa-home"></p:menuitem>
+                    </p:submenu>
+                    </p:menu>
+                    </h:form>
+                </p:layoutUnit>
+
+
+		<p:layoutUnit position="center">
+		
+ <f:view>
+<h:form id="form">
+	
+
+    
+ 
+ 
+    <p:chart type="pie" model="#{statBean.pieModel1}" style="width:400px;height:300px" />
+             
+</h:form>
+</f:view>
+</p:layoutUnit>
+</p:layout>
+
+ </h:body>
+ </f:view>
+</html>

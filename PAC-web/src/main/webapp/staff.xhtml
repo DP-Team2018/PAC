@@ -82,27 +82,27 @@
                 <p:panelGrid columns="2" id="panel2">
  
 			   		<h:outputLabel for="matricule" value="Matricule " icon=""/>
-                    <p:inputText  value="#{staffBean.staff.matricule}"/>
+                    <p:inputText  value="#{staffBean.agent.matricule}"/>
                          
                     <h:outputLabel for="nom" value="Nom: " icon="fa-group"/>
-                    <p:inputText  value="#{staffBean.staff.nom}" required="true" requiredMessage="Please type the name"/>   
+                    <p:inputText  value="#{staffBean.agent.nom}" required="true" requiredMessage="Please type the name"/>   
                     <h:outputLabel for="prenom" value="Prenom " icon=""/>
-                    <p:inputText  value="#{staffBean.staff.prenom}"/>
+                    <p:inputText  value="#{staffBean.agent.prenom}"/>
            
 					
-        			<p:outputLabel for="typeContrat" value="type Contrat: " />
-        <p:selectOneMenu id="typeContrat" value="#{staffBean.staff.typeContrat}" effect="fold" editable="true">
+        			<p:outputLabel for="contrat" value="contrat: " />
+        <p:selectOneMenu id="contrat" value="#{staffBean.agent.contrat}" effect="fold" editable="true">
             
             <f:selectItem itemLabel="CDD" itemValue="CDD" />
             <f:selectItem itemLabel="CDI" itemValue="CDI" />
-            <f:selectItems value="#{staffBean.staff.typeContrat}" />
+            <f:selectItems value="#{staffBean.agent.contrat}" />
         </p:selectOneMenu>
                     
      
                    
                <h3>Nombre d'Heures</h3>
 			    <h:panelGrid columns="1" style="margin-bottom: 10px">
-			        <p:inputText id="nbreHeure" value="#{staffBean.staff.nbreHeure}" />
+			        <p:inputText id="nbreHeure" value="#{staffBean.agent.nbreHeure}" />
 			        <p:slider for="nbreHeure" step="1" maxValue="200" />
 			    </h:panelGrid>
                     
@@ -111,10 +111,11 @@
       			         
       			            <p:growl id="growl" life="2000" />
      
-     			  
-                  
-                        <p:commandButton value="Submit" action="#{staffBean.Save()}" icon="fa-save" style="display:block;margin-bottom: 20px"/>
-                       <p:spacer></p:spacer>
+     			   
+     
+    					<p:commandButton value="Insérer" id="ajax" update="growl" actionListener="#{staffBean.Save()}" styleClass="ui-priority-primary" />
+ 
+                                         <p:spacer></p:spacer>
                         <p:commandButton value="Vider" update="panel2" process="@this" actionListener="#{staffBean.reset()}"  style="margin-right:20px;" />
                      
               	  </p:panelGrid> 

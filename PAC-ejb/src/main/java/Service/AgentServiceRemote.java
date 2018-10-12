@@ -17,4 +17,8 @@ public interface AgentServiceRemote {
 	public Agent getAgentById(int id);
 	public void addAgent(Agent a);
 	public List<Agent> findAgentNotAffected(Date date);
+	public boolean AddAgent(Agent agent);
+	public List<Agent> findAll();
+	public void saveOrUpdate(Agent agent);
+	void DeleteAgent(Agent agent);
 }

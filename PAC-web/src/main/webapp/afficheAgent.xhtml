@@ -9,7 +9,7 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Agents</title>
+                <title>Users</title>
             </f:facet>
 </h:head>
  <h:body>
@@ -33,7 +33,7 @@
               <h:panelGroup rendered="#{not empty user}">
 				    <Strong>Bienvenue, #{user}</Strong>
 				    <h:form>
-				        <p:commandButton value="logout" action="#{login.logout}" icon="ui-icon-extlink" />
+				        <p:commandButton value="logout" action="#{userBean.logout}" icon="ui-icon-extlink" />
 				    </h:form>
 				</h:panelGroup>
               </f:facet>
@@ -79,13 +79,13 @@
     <h:form id="f1">  
      
         
-        <p:dataTable value="#{staffBean.displayStaff()}" var="displayStaff" id="displayStaff" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                paginator="true" rows="10" styleClass="root" editable="true" style="margin-bottom:20px" widgetVar="centersTable" selection="#{staffBean.selectedStaff}" rowKey="#{displayStaff.idStaff}" 
+        <p:dataTable value="#{staffBean.displayStaff()}" var="displayCenter" id="displayCenter" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                paginator="true" rows="10" styleClass="root" editable="true" style="margin-bottom:20px" widgetVar="centersTable" selection="#{staffBean.selectedStaff}" rowKey="#{displayCenter.id}" 
                 emptyMessage="Aucun utilisateur trouvé avec des critères donnés" filteredValue="#{staffBean.filteredStaff}" selectionMode="single" showEffect="blind" hideEffect="explode" scrollable="true" >
                <f:facet name="header">
-        Liste des Agents  
+        Liste d'Utilisateurs 
 		<p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
-        <p:columnToggler datasource="displayStaff" trigger="toggler" />
+        <p:columnToggler datasource="displayCenter" trigger="toggler" />
 			</f:facet>
  		<f:facet name="header">
             <p:outputPanel>
@@ -98,83 +98,83 @@
                 <f:facet name="{Exporters}">
             <h:commandLink>
                 <p:graphicImage value="/ressources/icons/excel.png" width="30"/>
-                <p:dataExporter type="xls" target="displayStaff" fileName="displayStaff" />
+                <p:dataExporter type="xls" target="displayCenter" fileName="displayCenter" />
             </h:commandLink>
  
             <h:commandLink>
                 <p:graphicImage value="/ressources/icons/pdf.png" width="30"/>
-                <p:dataExporter type="pdf" target="displayStaff" fileName="displayStaff"/>
+                <p:dataExporter type="pdf" target="displayCenter" fileName="displayCenter"/>
             </h:commandLink>
  
             <h:commandLink>
                 <p:graphicImage value="/ressources/icons/csv.png" width="30"/>
-                <p:dataExporter type="csv" target="displayStaff" fileName="displayStaff" />
+                <p:dataExporter type="csv" target="displayCenter" fileName="displayCenter" />
             </h:commandLink>
  
            
         </f:facet>
         <p:column width="200">
                 <f:facet name="header">Identifiant</f:facet>
-                <h:outputText value="#{displayStaff.idStaff}" />
+                <h:outputText value="#{displayCenter.id}" />
             </p:column>
-            <p:column headerText="Matricule" filterBy="#{displayStaff.matricule}" sortBy="#{displayStaff.matricule}" filterMatchMode="startsWith" style="width:80px">           
+            <p:column headerText="Matricule" filterBy="#{displayCenter.matricule}" sortBy="#{displayCenter.matricule}" filterMatchMode="startsWith" style="width:80px">           
                 <f:facet name="header" styleClass="customHeader">Matricule</f:facet>
-                <h:outputText value="#{displayStaff.matricule}" />
+                <h:outputText value="#{displayCenter.matricule}" />
             </p:column>
             <p:column width="200">
                 <f:facet name="header">Nom</f:facet>
-                <h:outputText value="#{displayStaff.nom}" />
+                <h:outputText value="#{displayCenter.nom}" />
             </p:column>
            
 				
 		<p:column width="200">
                 <f:facet name="header">Prenom</f:facet>
-                <h:outputText value="#{displayStaff.prenom}" />
+                <h:outputText value="#{displayCenter.prenom}" />
         </p:column>
 
 
 
             <p:column width="100">
                 <f:facet name="header">Type Contrat</f:facet>
-                <h:outputText value="#{displayStaff.typeContrat}" />
+                <h:outputText value="#{displayCenter.contrat}" />
             </p:column>
             
            <p:column width="100">
-                <f:facet name="header">Nombre d'heures</f:facet>
-                <h:outputText value="#{displayStaff.nbreHeure}" />
+                <f:facet name="header">Nombre d'heure</f:facet>
+                <h:outputText value="#{displayCenter.nbreHeure}" />
             </p:column>
         </p:dataTable>
         
-        <p:contextMenu for="displayStaff">
+        <p:contextMenu for="displayCenter">
         <p:menuitem value="View" update="centerDetail" icon="ui-icon-search" oncomplete="PF('centerDialog').show()"/>
-        <p:menuitem value="Delete" update="displayStaff" icon="ui-icon-close" actionListener="#{staffBean.delete()}"/>
+        <p:menuitem value="Delete" update="displayCenter" icon="ui-icon-close" actionListener="#{staffBean.deleteAgent()}"/>
 
     </p:contextMenu>
     
     <p:commandButton value="Imprimé le tableau" type="button" icon="ui-icon-print" style="display:block;margin-bottom: 20px">
-    <p:printer target="displayStaff" />
+    <p:printer target="displayCenter" />
 	</p:commandButton>
  
     <p:dialog header=" Info Agent" widgetVar="centerDialog" modal="true" showEffect="explode" hideEffect="bounce"
      resizable="false" appendToBody="true" style="z-index: 999 !important;" position ="center" appendTo="@(body)">
     
         <p:outputPanel id="centerDetail" style="text-align:center;">
-            <p:panelGrid  columns="2" rendered="#{not empty staffBean.selectedStaff}" columnClasses="label,value">
+            <p:panelGrid  columns="2" rendered="#{not empty userBean.selectedUser}" columnClasses="label,value">
                 
  
-           
-                <h:outputText value="Matricule" />
+                <h:outputText value="Matricule:" />
                 <h:outputText value="#{staffBean.selectedStaff.matricule}" />
  
                 <h:outputText value="Nom" />
-                <h:outputText value="#{staffBean.selectedStaff.nom}"/>
-                
+                <h:outputText value="#{staffBean.selectedStaff.nom}" />
+ 
                 <h:outputText value="Prenom" />
-                <h:outputText value="#{staffBean.selectedStaff.prenom}" />
+                <h:outputText value="#{staffBean.selectedStaff.prenom}"/>
                 
-                <h:outputText value="Type Contrat" />
-                <h:outputText value="#{staffBean.selectedStaff.typeContrat}" />
-                <h:outputText value="Nombre d'heures" />
+                <h:outputText value="Contrat" />
+                <h:outputText value="#{staffBean.selectedStaff.contrat}" />
+                
+                <h:outputText value="Nbre d'heures" />
                 <h:outputText value="#{staffBean.selectedStaff.nbreHeure}" />
             </p:panelGrid>
         </p:outputPanel>

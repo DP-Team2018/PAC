@@ -11,8 +11,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 import entities.User;
+
+
 
 
 
@@ -40,7 +43,7 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 	
 	public User authenticate(String nom, String password) {
 		User found = null;
-		String jpql = "select u from user u where u.nom=:nom and u.password=:password";
+		String jpql = "select u from User u where u.nom=:nom and u.password=:password";
 		TypedQuery<User> query = em.createQuery(jpql, User.class);
 		query.setParameter("nom", nom);
 		query.setParameter("password", password);
@@ -61,7 +64,8 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 	
 	@Override
 	public boolean loginExists(String nom) {
-		boolean exists = false;
+		return false;
+		/*boolean exists = false;
 		String jpql = "select case when (count(u) > 0)  then true else false end from User u where u.nom=:nom";
 		TypedQuery<Boolean> query = em.createQuery(jpql, Boolean.class);
 		query.setParameter("nom", nom);
@@ -71,7 +75,7 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 			Logger.getLogger(UserService.class.getName()).log(
 					Level.WARNING, "no user registred with nom=" + nom);
 		}
-		return exists;
+		return exists;*/
 	}
 
 	@Override
@@ -102,8 +106,9 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 	}
 
 	@Override
+	@Transactional
 	public boolean AddUser(User user) {
-		em.persist(user);
+		em.persist(em.merge(user));
 		return true;
 	}
 

@@ -1,5 +1,6 @@
 package ammarBean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,6 @@ public class UserBean implements Serializable {
 	private String role;
 	private String password;
 	private String email;
-	private String login;
 	
 	/**
 	 * 
@@ -49,7 +49,7 @@ public class UserBean implements Serializable {
 	private User user = new User();
 	private Boolean isLogged = false;
 	
-	//private static User stUser;
+	private static User stUser;
 	private static User conUser;
 	public static int i = 0;
 	
@@ -86,10 +86,6 @@ public class UserBean implements Serializable {
 		this.list = list;
 	}
 
-
-
-
-
 	
 	
 	public User getUser() {
@@ -108,15 +104,15 @@ public class UserBean implements Serializable {
 
 	public String Save(){
 		userService.AddUser(user);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Data Saved"));
-		return "/users?faces-redirect=true";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("ajouté"));
+		return "/faces/users?faces-redirect=true";
 	}
 	
-	public String delete(User user){
-		userService.DeleteUser(user);
-		return null;
-	}
-	
+	public void deleteUser() {
+        userService.DeleteUser(getSelectedUser());
+        selectedUser = null;
+    }
+
 	
 	
 	
@@ -134,22 +130,37 @@ public class UserBean implements Serializable {
 				
 				setIsLogged(true);
 				
-				
+				// redirect to admin
+				if (user.getRole().equals("User")) {
+					navTo = "/faces/users?faces-redirect=true";
+					// redirect to profile user
+				}
 				if (!user.getRole().equals("User")) {
-					navTo = "/users?faces-redirect=true";
+					navTo = "/faces/staff?faces-redirect=true";
 				}
 
 			} else {
-				
+				i++;
+				FacesContext.getCurrentInstance().addMessage("login_form:login_submit",
+						new FacesMessage("Wrong Username or Password"));
 			}
 		} else {
 			FacesContext.getCurrentInstance().addMessage("login_form:login_submit",
 					new FacesMessage("3 times wrong informations, access blocked for security reasons"));
 		}
 
-		return null;
+		return navTo;
 	}
 	
+	public void logout() {
+    	FacesContext context = FacesContext.getCurrentInstance();
+    	context.getExternalContext().invalidateSession();
+        try {
+			context.getExternalContext().redirect("Login.xhtml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    }
 	
 	public void reset() {
         PrimeFaces.current().resetInputs("form1:panel");
@@ -274,15 +285,6 @@ public class UserBean implements Serializable {
 
 
 
-	public String getLogin() {
-		return login;
-	}
-
-
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
 
 	
 }

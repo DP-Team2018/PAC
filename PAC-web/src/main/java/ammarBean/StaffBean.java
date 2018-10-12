@@ -11,9 +11,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
+
 import org.primefaces.PrimeFaces;
 
-import Service.StaffServiceLocal;
+import Service.AgentServiceLocal;
+import entities.Agent;
+import entities.Contrat;
+import entities.Site;
 import entities.Staff;
 
 @ManagedBean
@@ -21,37 +25,37 @@ import entities.Staff;
 
 public class StaffBean implements Serializable{
 	
-					private int idStaff;
-					private String nom;
-					private String prenom;
-					private String matricule;
-					private String typeContrat;
-					private int nbreHeure;
+	private int id;
+	private String nom;
+	private String prenom;
+	private String matricule;
+	private String contrat;
+	private int nbreHeure;
 				
 					
 					
 					private static final long serialVersionUID = 1L;
 				
-					private List<Staff> staffs;
+					private List<Agent> agents;
 				    
-				    private List<Staff> filteredStaff;
+				    private List<Agent> filteredStaff;
 				     
-				    private Staff selectedStaff;
+				    private Agent selectedStaff;
 				    
 				    @EJB
-					private StaffServiceLocal staffService;
+					private AgentServiceLocal agentService;
 					private boolean formDisplay = false;
-					private List<Staff> list = new ArrayList<Staff>();
+					private List<Agent> list = new ArrayList<Agent>();
     
-					private Staff staff = new Staff();
+					private Agent agent = new Agent();
 
 					public boolean isFormDisplay() {
 						return formDisplay;
 					}
 
 
-					public List<Staff> displayStaff(){
-						return list = staffService.findAll();
+					public List<Agent> displayStaff(){
+						return list = agentService.findAll();
 					}
 					
 					
@@ -75,33 +79,33 @@ public class StaffBean implements Serializable{
 					}
 
 					
+					
 					public String Save(){
-						staffService.AddStaff(staff);
-						return "staff?faces-redirect=true";
+						agentService.AjoutAgent(agent);
+				        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("effectué avec succés!!"));
+						return "/faces/staff?faces-redirect=true";
 					}
 					
-					public String delete(Staff staff){
-						staffService.DeleteStaff(staff);
-						return null;
-					}
+					
+					public void deleteAgent() {
+				        agentService.DeleteAgent(selectedStaff);
+				        selectedStaff = null;
+				    }
 
+					
 					public void reset() {
 				        PrimeFaces.current().resetInputs("form2:panel2");
 				    }
 
 
-					public int getIdStaff() {
-						return idStaff;
+					public int getId() {
+						return id;
 					}
 
 
-
-
-					public void setIdStaff(int idStaff) {
-						this.idStaff = idStaff;
+					public void setId(int id) {
+						this.id = id;
 					}
-
-
 
 
 					public String getNom() {
@@ -109,13 +113,9 @@ public class StaffBean implements Serializable{
 					}
 
 
-
-
 					public void setNom(String nom) {
 						this.nom = nom;
 					}
-
-
 
 
 					public String getPrenom() {
@@ -123,13 +123,9 @@ public class StaffBean implements Serializable{
 					}
 
 
-
-
 					public void setPrenom(String prenom) {
 						this.prenom = prenom;
 					}
-
-
 
 
 					public String getMatricule() {
@@ -137,27 +133,19 @@ public class StaffBean implements Serializable{
 					}
 
 
-
-
 					public void setMatricule(String matricule) {
 						this.matricule = matricule;
 					}
 
 
-
-
-					public String getTypeContrat() {
-						return typeContrat;
+					public String getContrat() {
+						return contrat;
 					}
 
 
-
-
-					public void setTypeContrat(String typeContrat) {
-						this.typeContrat = typeContrat;
+					public void setContrat(String contrat) {
+						this.contrat = contrat;
 					}
-
-
 
 
 					public int getNbreHeure() {
@@ -165,95 +153,74 @@ public class StaffBean implements Serializable{
 					}
 
 
-
-
 					public void setNbreHeure(int nbreHeure) {
 						this.nbreHeure = nbreHeure;
 					}
 
 
-
-
-					public List<Staff> getStaffs() {
-						return staffs;
+					public List<Agent> getAgents() {
+						return agents;
 					}
 
 
-
-
-					public void setStaffs(List<Staff> staffs) {
-						this.staffs = staffs;
+					public void setAgents(List<Agent> agents) {
+						this.agents = agents;
 					}
 
 
-
-
-					public List<Staff> getFilteredStaff() {
+					public List<Agent> getFilteredStaff() {
 						return filteredStaff;
 					}
 
 
-
-
-					public void setFilteredStaff(List<Staff> filteredStaff) {
+					public void setFilteredStaff(List<Agent> filteredStaff) {
 						this.filteredStaff = filteredStaff;
 					}
 
 
-
-
-					public Staff getSelectedStaff() {
+					public Agent getSelectedStaff() {
 						return selectedStaff;
 					}
 
 
-
-
-					public void setSelectedStaff(Staff selectedStaff) {
+					public void setSelectedStaff(Agent selectedStaff) {
 						this.selectedStaff = selectedStaff;
 					}
 
 
-
-
-					public StaffServiceLocal getStaffService() {
-						return staffService;
+					public AgentServiceLocal getAgentService() {
+						return agentService;
 					}
 
 
-
-
-					public void setStaffService(StaffServiceLocal staffService) {
-						this.staffService = staffService;
+					public void setAgentService(AgentServiceLocal agentService) {
+						this.agentService = agentService;
 					}
 
 
-
-
-					public List<Staff> getList() {
+					public List<Agent> getList() {
 						return list;
 					}
 
 
-
-
-					public void setList(List<Staff> list) {
+					public void setList(List<Agent> list) {
 						this.list = list;
 					}
 
 
-
-
-					public Staff getStaff() {
-						return staff;
+					public Agent getAgent() {
+						return agent;
 					}
 
 
-
-
-					public void setStaff(Staff staff) {
-						this.staff = staff;
+					public void setAgent(Agent agent) {
+						this.agent = agent;
 					}
+
+
+					
+
+
 					
 					
 }

@@ -10,8 +10,9 @@ import javax.persistence.*;
  */
 @Entity
 
-public class Responsable extends User implements Serializable {
-
+public class Responsable  implements Serializable {
+	@Id
+	private int id;
 	@OneToOne
 	private Site site;
 	@OneToOne

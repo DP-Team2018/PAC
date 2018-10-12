@@ -46,7 +46,7 @@ public class AgentsBean {
 	private String prenom;
 	private String matricule;
 	private Agent agent;
-	private Contrat contrat;
+	private String contrat;
 	private List<Agent> agents;
 	private int siteId;
 	private Site site;
@@ -175,11 +175,11 @@ public class AgentsBean {
 		return "updated";
 	}
 
-	public Contrat getContrat() {
+	public String getContrat() {
 		return contrat;
 	}
 
-	public void setContrat(Contrat contrat) {
+	public void setContrat(String contrat) {
 		this.contrat = contrat;
 	}
 

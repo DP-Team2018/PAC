@@ -7,7 +7,7 @@
 		<f:facet name="first">
 			<head>
 <meta charset="utf-8" />
-<title>CAP TB</title>
+<title>Moderna - Bootstrap 3 flat corporate template</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="" />
 			</head>
@@ -84,30 +84,32 @@
 			<div class="container-login100">
 				<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
 
-					<span class="login100-form-title p-b-32"> S'Authentifier</span>
+					<span class="login100-form-title p-b-32"> Account Login </span>
 					<h:form id="login_form">
-						<span class="txt1 p-b-11"> Identidiant </span>
+						<span class="txt1 p-b-11"> Username </span>
 						<div class="wrap-input100 validate-input m-b-36"
 							data-validate="Username is required">
-							<h:inputText class="input100" value="#{login.nom}" />
+							<h:inputText class="input100" value="#{userBean.user.nom}" />
 							<span class="focus-input100"></span>
 						</div>
 
-						<span class="txt1 p-b-11"> Mot de Passe </span>
+						<span class="txt1 p-b-11"> Password </span>
 						<div class="wrap-input100 validate-input m-b-12"
 							data-validate="Password is required">
 							<span class="btn-show-pass"> <i class="fa fa-eye"></i>
 							</span>
 							<h:inputSecret class="input100" type="password" name="pass"
-								value="#{login.password}" />
+								value="#{userBean.user.password}" />
+
 						</div>
 						<div>
+
 							<h:message class="alert alert-danger" for="login_submit"
 								styleClass="error" />
 						</div>
 						<div class="container-login100-form-btn">
 							<h:commandButton class="login100-form-btn" id="login_submit"
-								action="#{login.login()}" value="Login" />
+								action="#{userBean.doLogin()}" value="Login" />
 						</div>
 
 					</h:form>

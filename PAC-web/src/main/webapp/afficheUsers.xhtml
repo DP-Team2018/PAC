@@ -33,7 +33,7 @@
               <h:panelGroup rendered="#{not empty user}">
 				    <Strong>Bienvenue, #{user}</Strong>
 				    <h:form>
-				        <p:commandButton value="logout" action="#{login.logout}" icon="ui-icon-extlink" />
+				        <p:commandButton value="logout" action="#{userBean.logout}" icon="ui-icon-extlink" />
 				    </h:form>
 				</h:panelGroup>
               </f:facet>
@@ -128,8 +128,8 @@
            
 				
 		<p:column width="200">
-                <f:facet name="header">Login</f:facet>
-                <h:outputText value="#{displayCenter.login}" />
+                <f:facet name="header">Role</f:facet>
+                <h:outputText value="#{displayCenter.role}" />
         </p:column>
 
 
@@ -144,7 +144,7 @@
         
         <p:contextMenu for="displayCenter">
         <p:menuitem value="View" update="centerDetail" icon="ui-icon-search" oncomplete="PF('centerDialog').show()"/>
-        <p:menuitem value="Delete" update="displayCenter" icon="ui-icon-close" actionListener="#{userBean.delete()}"/>
+        <p:menuitem value="Delete" update="displayCenter" icon="ui-icon-close" actionListener="#{userBean.deleteUser()}"/>
 
     </p:contextMenu>
     
@@ -168,8 +168,8 @@
                 <h:outputText value="Prenom" />
                 <h:outputText value="#{userBean.selectedUser.prenom}"/>
                 
-                <h:outputText value="Login" />
-                <h:outputText value="#{userBean.selectedUser.login}" />
+                <h:outputText value="Role" />
+                <h:outputText value="#{userBean.selectedUser.role}" />
                 
                 <h:outputText value="Mot de passe" />
                 <h:outputText value="#{userBean.selectedUser.password}" />

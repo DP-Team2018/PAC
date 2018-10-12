@@ -10,11 +10,12 @@ import javax.persistence.*;
  */
 @Entity
 
-public class SuperAdmin extends User implements Serializable {
+public class SuperAdmin  implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
-
+@Id
+int id;
 	public SuperAdmin() {
 		super();
 	}

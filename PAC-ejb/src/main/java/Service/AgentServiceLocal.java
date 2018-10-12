@@ -19,4 +19,10 @@ public interface AgentServiceLocal {
 	public void addAgent(Agent a);
 	public void removeAgent(Agent a);
 	public List<Agent> findAgentNotAffected(Date date);
+	public boolean AddAgent(Agent agent);
+	public List<Agent> findAll();
+	public void saveOrUpdate(Agent agent);
+	void DeleteAgent(Agent agent);
+	public void AjoutAgent(Agent agent);
+
 }

@@ -18,4 +18,10 @@
     <param-name>primefaces.MOVE_SCRIPTS_TO_BOTTOM</param-name>
     <param-value>true</param-value>
 </context-param>
+<filter>  
+<filter-name>sec</filter-name>  
+<filter-class>ammarBean.Myfilter</filter-class>  
+</filter>  
+   
+
 </web-app>

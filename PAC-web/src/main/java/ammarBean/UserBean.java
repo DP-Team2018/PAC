@@ -104,7 +104,7 @@ public class UserBean implements Serializable {
 
 	public String Save(){
 		userService.AddUser(user);
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("ajouté"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("effectué avec succés!!"));
 		return "/faces/users?faces-redirect=true";
 	}
 	
@@ -132,11 +132,11 @@ public class UserBean implements Serializable {
 				
 				// redirect to admin
 				if (user.getRole().equals("User")) {
-					navTo = "/faces/users?faces-redirect=true";
+					navTo = "/faces/user/a/1/accueil?faces-redirect=true";
 					// redirect to profile user
 				}
 				if (!user.getRole().equals("User")) {
-					navTo = "/faces/staff?faces-redirect=true";
+					navTo = "/faces/admin/Home?faces-redirect=true";
 				}
 
 			} else {

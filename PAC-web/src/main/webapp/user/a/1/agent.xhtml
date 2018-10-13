@@ -16,7 +16,7 @@
  
  <p:layout fullPage="true">
 
-                 <p:layoutUnit position="north" size="100" resizable="true" closable="false" collapsible="false">
+           <p:layoutUnit position="north" size="100" resizable="true" closable="false" collapsible="false">
 			<p:panelGrid columns="3" layout="grid" >
    				 <f:facet name="header">
         
@@ -50,25 +50,15 @@
                     
                     <p:menu>
                     <p:submenu icon="fa fa-home">
-                    	<p:menuitem value="Accueil" outcome="Home" icon="fa-home"></p:menuitem>
+                    	<p:menuitem value="Accueil" outcome="/user/a/1/accueil" icon="fa-home"></p:menuitem>
                     
                     </p:submenu>
-                    <p:submenu label="Users">
-                    	<p:menuitem value="Ajout users" outcome="users" icon="fa-home"></p:menuitem>
-                      	<p:menuitem value="Consulter users" outcome="afficheUsers" icon="fa-home"></p:menuitem>
+                    <p:submenu label="Liste des agents">
+                    	<p:menuitem value="Ajout users" outcome="/user/a/1/agent" icon="fa-home"></p:menuitem>
                     
                     </p:submenu>
                     
-                    <p:submenu label="Agents">
-                    	<p:menuitem value="Ajout Agents" outcome="staff" icon="fa-home"></p:menuitem>
-                      	<p:menuitem value="Consulter Agents" outcome="afficheAgent" icon="fa-home"></p:menuitem>
-                    
-                    </p:submenu>
-                    <p:submenu label="Gestion des Flux">
-                    	<p:menuitem value="Affectation" outcome="addaffectation" icon="fa-home"></p:menuitem>
-                      	<p:menuitem value="Flux" outcome="addFlux" icon="fa-home"></p:menuitem>
-                    	<p:menuitem value="Prévu" outcome="schedule" icon="fa-home"></p:menuitem>
-                    </p:submenu>
+                  
                     </p:menu>
                     </h:form>
                 </p:layoutUnit>
@@ -79,9 +69,9 @@
     <h:form id="f1">  
      
         
-        <p:dataTable value="#{userBean.displayCenter()}" var="displayCenter" id="displayCenter" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
-                paginator="true" rows="10" styleClass="root" editable="true" style="margin-bottom:20px" widgetVar="centersTable" selection="#{userBean.selectedUser}" rowKey="#{displayCenter.idUser}" 
-                emptyMessage="Aucun utilisateur trouvé avec des critères donnés" filteredValue="#{userBean.filteredUser}" selectionMode="single" showEffect="blind" hideEffect="explode" scrollable="true" >
+        <p:dataTable value="#{staffBean.displayStaff()}" var="displayCenter" id="displayCenter" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                paginator="true" rows="10" styleClass="root" editable="true" style="margin-bottom:20px" widgetVar="centersTable" selection="#{staffBean.selectedStaff}" rowKey="#{displayCenter.id}" 
+                emptyMessage="Aucun utilisateur trouvé avec des critères donnés" filteredValue="#{staffBean.filteredStaff}" selectionMode="single" showEffect="blind" hideEffect="explode" scrollable="true" >
                <f:facet name="header">
         Liste d'Utilisateurs 
 		<p:commandButton id="toggler" type="button" value="Columns" style="float:right" icon="ui-icon-calculator" />
@@ -113,38 +103,37 @@
  
            
         </f:facet>
-        <p:column width="200">
-                <f:facet name="header">Identifiant</f:facet>
-                <h:outputText value="#{displayCenter.idUser}" />
-            </p:column>
-            <p:column headerText="Nom" filterBy="#{displayCenter.nom}" sortBy="#{displayCenter.nom}" filterMatchMode="startsWith" style="width:80px">           
-                <f:facet name="header" styleClass="customHeader">Nom</f:facet>
-                <h:outputText value="#{displayCenter.nom}" />
+        
+            <p:column headerText="Matricule" filterBy="#{displayCenter.matricule}" sortBy="#{displayCenter.matricule}" filterMatchMode="startsWith" style="width:80px">           
+                <f:facet name="header" styleClass="customHeader">Matricule</f:facet>
+                <h:outputText value="#{displayCenter.matricule}" />
             </p:column>
             <p:column width="200">
-                <f:facet name="header">Prenom</f:facet>
-                <h:outputText value="#{displayCenter.prenom}" />
+                <f:facet name="header">Nom</f:facet>
+                <h:outputText value="#{displayCenter.nom}" />
             </p:column>
            
 				
 		<p:column width="200">
-                <f:facet name="header">Role</f:facet>
-                <h:outputText value="#{displayCenter.role}" />
+                <f:facet name="header">Prenom</f:facet>
+                <h:outputText value="#{displayCenter.prenom}" />
         </p:column>
 
 
 
             <p:column width="100">
-                <f:facet name="header">Mot de Passe</f:facet>
-                <h:outputText value="#{displayCenter.password}" />
+                <f:facet name="header">Type Contrat</f:facet>
+                <h:outputText value="#{displayCenter.contrat}" />
             </p:column>
             
-           
+           <p:column width="100">
+                <f:facet name="header">Nombre d'heure</f:facet>
+                <h:outputText value="#{displayCenter.nbreHeure}" />
+            </p:column>
         </p:dataTable>
         
         <p:contextMenu for="displayCenter">
         <p:menuitem value="View" update="centerDetail" icon="ui-icon-search" oncomplete="PF('centerDialog').show()"/>
-        <p:menuitem value="Delete" update="displayCenter" icon="ui-icon-close" actionListener="#{userBean.deleteUser()}"/>
 
     </p:contextMenu>
     
@@ -152,27 +141,27 @@
     <p:printer target="displayCenter" />
 	</p:commandButton>
  
-    <p:dialog header=" Info Utilisateur" widgetVar="centerDialog" modal="true" showEffect="explode" hideEffect="bounce"
+    <p:dialog header=" Info Agent" widgetVar="centerDialog" modal="true" showEffect="explode" hideEffect="bounce"
      resizable="false" appendToBody="true" style="z-index: 999 !important;" position ="center" appendTo="@(body)">
     
         <p:outputPanel id="centerDetail" style="text-align:center;">
-            <p:panelGrid  columns="2" rendered="#{not empty userBean.selectedUser}" columnClasses="label,value">
+            <p:panelGrid  columns="2" rendered="#{not empty staffBean.selectedStaff}" columnClasses="label,value">
                 
  
-                <h:outputText value="Id:" />
-                <h:outputText value="#{userBean.selectedUser.idUser}" />
+                <h:outputText value="Matricule:" />
+                <h:outputText value="#{staffBean.selectedStaff.matricule}" />
  
                 <h:outputText value="Nom" />
-                <h:outputText value="#{userBean.selectedUser.nom}" />
+                <h:outputText value="#{staffBean.selectedStaff.nom}" />
  
                 <h:outputText value="Prenom" />
-                <h:outputText value="#{userBean.selectedUser.prenom}"/>
+                <h:outputText value="#{staffBean.selectedStaff.prenom}"/>
                 
-                <h:outputText value="Role" />
-                <h:outputText value="#{userBean.selectedUser.role}" />
+                <h:outputText value="Contrat" />
+                <h:outputText value="#{staffBean.selectedStaff.contrat}" />
                 
-                <h:outputText value="Mot de passe" />
-                <h:outputText value="#{userBean.selectedUser.password}" />
+                <h:outputText value="Nbre d'heures" />
+                <h:outputText value="#{staffBean.selectedStaff.nbreHeure}" />
             </p:panelGrid>
         </p:outputPanel>
     </p:dialog>

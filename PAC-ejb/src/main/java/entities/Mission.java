@@ -24,6 +24,12 @@ public class Mission implements Serializable {
 	@OneToOne
 	private Agent agent;
 	
+	@JoinColumn(name = "matricule", referencedColumnName = "matricule")
+    @ManyToOne(optional = false)
+    private Agent matricule;
+	
+	
+	
 	private static final long serialVersionUID = 1L;
 
 	public Mission() {
@@ -72,6 +78,43 @@ public class Mission implements Serializable {
 
 	public void setAffectation(Affectation affectation) {
 		this.affectation = affectation;
+	}
+	
+	
+
+	public Agent getMatricule() {
+		return matricule;
+	}
+
+	public void setMatricule(Agent matricule) {
+		this.matricule = matricule;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Mission other = (Mission) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Mission [id=" + id + "]";
 	}
    
 }

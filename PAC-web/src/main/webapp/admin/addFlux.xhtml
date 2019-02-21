@@ -10,42 +10,54 @@
 <h:body> 
  <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    <p:panelGrid columns="2">
-                         CAPTB<br></br>
-                        <p:clock autoSync="true"/>
-                    </p:panelGrid>
-                </p:layoutUnit>
+                 <p:layoutUnit position="north" size="10%" resizable="true" closable="false" collapsible="true">
+               <div style="background-image: url('../ressources/header.jpg'); height: 100%; "> </div> 
+   		   </p:layoutUnit>
+   		   
+     	   <p:layoutUnit position="east" size="230" resizeWhileDragging="true">
+           <f:facet name="header" >
+				    <Strong> </Strong>
+				    <h:form>
+				        <p><h:commandLink value="Déconnexion" action="#{userBean.logout()}" icon="ui-icon-power" /></p>
+				        
+				    </h:form>
+              </f:facet>   
+     	  </p:layoutUnit>
 
-			<p:layoutUnit position="south"  size="45" style="text-align: center" closable="true" collapsible="true">
-                    <p:outputLabel value="CAPTB 2018" /> 
-  
-                </p:layoutUnit>
+			<p:layoutUnit position="south"  size="65" style="text-align: center" closable="true" collapsible="true">
+  					<f:facet name="footer">
+			        <p:row>
+			            <p:column colspan="2">
+			                   <img src="../ressources/logo.png" width="100" height="60" alt="header"/>
+			            </p:column>	   
+			        </p:row>
+					</f:facet>
+            </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="240" header="Menu" collapsible="true">
+                <p:layoutUnit position="west" size="260" header="Menu" collapsible="true">
                  <h:form>
                  
                     
                     <p:menu>
-                    <p:submenu icon="fa fa-home">
-                    	<p:menuitem value="Accueil" outcome="/admin/Home" icon="fa-home"></p:menuitem>
+                    <p:submenu icon="ui-icon-home">
+                    	<p:menuitem value="Accueil" outcome="/admin/Home" icon="ui-icon-home"/>
                     
                     </p:submenu>
                     <p:submenu label="Users">
-                    	<p:menuitem value="Ajout users" outcome="/admin/users" icon="fa-home"></p:menuitem>
-                      	<p:menuitem value="Consulter users" outcome="/admin/afficheUsers" icon="fa-home"></p:menuitem>
+                    	<p:menuitem value="Ajout Users" outcome="/admin/users" icon="ui-icon-circle-plus"/>
+                      	<p:menuitem value="Consulter Users" outcome="/admin/afficheUsers" icon="ui-icon-circle-zoomout"/>
                     
                     </p:submenu>
                     
                     <p:submenu label="Agents">
-                    	<p:menuitem value="Ajout Agents" outcome="/admin/staff" icon="fa-home"></p:menuitem>
-                      	<p:menuitem value="Consulter Agents" outcome="/admin/afficheAgent" icon="fa-home"></p:menuitem>
+                    	<p:menuitem value="Ajout Agents" outcome="/admin/staff" icon="ui-icon-circle-plus"/>
+                      	<p:menuitem value="Consulter Agents" outcome="/admin/afficheAgent" icon="ui-icon-circle-zoomout"/>
                     
                     </p:submenu>
                     <p:submenu label="Gestion des Flux">
-                    	<p:menuitem value="Affectation" outcome="/admin/addaffectation" icon="fa-home"></p:menuitem>
-                      	<p:menuitem value="Flux" outcome="/admin/addFlux" icon="fa-home"></p:menuitem>
-                    	<p:menuitem value="Prévu" outcome="/admin/schedule" icon="fa-home"></p:menuitem>
+                    	<p:menuitem value="Affectation" outcome="/admin/addaffectation" icon="ui-icon-circle-arrow-e"/>
+                      	<p:menuitem value="Flux" outcome="/admin/addFlux" icon="ui-icon-signal-diag"/>
+                    	<p:menuitem value="Prévu" outcome="/admin/schedule" icon="ui-icon-calendar"/>
                     </p:submenu>
                     </p:menu>
                     </h:form>

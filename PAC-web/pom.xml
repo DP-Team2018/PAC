@@ -30,12 +30,13 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
 		
-<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+<!-- https://mvnrepository.com/artifact/org.primefaces.extensions/primefaces-extensions -->
 <dependency>
-    <groupId>org.primefaces</groupId>
-    <artifactId>primefaces</artifactId>
-    <version>6.2</version>
+    <groupId>org.primefaces.extensions</groupId>
+    <artifactId>primefaces-extensions</artifactId>
+    <version>6.2.3</version>
 </dependency>
+
 
 <!-- https://mvnrepository.com/artifact/com.lowagie/itext -->
 <dependency>

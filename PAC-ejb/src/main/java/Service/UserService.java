@@ -109,6 +109,7 @@ public class UserService implements UserServiceRemote, UserServiceLocal {
 	@Transactional
 	public boolean AddUser(User user) {
 		em.persist(em.merge(user));
+		user = new User();
 		return true;
 	}
 

@@ -9,11 +9,16 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Service.UserServiceLocal;
 import entities.User;
 import org.primefaces.PrimeFaces;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 @ManagedBean
 @ApplicationScoped
@@ -152,15 +157,11 @@ public class UserBean implements Serializable {
 		return navTo;
 	}
 	
-	public void logout() {
-    	FacesContext context = FacesContext.getCurrentInstance();
-    	context.getExternalContext().invalidateSession();
-        try {
-			context.getExternalContext().redirect("Login.xhtml");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    }
+	 public String logout() {
+	      HttpSession session = Util.getSession();
+	      session.invalidate();
+	      return "/faces/Login.xhtml";
+	   }
 	
 	public void reset() {
         PrimeFaces.current().resetInputs("form1:panel");

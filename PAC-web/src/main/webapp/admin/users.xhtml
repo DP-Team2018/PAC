@@ -19,58 +19,54 @@
     <h:body>
     <p:layout fullPage="true">
 
-       <p:layoutUnit position="north" size="100" resizable="true" closable="false" collapsible="false">
-			<p:panelGrid columns="3" layout="grid" >
-   				 <f:facet name="header">
-        
+       <p:layoutUnit position="north" size="10%" resizable="true" closable="false" collapsible="true">
+               <div style="background-image: url('../ressources/header.jpg'); height: 100%; "> </div> 
+   		   </p:layoutUnit>
+   		   
+     	   <p:layoutUnit position="east" size="230" resizeWhileDragging="true">
+           <f:facet name="header" >
+				    <Strong> </Strong>
+				    <h:form>
+				        <p><h:commandLink value="Déconnexion" action="#{userBean.logout()}" icon="ui-icon-power" /></p>
+				        
+				    </h:form>
+              </f:facet>   
+     	  </p:layoutUnit>
+
+			<p:layoutUnit position="south"  size="65" style="text-align: center" closable="true" collapsible="true">
+  					<f:facet name="footer">
 			        <p:row>
 			            <p:column colspan="2">
-			                   <img src="../ressources/img/logo.png" width="100" height="60" alt="header"/>
-			            </p:column>	    
+			                   <img src="../ressources/logo.png" width="100" height="60" alt="header"/>
+			            </p:column>	   
 			        </p:row>
 					</f:facet>
-			</p:panelGrid>
-      </p:layoutUnit>
-      <p:layoutUnit position="east" size="200" resizeWhileDragging="true">
-           <f:facet name="header" >
-              <h:panelGroup rendered="#{not empty user}">
-				    <Strong>Bienvenue, #{user}</Strong>
-				    <h:form>
-				        <p:commandButton value="logout" action="#{userBean.logout()}" icon="ui-icon-extlink" />
-				    </h:form>
-				</h:panelGroup>
-              </f:facet>
-       </p:layoutUnit>
+            </p:layoutUnit>
 
-			<p:layoutUnit position="south"  size="45" style="text-align: center" closable="true" collapsible="true">
-                      <f:facet name="footer">
-                      </f:facet>
-                </p:layoutUnit>
-
-                <p:layoutUnit position="west" size="240" header="Menu" collapsible="false">
+                <p:layoutUnit position="west" size="260" header="Menu" collapsible="true">
                  <h:form>
                  
                     
                     <p:menu>
-                    <p:submenu icon="fa fa-home">
-                    	<p:menuitem value="Accueil" outcome="Home" icon="fa-home"></p:menuitem>
+                    <p:submenu icon="ui-icon-home">
+                    	<p:menuitem value="Accueil" outcome="/admin/Home" icon="ui-icon-home"/>
                     
                     </p:submenu>
                     <p:submenu label="Users">
-                    	<p:menuitem value="Ajout users" outcome="/admin/users" icon="fa-home"></p:menuitem>
-                      	<p:menuitem value="Consulter users" outcome="/admin/afficheUsers" icon="fa-home"></p:menuitem>
+                    	<p:menuitem value="Ajout Users" outcome="/admin/users" icon="ui-icon-circle-plus"/>
+                      	<p:menuitem value="Consulter Users" outcome="/admin/afficheUsers" icon="ui-icon-circle-zoomout"/>
                     
                     </p:submenu>
                     
                     <p:submenu label="Agents">
-                    	<p:menuitem value="Ajout Agents" outcome="/admin/staff" icon="fa-home"></p:menuitem>
-                      	<p:menuitem value="Consulter Agents" outcome="/admin/afficheAgent" icon="fa-home"></p:menuitem>
+                    	<p:menuitem value="Ajout Agents" outcome="/admin/staff" icon="ui-icon-circle-plus"/>
+                      	<p:menuitem value="Consulter Agents" outcome="/admin/afficheAgent" icon="ui-icon-circle-zoomout"/>
                     
                     </p:submenu>
                     <p:submenu label="Gestion des Flux">
-                    	<p:menuitem value="Affectation" outcome="/admin/addaffectation" icon="fa-home"></p:menuitem>
-                      	<p:menuitem value="Flux" outcome="/admin/addFlux" icon="fa-home"></p:menuitem>
-                    	<p:menuitem value="Prévu" outcome="/admin/schedule" icon="fa-home"></p:menuitem>
+                    	<p:menuitem value="Affectation" outcome="/admin/addaffectation" icon="ui-icon-circle-arrow-e"/>
+                      	<p:menuitem value="Flux" outcome="/admin/addFlux" icon="ui-icon-signal-diag"/>
+                    	<p:menuitem value="Prévu" outcome="/admin/schedule" icon="ui-icon-calendar"/>
                     </p:submenu>
                     </p:menu>
                     </h:form>
@@ -86,39 +82,31 @@
 			   
                          
                     <h:outputLabel for="nom" value="Nom: " icon="fa-group"/>
-                    <p:inputText  value="#{userBean.user.nom}" required="true" requiredMessage="Please type the name"/>   
+                    <p:inputText  value="#{userBean.user.nom}" required="true" requiredMessage="Saisir un nom"/>   
                     <h:outputLabel for="prenom" value="Prenom " icon=""/>
-                    <p:inputText  value="#{userBean.user.prenom}"/>
+                    <p:inputText  value="#{userBean.user.prenom}" required="true"/>
                     
                   
 
 					
 		             <p:outputLabel for="role" value="Role " icon="fa-map-marker" />
-        			<p:selectOneMenu id="role" value="#{userBean.user.role}" effect="fold" editable="true" lazy="true">
+        			<p:selectOneMenu id="role" value="#{userBean.user.role}" effect="fold" editable="true" lazy="true" required="true">
 				            <f:selectItem itemLabel="Admin" itemValue="Admin" />
 				            <f:selectItem itemLabel="User" itemValue="User" />
 				           
 		            
                     </p:selectOneMenu>
                     
-     
-                  
-                   
-                   
+                 
                     <h:outputLabel for="password" value="Password " icon="fa-link" />
-                    <p:inputText  value="#{userBean.user.password}"/>
+                    <p:inputText  value="#{userBean.user.password}" required="true"/>
                     
-                    
-                    
-          
-      			         
-      			         
-      			  
+
                   
                               <p:growl id="growl" life="2000" />
-    						<p:commandButton value="Insérer" id="ajax" update="growl" actionListener="#{userBean.Save()}" styleClass="ui-priority-primary"/>
-  
-                        <p:commandButton value="Vider" update="panel" process="@this" actionListener="#{userBean.reset}"  style="margin-right:20px;" />
+    					<p:commandButton value="Insérer" id="ajax" update="growl" actionListener="#{userBean.Save()}" icon="ui-icon-check"/>
+            			<p:commandButton id="btn_reset" value="Vider" type="reset" icon="ui-icon-closethick"/>
+            			
                      
               	  </p:panelGrid> 
                </p:fieldset>
@@ -128,10 +116,6 @@
 						</p:column> 
 				
                         
-      
-                                  
-        	
-        	
         </p:layoutUnit>
             
         
